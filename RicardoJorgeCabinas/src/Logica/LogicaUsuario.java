@@ -73,6 +73,11 @@ public class LogicaUsuario {
       return usuarioDAO.findUsuario(cedulaUsuario);
     }
     
+    public List<Usuario> consultarUsuarios()
+    {
+        return usuarioDAO.findUsuarioEntities();
+    }
+    
    
     
 }
