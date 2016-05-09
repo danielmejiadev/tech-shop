@@ -21,13 +21,12 @@ public class VistaVendedor extends javax.swing.JFrame{
         jTabbedPaneVistaVendedor = new javax.swing.JTabbedPane();
         panelRegistrarVenta = new javax.swing.JPanel();
         panelAlquilarModem = new javax.swing.JPanel();
-        panelClientesVendedor = new javax.swing.JPanel();
-        botonAgregarCliente = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaClientes = new javax.swing.JTable();
-        campoConsultaCliente = new javax.swing.JTextField();
-        labeltitulo = new javax.swing.JLabel();
-        botonConsultarCliente = new javax.swing.JButton();
+        panelPlanes = new javax.swing.JPanel();
+        labeltituloPlanes = new javax.swing.JLabel();
+        campoConsultaPlanes = new javax.swing.JTextField();
+        botonConsultarPlanes = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaPlanes = new javax.swing.JTable();
         panelModems = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaModems = new javax.swing.JTable();
@@ -42,6 +41,13 @@ public class VistaVendedor extends javax.swing.JFrame{
         botonConsultarPromociones = new javax.swing.JButton();
         campoConsultaPromociones = new javax.swing.JTextField();
         labeltituloPromociones = new javax.swing.JLabel();
+        panelClientesVendedor = new javax.swing.JPanel();
+        botonAgregarCliente = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaClientes = new javax.swing.JTable();
+        campoConsultaCliente = new javax.swing.JTextField();
+        labeltitulo = new javax.swing.JLabel();
+        botonConsultarCliente = new javax.swing.JButton();
         botonAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,17 +57,19 @@ public class VistaVendedor extends javax.swing.JFrame{
         jTabbedPaneVistaVendedor.addTab("Venta Minutos", panelRegistrarVenta);
         jTabbedPaneVistaVendedor.addTab("Alquilar Modem", panelAlquilarModem);
 
-        panelClientesVendedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        labeltituloPlanes.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labeltituloPlanes.setForeground(new java.awt.Color(255, 255, 255));
+        labeltituloPlanes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloPlanes.setText("PLANES");
 
-        botonAgregarCliente.setText("Agregar");
-        botonAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+        botonConsultarPlanes.setText("Consultar");
+        botonConsultarPlanes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAgregarClienteActionPerformed(evt);
+                botonConsultarPlanesActionPerformed(evt);
             }
         });
-        panelClientesVendedor.add(botonAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPlanes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -69,32 +77,43 @@ public class VistaVendedor extends javax.swing.JFrame{
 
             }
         ));
-        tablaClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaClientesMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tablaClientes);
+        jScrollPane5.setViewportView(tablaPlanes);
 
-        panelClientesVendedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 603, 260));
-        panelClientesVendedor.add(campoConsultaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 180, -1));
+        javax.swing.GroupLayout panelPlanesLayout = new javax.swing.GroupLayout(panelPlanes);
+        panelPlanes.setLayout(panelPlanesLayout);
+        panelPlanesLayout.setHorizontalGroup(
+            panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlanesLayout.createSequentialGroup()
+                .addGap(0, 60, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
+            .addGroup(panelPlanesLayout.createSequentialGroup()
+                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPlanesLayout.createSequentialGroup()
+                        .addGap(260, 260, 260)
+                        .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPlanesLayout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(botonConsultarPlanes)))
+                .addContainerGap(198, Short.MAX_VALUE))
+        );
+        panelPlanesLayout.setVerticalGroup(
+            panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPlanesLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonConsultarPlanes))
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
-        labeltitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labeltitulo.setForeground(new java.awt.Color(255, 255, 255));
-        labeltitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltitulo.setText("CLIENTES");
-        panelClientesVendedor.add(labeltitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 150, 40));
-
-        botonConsultarCliente.setText("Consultar");
-        botonConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonConsultarClienteActionPerformed(evt);
-            }
-        });
-        panelClientesVendedor.add(botonConsultarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
-
-        jTabbedPaneVistaVendedor.addTab(" Clientes", panelClientesVendedor);
+        jTabbedPaneVistaVendedor.addTab("Planes", panelPlanes);
 
         tablaModems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -230,6 +249,51 @@ public class VistaVendedor extends javax.swing.JFrame{
 
         jTabbedPaneVistaVendedor.addTab("Promociones", panelPromociones);
 
+        panelClientesVendedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        botonAgregarCliente.setText("Agregar");
+        botonAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarClienteActionPerformed(evt);
+            }
+        });
+        panelClientesVendedor.add(botonAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
+
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tablaClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablaClientes);
+
+        panelClientesVendedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 603, 260));
+        panelClientesVendedor.add(campoConsultaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 180, -1));
+
+        labeltitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labeltitulo.setForeground(new java.awt.Color(255, 255, 255));
+        labeltitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltitulo.setText("CLIENTES");
+        panelClientesVendedor.add(labeltitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 150, 40));
+
+        botonConsultarCliente.setText("Consultar");
+        botonConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarClienteActionPerformed(evt);
+            }
+        });
+        panelClientesVendedor.add(botonConsultarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
+
+        jTabbedPaneVistaVendedor.addTab(" Clientes", panelClientesVendedor);
+
         botonAtras.setText("Menu Inicio");
         botonAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,6 +357,10 @@ public class VistaVendedor extends javax.swing.JFrame{
 
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
+    private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
+
+    }//GEN-LAST:event_botonConsultarPlanesActionPerformed
+
 
  
    
@@ -303,28 +371,34 @@ public class VistaVendedor extends javax.swing.JFrame{
     private javax.swing.JButton botonAtras;
     private javax.swing.JButton botonConsultarCliente;
     private javax.swing.JButton botonConsultarModem;
+    private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
     private javax.swing.JButton botonDevolverModem;
     private javax.swing.JButton botonReservarModem;
     private javax.swing.JTextField campoConsultaCliente;
     private javax.swing.JTextField campoConsultaModems;
+    private javax.swing.JTextField campoConsultaPlanes;
     private javax.swing.JTextField campoConsultaPromociones;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPaneVistaVendedor;
     private javax.swing.JLabel labeltitulo;
     private javax.swing.JLabel labeltituloModems;
+    private javax.swing.JLabel labeltituloPlanes;
     private javax.swing.JLabel labeltituloPromociones;
     private javax.swing.JPanel panelAlquilarModem;
     private javax.swing.JPanel panelClientesVendedor;
     private javax.swing.JPanel panelModems;
+    private javax.swing.JPanel panelPlanes;
     private javax.swing.JPanel panelPromociones;
     private javax.swing.JPanel panelRegistrarVenta;
     private javax.swing.JTable tablaClientes;
     private javax.swing.JTable tablaModems;
+    private javax.swing.JTable tablaPlanes;
     private javax.swing.JTable tablaPromociones;
     // End of variables declaration//GEN-END:variables
 
