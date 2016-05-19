@@ -202,15 +202,10 @@
                               <Component id="jScrollPane4" min="-2" pref="603" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
-                                      <Component id="ActualizarTablaModems" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="249" pref="249" max="-2" attributes="0"/>
-                                      <Component id="campoConsultaModems" min="-2" pref="180" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="ActualizarTablaModems" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoConsultaModems" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                               <Component id="botonConsultarModem" min="-2" max="-2" attributes="0"/>

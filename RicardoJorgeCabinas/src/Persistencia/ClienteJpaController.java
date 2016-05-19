@@ -15,22 +15,31 @@ import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import static javax.persistence.Persistence.createEntityManagerFactory;
 
-/**
- *
- * @author Daniel
- */
+
+
 public class ClienteJpaController implements Serializable {
 
-    public ClienteJpaController() 
-    {
-        this.emf = Persistence.createEntityManagerFactory("RicardoJorgeCabinasPU");
+    public ClienteJpaController(){
+        this.emf = createEntityManagerFactory("RicardoJorgeCabinasPU");
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+    
+    /*
+        Metodo para realizar una búsqueda de clientes en su respectiva tabla de base de datos
+        Entrada: String con parámetros de búsqueda
+        Salida: List<Cliente> lista de clientes que coincidan con el parámetro ingresado
+    */
+    public List<Cliente> findClienteName(String nombreCliente){
+        String consulta = "SELECT * FROM cliente WHERE nombrecliente LIKE '%"+nombreCliente+"%'";
+        EntityManager em = getEntityManager(); 
+        Query query = em.createNativeQuery(consulta,Cliente.class);
+        return query.getResultList();
     }
 
     public void create(Cliente cliente) throws PreexistingEntityException, Exception {

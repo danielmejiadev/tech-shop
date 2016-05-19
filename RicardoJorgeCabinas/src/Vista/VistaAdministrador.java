@@ -1,19 +1,27 @@
 package Vista;
 
+import Logica.LogicaCliente;
 import Logica.LogicaPlanMinutos;
+import Logica.LogicaPromocion;
 import Logica.LogicaUsuario;
+import Modelo.Cliente;
 import Modelo.PlanMinutos;
+import Modelo.Promocion;
 import Modelo.Usuario;
 import Logica.LogicaUsbModem;
 import Modelo.UsbModem;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class VistaAdministrador extends javax.swing.JFrame{
-      
+    private LogicaCliente lc = new LogicaCliente();
+    private LogicaPromocion lp = new LogicaPromocion();
     public Usuario usuarioActivo;
     LogicaUsbModem lum = new LogicaUsbModem();
     List<UsbModem> modems = lum.consultarModems();
@@ -25,9 +33,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
         this.setTitle("Ricardo Jorge Cabinas - Vendedor");
         this.setResizable(false);
         this.usuarioActivo=usuarioActivo;
-        llenarTablaModems(modems);
-    }
+        
+        llenarTablaClientes(lc.consultarClientes());
+        lp.consultarPromociones();
 
+        llenarTablaModems(modems);
+
+    }
+    public VistaAdministrador(){
+        
+    }
+    
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -74,7 +90,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         campoConsultaCliente = new javax.swing.JTextField();
         labeltituloCliente = new javax.swing.JLabel();
         botonConsultarCliente = new javax.swing.JButton();
-        botonInactivarCliente = new javax.swing.JButton();
         botonAgregarCliente = new javax.swing.JButton();
         panelPromociones = new javax.swing.JPanel();
         labeltituloPromociones = new javax.swing.JLabel();
@@ -388,12 +403,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelClientesVendedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonModificarCliente.setText("Modificar");
+        botonModificarCliente.setEnabled(false);
         botonModificarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonModificarClienteActionPerformed(evt);
             }
         });
-        panelClientesVendedor.add(botonModificarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, -1, -1));
+        panelClientesVendedor.add(botonModificarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -404,6 +420,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
         ));
         tablaClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaClientes);
 
         panelClientesVendedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 603, 260));
@@ -423,21 +444,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
         });
         panelClientesVendedor.add(botonConsultarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
 
-        botonInactivarCliente.setText("Inactivar");
-        botonInactivarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonInactivarClienteActionPerformed(evt);
-            }
-        });
-        panelClientesVendedor.add(botonInactivarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, -1, -1));
-
         botonAgregarCliente.setText("Agregar");
         botonAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarClienteActionPerformed(evt);
             }
         });
-        panelClientesVendedor.add(botonAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
+        panelClientesVendedor.add(botonAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
 
         jTabbedPaneVistaVendedor.addTab(" Clientes", panelClientesVendedor);
 
@@ -454,6 +467,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         });
 
         botonInactivarPromocion.setText("Inactivar");
+        botonInactivarPromocion.setEnabled(false);
         botonInactivarPromocion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonInactivarPromocionActionPerformed(evt);
@@ -475,6 +489,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
             }
         ));
+        tablaPromociones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPromocionesMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(tablaPromociones);
 
         javax.swing.GroupLayout panelPromocionesLayout = new javax.swing.GroupLayout(panelPromociones);
@@ -574,32 +593,72 @@ public class VistaAdministrador extends javax.swing.JFrame{
         this.dispose();
     }//GEN-LAST:event_botonAtrasActionPerformed
 
+    
     private void botonAgregarPromocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPromocionActionPerformed
-
+        AgregarPromo ap = new AgregarPromo(this, true);
+        ap.setVisible(true);
+        llenarTablaPromociones(lp.consultarPromociones());
+        botonInactivarPromocion.setEnabled(false);
     }//GEN-LAST:event_botonAgregarPromocionActionPerformed
 
+    /*
+        Metodo para inactivar una promoción 
+        Entrada: evento del boton junto al objeto promoción seleccionado
+        Salida: --
+    */
     private void botonInactivarPromocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarPromocionActionPerformed
-
+        long codigoPromocion = Long.parseLong(tablaPromociones.getValueAt(tablaPromociones.getSelectedRow(), 0).toString());
+        Promocion p = lp.consultarPromocion(codigoPromocion);
+        p.setEstadopromocion(false);
+        try {
+            lp.modificarPromocion(p);
+        } catch (Exception ex) {
+            Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        llenarTablaPromociones(lp.consultarPromociones());
     }//GEN-LAST:event_botonInactivarPromocionActionPerformed
 
+    /*
+        Metodo para buscar promociones
+        Entrada: evento del boton
+        Salida: --
+    */
     private void botonConsultarPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPromocionesActionPerformed
-
+        llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
+        botonInactivarPromocion.setEnabled(false);
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
+    /*
+        Metodo para buscar mostrar la venana de agregar cliente
+        Entrada: evento del boton
+        Salida: --
+    */
     private void botonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarClienteActionPerformed
-
+         AgregarCliente ac = new AgregarCliente(this, true);
+         ac.setVisible(true);
+         llenarTablaClientes(lc.consultarClientes());
+         botonModificarCliente.setEnabled(false);
     }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
-    private void botonInactivarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarClienteActionPerformed
-
-    }//GEN-LAST:event_botonInactivarClienteActionPerformed
-
+    /*
+        Metodo para buscar clientes
+        Entrada: evento del boton 
+        Salida: --
+    */
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
-
+        llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
+        botonModificarCliente.setEnabled(false);
     }//GEN-LAST:event_botonConsultarClienteActionPerformed
 
+     /*
+        Metodo para abrir la ventana de modificación de cliente seleccionado
+        Entrada: evento del boton
+        Salida: --
+    */
     private void botonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarClienteActionPerformed
-
+        String cedulaCliente = tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 4).toString();
+        ventanaModificarCliente(lc.consultarCliente(cedulaCliente));
+        llenarTablaClientes(lc.consultarClientes());
     }//GEN-LAST:event_botonModificarClienteActionPerformed
 
     private void botonConsultarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarUsuarioActionPerformed
@@ -823,6 +882,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void botonRecargarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarPlanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonRecargarPlanActionPerformed
+
+    private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
+        botonModificarCliente.setEnabled(true);
+    }//GEN-LAST:event_tablaClientesMouseClicked
+
+    private void tablaPromocionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPromocionesMouseClicked
+        botonInactivarPromocion.setEnabled(true);
+    }//GEN-LAST:event_tablaPromocionesMouseClicked
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -857,6 +924,93 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }
     
+    /*
+        Metodo para mostrar clientes
+        Entrada: lista de objetos Cliente
+        Salida: --
+    */ 
+    public void llenarTablaClientes(List<Cliente> listaClientes){
+        Calendar fecha = Calendar.getInstance();
+        String estado, s = "";
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaClientes.setModel(dtm);
+        dtm.addColumn("NOMBRE");
+        dtm.addColumn("TELEFONO");
+        dtm.addColumn("DIRECCION");
+        dtm.addColumn("CORREO");
+        dtm.addColumn("IDENTIFICACION");
+        dtm.addColumn("FECHA_NAC");
+        dtm.addColumn("ESTADO");
+        String[] fila = new String[7];
+        for (int i = 0; i < listaClientes.size(); i++) {
+           fila[0]=listaClientes.get(i).getNombrecliente();
+           fila[1]=listaClientes.get(i).getTelefonocliente();
+           fila[2]=listaClientes.get(i).getDireccioncliente();
+           fila[3]=listaClientes.get(i).getCorreocliente();
+           fila[4]=listaClientes.get(i).getCedulacliente();
+           fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
+           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           fila[5]=s;
+           if(listaClientes.get(i).getEstadocliente()){
+               estado = "Activo";
+           }else{
+               estado="Inactivo";
+           }
+           fila[6]=estado;
+           dtm.addRow(fila);
+        }
+    }
+    
+    /*
+        Metodo para mostrar Promociones
+        Entrada: lista de objetos Promocion
+        Salida: --
+    */ 
+    public void llenarTablaPromociones(List<Promocion> listaPromociones){
+        Calendar fecha = Calendar.getInstance();
+        String estado, s = "";
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaPromociones.setModel(dtm);
+        dtm.addColumn("CÓDIGO");
+        dtm.addColumn("TIPO");
+        dtm.addColumn("CONDICIÓN");
+        dtm.addColumn("BENEFICIO");
+        dtm.addColumn("DESCRIPCIÓN");
+        dtm.addColumn("INICIA");
+        dtm.addColumn("TERMINA");
+        dtm.addColumn("ESTADO");
+        String[] fila = new String[8];
+        for (int i = 0; i < listaPromociones.size(); i++) {
+           fila[0]=listaPromociones.get(i).getCodigopromocion()+"";
+           fila[1]=listaPromociones.get(i).getTipopromocion();
+           fila[2]=listaPromociones.get(i).getCondicion()+"";
+           fila[3]=listaPromociones.get(i).getBeneficio()+"";
+           fila[4]=listaPromociones.get(i).getDescripcion();
+           fecha.setTimeInMillis(listaPromociones.get(i).getFechainiciopromocion().getTime());
+           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           fila[5]=s;
+           fecha.setTimeInMillis(listaPromociones.get(i).getFechafinpromocion().getTime());
+           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           fila[6]=s;
+           if(listaPromociones.get(i).getEstadopromocion()){
+               estado = "Activa";
+           }else{
+               estado="Inactiva";
+           }
+           fila[7]=estado;
+           dtm.addRow(fila);
+        }
+    }
+
+    /*
+        Metodo para abrir la ventana de modificación de clientes
+        Entrada: objeto Cliente
+        Salida: --
+    */ 
+    public void ventanaModificarCliente(Cliente cliente){
+        ModificarCliente mc = new ModificarCliente(this, true, cliente);
+        mc.setVisible(true);
+    }
     /* Método para llenar la tabla con los registros de la consulta que se haga a la BD.
        Entrada: lista de objetos de tipo planes minutos 
        Salida: vacía
@@ -956,7 +1110,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
     private javax.swing.JButton botonConsultarUsuario;
-    private javax.swing.JButton botonInactivarCliente;
     private javax.swing.JButton botonInactivarPlan;
     private javax.swing.JButton botonInactivarPromocion;
     private javax.swing.JButton botonInactivarUsuario;

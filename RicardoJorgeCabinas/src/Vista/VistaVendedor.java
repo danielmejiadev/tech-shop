@@ -1,17 +1,23 @@
 package Vista;
 
+import Logica.LogicaCliente;
 import Logica.LogicaPlanMinutos;
+import Logica.LogicaPromocion;
+import Modelo.Cliente;
 import Modelo.PlanMinutos;
 import Logica.LogicaUsbModem;
+import Modelo.Promocion;
 import Modelo.UsbModem;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class VistaVendedor extends javax.swing.JFrame{
-      
+    LogicaCliente lc = new LogicaCliente();
+    LogicaPromocion lp = new LogicaPromocion();
     LogicaUsbModem lum = new LogicaUsbModem();
     List<UsbModem> modems = lum.consultarModems();
 
@@ -325,17 +331,25 @@ public class VistaVendedor extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
-
+        llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
     }//GEN-LAST:event_botonConsultarClienteActionPerformed
 
     private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
 
     }//GEN-LAST:event_tablaClientesMouseClicked
 
+    /*
+        Metodo para crear una ventana que permite agrear un cliente
+        Entrada: Evento del Botón
+        Salida: --
+    */ 
     private void botonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarClienteActionPerformed
-
+        AgregarCliente ac = new AgregarCliente(new VistaAdministrador(), true);
+        ac.setVisible(true);
+        llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
     }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
+    
     private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
         LoginInicio loginInicio = new LoginInicio();
         loginInicio.setVisible(true);
@@ -380,8 +394,13 @@ public class VistaVendedor extends javax.swing.JFrame{
         llenarTablaModems(modems);
     }//GEN-LAST:event_ActualizarTablaModemsActionPerformed
 
+    /*
+        Metodo para consultar promociones
+        Entrada: Evento del Botón
+        Salida: --
+    */ 
     private void botonConsultarPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPromocionesActionPerformed
-
+        llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
@@ -479,6 +498,85 @@ public class VistaVendedor extends javax.swing.JFrame{
         return true;  
     } 
    
+    /*
+        Metodo para mostrar clientes
+        Entrada: lista de objetos Cliente
+        Salida: --
+    */
+    public void llenarTablaClientes(List<Cliente> listaClientes){
+        Calendar fecha = Calendar.getInstance();
+        String estado, s = "";
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaClientes.setModel(dtm);
+        dtm.addColumn("NOMBRE");
+        dtm.addColumn("TELEFONO");
+        dtm.addColumn("DIRECCION");
+        dtm.addColumn("CORREO");
+        dtm.addColumn("IDENTIFICACION");
+        dtm.addColumn("FECHA_NAC");
+        dtm.addColumn("ESTADO");
+        String[] fila = new String[7];
+        for (int i = 0; i < listaClientes.size(); i++) {
+           fila[0]=listaClientes.get(i).getNombrecliente();
+           fila[1]=listaClientes.get(i).getTelefonocliente();
+           fila[2]=listaClientes.get(i).getDireccioncliente();
+           fila[3]=listaClientes.get(i).getCorreocliente();
+           fila[4]=listaClientes.get(i).getCedulacliente();
+           fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
+           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           fila[5]=s;
+           if(listaClientes.get(i).getEstadocliente()){
+               estado = "Activo";
+           }else{
+               estado="Inactivo";
+           }
+           fila[6]=estado;
+           dtm.addRow(fila);
+        }
+    }
+
+    /*
+        Metodo para mostrar Promociones
+        Entrada: lista de objetos Promocion
+        Salida: --
+    */
+    public void llenarTablaPromociones(List<Promocion> listaPromociones){
+        Calendar fecha = Calendar.getInstance();
+        String estado, s = "";
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaPromociones.setModel(dtm);
+        dtm.addColumn("CÓDIGO");
+        dtm.addColumn("TIPO");
+        dtm.addColumn("CONDICIÓN");
+        dtm.addColumn("BENEFICIO");
+        dtm.addColumn("DESCRIPCIÓN");
+        dtm.addColumn("INICIA");
+        dtm.addColumn("TERMINA");
+        dtm.addColumn("ESTADO");
+        String[] fila = new String[8];
+        for (int i = 0; i < listaPromociones.size(); i++) {
+           fila[0]=listaPromociones.get(i).getCodigopromocion()+"";
+           fila[1]=listaPromociones.get(i).getTipopromocion();
+           fila[2]=listaPromociones.get(i).getCondicion()+"";
+           fila[3]=listaPromociones.get(i).getBeneficio()+"";
+           fila[4]=listaPromociones.get(i).getDescripcion();
+           fecha.setTimeInMillis(listaPromociones.get(i).getFechainiciopromocion().getTime());
+           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           fila[5]=s;
+           fecha.setTimeInMillis(listaPromociones.get(i).getFechafinpromocion().getTime());
+           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           fila[6]=s;
+           if(listaPromociones.get(i).getEstadopromocion()){
+               estado = "Activa";
+           }else{
+               estado="Inactiva";
+           }
+           fila[7]=estado;
+           dtm.addRow(fila);
+        }
+    }
+     
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarTablaModems;
     private javax.swing.JButton botonAgregarCliente;
