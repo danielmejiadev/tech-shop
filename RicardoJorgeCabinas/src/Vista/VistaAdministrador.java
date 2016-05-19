@@ -1,5 +1,12 @@
 package Vista;
 
+import Logica.LogicaPlanMinutos;
+import Modelo.PlanMinutos;
+import Modelo.Usuario;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 public class VistaAdministrador extends javax.swing.JFrame{
       
@@ -630,18 +637,60 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
     private void botonAgregarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPlanActionPerformed
 
+        AgregarPlan agregarPlan = new AgregarPlan();
+        agregarPlan.setVisible(true);
+        llenarTablaPlanMinutos(null);
     }//GEN-LAST:event_botonAgregarPlanActionPerformed
 
     private void botonModificarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPlanActionPerformed
 
+       int filaSeleccionada = tablaPlanes.getSelectedRow();
+        if(filaSeleccionada != -1)
+        {
+            String codigoPlan = tablaPlanes.getValueAt(filaSeleccionada, 0).toString();
+            LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+            PlanMinutos planMinutos =  logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(codigoPlan));
+            ModificarPlan modificarPlan = new ModificarPlan(planMinutos);
+            modificarPlan.setVisible(true);
+        } 
     }//GEN-LAST:event_botonModificarPlanActionPerformed
 
     private void botonInactivarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarPlanActionPerformed
 
+        int filaSeleccionada= tablaPlanes.getSelectedRow();
+        if(filaSeleccionada!= -1)
+        {
+            try {
+                String codigoPlan = tablaPlanes.getValueAt(filaSeleccionada, 0).toString();
+                LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+                PlanMinutos planMinutos =  logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(codigoPlan));
+                boolean estado = planMinutos.getEstadoplanminutos();
+                if(estado)
+                     planMinutos.setEstadoplanminutos(false);
+                else
+                     planMinutos.setEstadoplanminutos(true);
+                logicaPlanMinutos.modificarPlanMinutos(planMinutos);
+                List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutos();
+                llenarTablaPlanMinutos(planMinuto);                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Error, no se pudo modificar el plan");
+            }
+        }
     }//GEN-LAST:event_botonInactivarPlanActionPerformed
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
+        String texto = campoConsultaPlanes.getText();
+        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+        List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
+        if(texto.isEmpty()){
+            planMinuto = logicaPlanMinutos.consultarPlanMinutos();
+        }else{
+            PlanMinutos planID = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
+        if(planID != null)
+            planMinuto.add(planID);
+        }
+        llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
     private void botonReservarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservarModemActionPerformed
@@ -656,6 +705,70 @@ public class VistaAdministrador extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_botonRecargarPlanActionPerformed
  
+    public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
+     {
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaUsuarios.setModel(dtm);
+        dtm.addColumn("Cedula");
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Telefono");
+        dtm.addColumn("Direccion");
+        dtm.addColumn("E-Mail");
+        dtm.addColumn("Tipo");
+        dtm.addColumn("Estado");
+        
+        if(listaUsuarios!=null)
+        {
+            String[] fila = new String[7];
+            for (Usuario listaUsuario : listaUsuarios) 
+            {
+                fila[0] = listaUsuario.getCedulausuario();
+                fila[1] = listaUsuario.getNombreusuario();
+                fila[2] = listaUsuario.getTelefonosuario();
+                fila[3] = listaUsuario.getDireccionusuario();
+                fila[4] = listaUsuario.getCorreousuario();
+                fila[5] = listaUsuario.getTipousuario();
+                String estado= "Inactivo";
+                if (listaUsuario.getEstadousuario()) {
+                    estado= "Activo";
+                }
+                fila[6]=estado;
+                dtm.addRow(fila);
+            }
+        }
+    }
+    
+    /* Método para llenar la tabla con los registros de la consulta que se haga a la BD.
+       Entrada: lista de objetos de tipo planes minutos 
+       Salida: vacía
+    */
+    public void llenarTablaPlanMinutos(List<PlanMinutos> listaPlanMinutos){
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaPlanes.setModel(dtm);
+        dtm.addColumn("Codigo");
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Tiempo aire");
+        dtm.addColumn("Valor compra");
+        dtm.addColumn("Valor venta");
+        dtm.addColumn("Acomulable");
+        dtm.addColumn("Minuto alerta");
+        dtm.addColumn("Estado");
+        
+        if(listaPlanMinutos != null){
+            String[] fila = new String[8];
+            for(PlanMinutos listaPlanMinuto : listaPlanMinutos){
+                fila[0] = String.valueOf(listaPlanMinuto.getCodigoplan());
+                fila[1] = listaPlanMinuto.getNombreplan();
+                fila[2] = String.valueOf(listaPlanMinuto.getCantidadminutos());
+                fila[3] = String.valueOf(listaPlanMinuto.getCostominuto());
+                fila[4] = String.valueOf(listaPlanMinuto.getPreciominuto());
+                fila[5] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
+                fila[6] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
+                fila[7] = String.valueOf(listaPlanMinuto.getEstadoplanminutos());
+                dtm.addRow(fila);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarCliente;

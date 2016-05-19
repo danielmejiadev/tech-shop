@@ -1,5 +1,10 @@
 package Vista;
 
+import Logica.LogicaPlanMinutos;
+import Modelo.PlanMinutos;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 public class VistaVendedor extends javax.swing.JFrame{
       
@@ -359,8 +364,46 @@ public class VistaVendedor extends javax.swing.JFrame{
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
+        String texto = campoConsultaPlanes.getText();
+        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+        List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
+        if(texto.isEmpty()){
+            planMinuto = logicaPlanMinutos.consultarPlanMinutos();
+        }else{
+            PlanMinutos planID = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
+        if(planID != null)
+            planMinuto.add(planID);
+        }
+        llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
+    public void llenarTablaPlanMinutos(List<PlanMinutos> listaPlanMinutos){
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaPlanes.setModel(dtm);
+        dtm.addColumn("Codigo");
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Tiempo aire");
+        dtm.addColumn("Valor compra");
+        dtm.addColumn("Valor venta");
+        dtm.addColumn("Acomulable");
+        dtm.addColumn("Minuto alerta");
+        dtm.addColumn("Estado");
+        
+        if(listaPlanMinutos != null){
+            String[] fila = new String[8];
+            for(PlanMinutos listaPlanMinuto : listaPlanMinutos){
+                fila[0] = String.valueOf(listaPlanMinuto.getCodigoplan());
+                fila[1] = listaPlanMinuto.getNombreplan();
+                fila[2] = String.valueOf(listaPlanMinuto.getCantidadminutos());
+                fila[3] = String.valueOf(listaPlanMinuto.getCostominuto());
+                fila[4] = String.valueOf(listaPlanMinuto.getPreciominuto());
+                fila[5] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
+                fila[6] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
+                fila[7] = String.valueOf(listaPlanMinuto.getEstadoplanminutos());
+                dtm.addRow(fila);
+            }
+        }
+    }
 
  
    

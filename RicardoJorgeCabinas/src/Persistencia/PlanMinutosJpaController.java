@@ -237,6 +237,20 @@ public class PlanMinutosJpaController implements Serializable {
             em.close();
         }
     }
+    
+    /* Método que accede a la base de datos y realiza la búsqueda de planes de minutos usando el 
+       nombre como parámetro de consulta
+       Entrada: nombre de tipo String
+       Salida: Lista de objetos de tipo planesMinutos 
+               Lista vacía si no se encuentra registros que coincidan con el parámetro
+    */
+    public List<PlanMinutos> findPlanMinutosName(String nombrePlan)
+    {
+        String consulta = "SELECT * FROM planminutos WHERE nombreplan LIKE '%"+nombrePlan+"%'";
+        EntityManager em = getEntityManager(); 
+        Query query = em.createNativeQuery(consulta,PlanMinutos.class);
+        return query.getResultList();
+    }
 
     public int getPlanMinutosCount() {
         EntityManager em = getEntityManager();
