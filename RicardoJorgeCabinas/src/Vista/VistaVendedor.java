@@ -2,18 +2,26 @@ package Vista;
 
 import Logica.LogicaPlanMinutos;
 import Modelo.PlanMinutos;
+import Logica.LogicaUsbModem;
+import Modelo.UsbModem;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class VistaVendedor extends javax.swing.JFrame{
       
+    LogicaUsbModem lum = new LogicaUsbModem();
+    List<UsbModem> modems = lum.consultarModems();
+
     public VistaVendedor()  
     {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Ricardo Jorge Cabinas - Vendedor");
         this.setResizable(false);
+        llenarTablaModems(modems);
     }
 
   
@@ -38,8 +46,7 @@ public class VistaVendedor extends javax.swing.JFrame{
         labeltituloModems = new javax.swing.JLabel();
         campoConsultaModems = new javax.swing.JTextField();
         botonConsultarModem = new javax.swing.JButton();
-        botonDevolverModem = new javax.swing.JButton();
-        botonReservarModem = new javax.swing.JButton();
+        ActualizarTablaModems = new javax.swing.JButton();
         panelPromociones = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaPromociones = new javax.swing.JTable();
@@ -142,17 +149,10 @@ public class VistaVendedor extends javax.swing.JFrame{
             }
         });
 
-        botonDevolverModem.setText("Devolver");
-        botonDevolverModem.addActionListener(new java.awt.event.ActionListener() {
+        ActualizarTablaModems.setText("Actualizar");
+        ActualizarTablaModems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonDevolverModemActionPerformed(evt);
-            }
-        });
-
-        botonReservarModem.setText("Reservar");
-        botonReservarModem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReservarModemActionPerformed(evt);
+                ActualizarTablaModemsActionPerformed(evt);
             }
         });
 
@@ -169,12 +169,10 @@ public class VistaVendedor extends javax.swing.JFrame{
                         .addGap(58, 58, 58)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelModemsLayout.createSequentialGroup()
-                        .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelModemsLayout.createSequentialGroup()
                                 .addGap(240, 240, 240)
-                                .addComponent(botonReservarModem)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonDevolverModem))
+                                .addComponent(ActualizarTablaModems))
                             .addGroup(panelModemsLayout.createSequentialGroup()
                                 .addGap(249, 249, 249)
                                 .addComponent(campoConsultaModems, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -192,9 +190,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                     .addComponent(campoConsultaModems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonConsultarModem))
                 .addGap(12, 12, 12)
-                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonReservarModem)
-                    .addComponent(botonDevolverModem))
+                .addComponent(ActualizarTablaModems)
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -346,17 +342,43 @@ public class VistaVendedor extends javax.swing.JFrame{
         this.dispose();
     }//GEN-LAST:event_botonAtrasActionPerformed
 
+    /* Metodo para consultar un usbModem de la BD y mostrar el resultado en la tabla de
+       modems. La consulta se realiza con el codigo del modem, todo o una parte del nombre.
+       Entrada: evento del boton
+       Salida: ---
+    */
     private void botonConsultarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarModemActionPerformed
-
+        UsbModem um = null;
+        List<UsbModem> modems = new ArrayList<>();
+        
+        if(isNumeric(campoConsultaModems.getText())){
+            try {
+                um = lum.consultarModemCodigo(Long.parseLong(campoConsultaModems.getText()));
+                modems.add(um);
+                llenarTablaModems(modems);
+            }catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+            campoConsultaModems.setText("");
+        }else {
+            try {
+                modems= lum.consultarModemsNombre(campoConsultaModems.getText());
+                llenarTablaModems(modems);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+            campoConsultaModems.setText("");
+        }
     }//GEN-LAST:event_botonConsultarModemActionPerformed
 
-    private void botonDevolverModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolverModemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonDevolverModemActionPerformed
-
-    private void botonReservarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservarModemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonReservarModemActionPerformed
+    /* Metodo para actualizar la tabla de modems consultando todos los registros de la BD
+       Entrada: evento del boton
+       Salida: ---
+    */
+    private void ActualizarTablaModemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarTablaModemsActionPerformed
+        List<UsbModem> modems = lum.consultarModems();
+        llenarTablaModems(modems);
+    }//GEN-LAST:event_ActualizarTablaModemsActionPerformed
 
     private void botonConsultarPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPromocionesActionPerformed
 
@@ -405,19 +427,66 @@ public class VistaVendedor extends javax.swing.JFrame{
         }
     }
 
- 
+  /* Metodo para llenar la tabla con los registros de la consulta que se haga a la BD.
+       Entrada: lista de objetos de tipo UsbModems 
+       Salida: ---
+    */
+    private void llenarTablaModems(List<UsbModem> modems){
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaModems.setModel(dtm);
+         
+        dtm.addColumn("Código");
+        dtm.addColumn("Nombre ");
+        dtm.addColumn("Proveedor");
+        dtm.addColumn("Disponibilidad");
+        dtm.addColumn("Costo Día");
+        dtm.addColumn("Precio Día");
+        dtm.addColumn("Estado");
+         
+        String[] fila = new String[7];
+         
+        for (int i = 0; i < modems.size(); i++) {
+            fila[0] = modems.get(i).getCodigomodem()+"";
+            fila[1] = modems.get(i).getNombremodem();
+            fila[2] = modems.get(i).getProveedor();
+            fila[3] = modems.get(i).getDisponibilidad();
+            fila[4] = modems.get(i).getCostodia()+"";
+            fila[5] = modems.get(i).getPreciodia()+"";
+            
+            if(modems.get(i).getEstadousbmodem()){
+                fila[6] = "Activo";
+            }else{
+                fila[6] = "Inactivo";
+            }
+            
+            dtm.addRow(fila);
+        }
+    }
+    
+    /*Método para verificar si un string empieza (o es) un numero que sera tomado
+      como Long. El metodo se usa para realizar la consulta de modems por codigo 
+      o nombre desde un mismo campo de texto.
+      Entrada: String del campo de texto de consulta de modems
+      Salida: True si es texto es un numero
+              False si es texto solamente
+    */
+    public  boolean isNumeric(String str){  
+        try{  
+            Long cod = Long.parseLong(str);  
+        }catch(NumberFormatException nfe){
+            return false;
+        }
+        return true;  
+    } 
    
-     
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ActualizarTablaModems;
     private javax.swing.JButton botonAgregarCliente;
     private javax.swing.JButton botonAtras;
     private javax.swing.JButton botonConsultarCliente;
     private javax.swing.JButton botonConsultarModem;
     private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
-    private javax.swing.JButton botonDevolverModem;
-    private javax.swing.JButton botonReservarModem;
     private javax.swing.JTextField campoConsultaCliente;
     private javax.swing.JTextField campoConsultaModems;
     private javax.swing.JTextField campoConsultaPlanes;

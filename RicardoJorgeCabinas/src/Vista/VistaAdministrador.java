@@ -4,6 +4,8 @@ import Logica.LogicaPlanMinutos;
 import Logica.LogicaUsuario;
 import Modelo.PlanMinutos;
 import Modelo.Usuario;
+import Logica.LogicaUsbModem;
+import Modelo.UsbModem;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -13,6 +15,9 @@ import javax.swing.table.DefaultTableModel;
 public class VistaAdministrador extends javax.swing.JFrame{
       
     public Usuario usuarioActivo;
+    LogicaUsbModem lum = new LogicaUsbModem();
+    List<UsbModem> modems = lum.consultarModems();
+    
     public VistaAdministrador(Usuario usuarioActivo)  
     {
         initComponents();
@@ -20,6 +25,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         this.setTitle("Ricardo Jorge Cabinas - Vendedor");
         this.setResizable(false);
         this.usuarioActivo=usuarioActivo;
+        llenarTablaModems(modems);
     }
 
   
@@ -46,13 +52,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         labeltituloModems = new javax.swing.JLabel();
         campoConsultaModems = new javax.swing.JTextField();
         botonConsultarModem = new javax.swing.JButton();
-        botonInactivarModem = new javax.swing.JButton();
+        botonCambiarEstadoModem = new javax.swing.JButton();
         botonModificarModem = new javax.swing.JButton();
         botonAgregarModem = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaModems = new javax.swing.JTable();
-        botonReservarModem = new javax.swing.JButton();
-        botonDevolverModem = new javax.swing.JButton();
+        ActualizarTablaModems = new javax.swing.JButton();
         panelUsurios = new javax.swing.JPanel();
         botonAgregarUsuario = new javax.swing.JButton();
         botonModificarUsuario = new javax.swing.JButton();
@@ -202,10 +207,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
         });
 
-        botonInactivarModem.setText("Inactivar");
-        botonInactivarModem.addActionListener(new java.awt.event.ActionListener() {
+        botonCambiarEstadoModem.setText("Cambiar Estado");
+        botonCambiarEstadoModem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonInactivarModemActionPerformed(evt);
+                botonCambiarEstadoModemActionPerformed(evt);
             }
         });
 
@@ -233,17 +238,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         ));
         jScrollPane4.setViewportView(tablaModems);
 
-        botonReservarModem.setText("Reservar");
-        botonReservarModem.addActionListener(new java.awt.event.ActionListener() {
+        ActualizarTablaModems.setText("Actualizar");
+        ActualizarTablaModems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonReservarModemActionPerformed(evt);
-            }
-        });
-
-        botonDevolverModem.setText("Devolver");
-        botonDevolverModem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonDevolverModemActionPerformed(evt);
+                ActualizarTablaModemsActionPerformed(evt);
             }
         });
 
@@ -267,11 +265,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonModificarModem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonInactivarModem)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonReservarModem)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonDevolverModem))
+                        .addComponent(botonCambiarEstadoModem)
+                        .addGap(113, 113, 113)
+                        .addComponent(ActualizarTablaModems))
                     .addGroup(panelModemsLayout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -290,9 +286,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonModificarModem)
                     .addComponent(botonAgregarModem)
-                    .addComponent(botonInactivarModem)
-                    .addComponent(botonReservarModem)
-                    .addComponent(botonDevolverModem))
+                    .addComponent(botonCambiarEstadoModem)
+                    .addComponent(ActualizarTablaModems))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -676,20 +671,86 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarTablaUsuarios(null);
     }//GEN-LAST:event_botonAgregarUsuarioActionPerformed
 
+    /*Metodo para abrir la ventana de registro de modems
+      Entrada: evento del boton
+      Salida: ---
+    */
     private void botonAgregarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarModemActionPerformed
-
+        AgregarModem agM = new AgregarModem();
+        agM.setVisible(true);
     }//GEN-LAST:event_botonAgregarModemActionPerformed
 
+    /* Metodo para abrir la ventana de modificacion habiendo seleccionado un modem
+       de la tabla
+       Entrada: evento del boton
+       Salida: ---
+    */
     private void botonModificarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarModemActionPerformed
-
+        if(tablaModems.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un modem de la tabla");
+        }else{
+            Long cod = Long.parseLong(tablaModems.getValueAt(tablaModems.getSelectedRow(),0).toString());
+            ModificarModem moM = new ModificarModem(cod);
+            moM.setVisible(true);
+        }
     }//GEN-LAST:event_botonModificarModemActionPerformed
+    
+    /* Metodo para modificar el estado (activo o inactivo) de un registro UsbModem de la BD
+       siendo seleccionado de la tabla y mostrando el cambio de inmediato en la tabla y en la BD.
+       Entrada: evento del boton
+       Salida: ---
+    */
+    private void botonCambiarEstadoModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCambiarEstadoModemActionPerformed
+        if(tablaModems.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un modem de la tabla");
+        }else{
+            Long cod = Long.parseLong(tablaModems.getValueAt(tablaModems.getSelectedRow(),0).toString());
+            UsbModem um=null;
+            try {
+                um = lum.consultarModemCodigo(cod);
+                if(um.getEstadousbmodem()){
+                um.setEstadousbmodem(false);
+                lum.modificarModem(um);
+                }else{
+                    um.setEstadousbmodem(true);
+                    lum.modificarModem(um);
+                }
+                List<UsbModem> modems = lum.consultarModems();
+                llenarTablaModems(modems); 
+                
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_botonCambiarEstadoModemActionPerformed
 
-    private void botonInactivarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarModemActionPerformed
-
-    }//GEN-LAST:event_botonInactivarModemActionPerformed
-
+    /* Metodo para consultar un usbModem de la BD y mostrar el resultado en la tabla de
+       modems. La consulta se realiza con el codigo del modem, todo o una parte del nombre.
+       Entrada: evento del boton
+       Salida: ---
+    */
     private void botonConsultarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarModemActionPerformed
-
+        UsbModem um = null;
+        List<UsbModem> modems = new ArrayList<>();
+        
+        if(isNumeric(campoConsultaModems.getText())){
+            try {
+                um = lum.consultarModemCodigo(Long.parseLong(campoConsultaModems.getText()));
+                modems.add(um);
+                llenarTablaModems(modems);
+            }catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+            campoConsultaModems.setText("");
+        }else {
+            try {
+                modems= lum.consultarModemsNombre(campoConsultaModems.getText());
+                llenarTablaModems(modems);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+            campoConsultaModems.setText("");
+        }
     }//GEN-LAST:event_botonConsultarModemActionPerformed
 
     private void botonAgregarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPlanActionPerformed
@@ -750,13 +811,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
-    private void botonReservarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReservarModemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonReservarModemActionPerformed
-
-    private void botonDevolverModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolverModemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonDevolverModemActionPerformed
+    /* Metodo para actualizar la tabla de modems consultando todos los registros de la BD
+       Entrada: evento del boton
+       Salida: ---
+    */
+    private void ActualizarTablaModemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarTablaModemsActionPerformed
+       List<UsbModem> modems = lum.consultarModems();
+       llenarTablaModems(modems);
+    }//GEN-LAST:event_ActualizarTablaModemsActionPerformed
 
     private void botonRecargarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarPlanActionPerformed
         // TODO add your handling code here:
@@ -827,23 +889,74 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }
     
+       /* Metodo para llenar la tabla con los registros de la consulta que se haga a la BD.
+       Entrada: lista de objetos de tipo UsbModems 
+       Salida: ---
+    */
+    private void llenarTablaModems(List<UsbModem> modems){
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaModems.setModel(dtm);
+         
+        dtm.addColumn("Código");
+        dtm.addColumn("Nombre ");
+        dtm.addColumn("Proveedor");
+        dtm.addColumn("Disponibilidad");
+        dtm.addColumn("Costo Día");
+        dtm.addColumn("Precio Día");
+        dtm.addColumn("Estado");
+         
+        String[] fila = new String[7];
+         
+        for (int i = 0; i < modems.size(); i++) {
+            fila[0] = modems.get(i).getCodigomodem()+"";
+            fila[1] = modems.get(i).getNombremodem();
+            fila[2] = modems.get(i).getProveedor();
+            fila[3] = modems.get(i).getDisponibilidad();
+            fila[4] = modems.get(i).getCostodia()+"";
+            fila[5] = modems.get(i).getPreciodia()+"";
+            
+            if(modems.get(i).getEstadousbmodem()){
+                fila[6] = "Activo";
+            }else{
+                fila[6] = "Inactivo";
+            }
+            
+            dtm.addRow(fila);
+        }
+    }
     
+    /*Método para verificar si un string empieza (o es) un numero que sera tomado
+      como Long. El metodo se usa para realizar la consulta de modems por codigo 
+      o nombre desde un mismo campo de texto.
+      Entrada: String del campo de texto de consulta de modems
+      Salida: True si es texto es un numero
+              False si es texto solamente
+    */
+    public  boolean isNumeric(String str){  
+        try{  
+            Long cod = Long.parseLong(str);  
+        }catch(NumberFormatException nfe){
+            return false;
+        }
+        return true;  
+    }
+        
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ActualizarTablaModems;
     private javax.swing.JButton botonAgregarCliente;
     private javax.swing.JButton botonAgregarModem;
     private javax.swing.JButton botonAgregarPlan;
     private javax.swing.JButton botonAgregarPromocion;
     private javax.swing.JButton botonAgregarUsuario;
     private javax.swing.JButton botonAtras;
+    private javax.swing.JButton botonCambiarEstadoModem;
     private javax.swing.JButton botonConsultarCliente;
     private javax.swing.JButton botonConsultarModem;
     private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
     private javax.swing.JButton botonConsultarUsuario;
-    private javax.swing.JButton botonDevolverModem;
     private javax.swing.JButton botonInactivarCliente;
-    private javax.swing.JButton botonInactivarModem;
     private javax.swing.JButton botonInactivarPlan;
     private javax.swing.JButton botonInactivarPromocion;
     private javax.swing.JButton botonInactivarUsuario;
@@ -852,7 +965,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonModificarPlan;
     private javax.swing.JButton botonModificarUsuario;
     private javax.swing.JButton botonRecargarPlan;
-    private javax.swing.JButton botonReservarModem;
     private javax.swing.JTextField campoConsultaCliente;
     private javax.swing.JTextField campoConsultaModems;
     private javax.swing.JTextField campoConsultaPlanes;

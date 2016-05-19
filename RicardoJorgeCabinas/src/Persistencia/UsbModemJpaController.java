@@ -183,7 +183,25 @@ public class UsbModemJpaController implements Serializable {
             em.close();
         }
     }
-
+    
+    /* Método que accede a la base de datos y realiza la búsqueda de modems usando el 
+       nombre como parámetro de consulta
+       Entrada: nombre de tipo String
+       Salida: Lista de objetos de tipo UsbModem 
+               Lista vacía si no se encuentra registros que coincidan con el parámetro
+    */
+    public List<UsbModem> findUsbModemNombre(String nom){
+        EntityManager em = getEntityManager();
+        try {
+            Query modemsNombres = em.createNamedQuery("UsbModem.findByNombremodem");
+            modemsNombres.setParameter("nombremodem", nom+"%");
+            List<UsbModem> modems = modemsNombres.getResultList();
+            return modems;
+        }finally{
+            em.close();
+        }
+    }
+    
     public int getUsbModemCount() {
         EntityManager em = getEntityManager();
         try {

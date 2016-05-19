@@ -202,12 +202,10 @@
                               <Component id="jScrollPane4" min="-2" pref="603" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
-                                      <Component id="botonReservarModem" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="botonDevolverModem" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ActualizarTablaModems" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="249" pref="249" max="-2" attributes="0"/>
@@ -233,10 +231,7 @@
                           <Component id="botonConsultarModem" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="botonReservarModem" min="-2" max="-2" attributes="0"/>
-                          <Component id="botonDevolverModem" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="ActualizarTablaModems" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="260" max="-2" attributes="0"/>
                   </Group>
@@ -285,20 +280,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonConsultarModemActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botonDevolverModem">
+            <Component class="javax.swing.JButton" name="ActualizarTablaModems">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Devolver"/>
+                <Property name="text" type="java.lang.String" value="Actualizar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonDevolverModemActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="botonReservarModem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reservar"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReservarModemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ActualizarTablaModemsActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
