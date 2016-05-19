@@ -1,4 +1,3 @@
-
 package Logica;
 
 import Modelo.Usuario;
@@ -62,6 +61,17 @@ public class LogicaUsuario {
         return salida;
     }
     
+   
+    public void registrarUsuario(Usuario usuario) throws Exception 
+    {
+        usuarioDAO.create(usuario);   
+    }
+    
+    public void modificarUsuario(Usuario usuario) throws Exception
+    {
+        usuarioDAO.edit(usuario);
+    }
+    
     /* Funcion que consulta un usario en la base de datos, teniendo en cuenta la cedula
        Entrada String cedulaUsuarip-> solicitante
        Salida Usuario-> si el usuario esta en la base de datos
@@ -71,6 +81,11 @@ public class LogicaUsuario {
     public Usuario consultarUsuarioCedula(String cedulaUsuario)
     {
       return usuarioDAO.findUsuario(cedulaUsuario);
+    }
+    
+    public List<Usuario> consultarUsuarioNombre(String nombreUsuario)
+    {
+        return usuarioDAO.findUsuarioName(nombreUsuario);
     }
     
     public List<Usuario> consultarUsuarios()

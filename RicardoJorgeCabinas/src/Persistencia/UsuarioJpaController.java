@@ -297,6 +297,14 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public List<Usuario> findUsuarioName(String nombreUsuario)
+    {
+        String consulta = "SELECT * FROM usuario WHERE nombreusuario LIKE '%"+nombreUsuario+"%'";
+        EntityManager em = getEntityManager(); 
+        Query query = em.createNativeQuery(consulta,Usuario.class);
+        return query.getResultList();
+    }
 
     public int getUsuarioCount() {
         EntityManager em = getEntityManager();

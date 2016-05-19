@@ -1,6 +1,7 @@
 package Vista;
 
 import Logica.LogicaUsuario;
+import Modelo.Usuario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -129,7 +130,8 @@ public class LoginInicio extends javax.swing.JFrame {
                      {
                          if(valorVerificacion==4)
                          {
-                             VistaAdministrador vistaAdministrador=new VistaAdministrador();
+                             Usuario usuario= logicaUsuario.consultarUsuarioCedula(cedulaUsuario);
+                             VistaAdministrador vistaAdministrador=new VistaAdministrador(usuario);
                              vistaAdministrador.setVisible(true);
                              this.dispose();
                          }

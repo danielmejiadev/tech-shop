@@ -1,8 +1,10 @@
 package Vista;
 
 import Logica.LogicaPlanMinutos;
+import Logica.LogicaUsuario;
 import Modelo.PlanMinutos;
 import Modelo.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -10,12 +12,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class VistaAdministrador extends javax.swing.JFrame{
       
-    public VistaAdministrador()  
+    public Usuario usuarioActivo;
+    public VistaAdministrador(Usuario usuarioActivo)  
     {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Ricardo Jorge Cabinas - Vendedor");
         this.setResizable(false);
+        this.usuarioActivo=usuarioActivo;
     }
 
   
@@ -604,19 +608,72 @@ public class VistaAdministrador extends javax.swing.JFrame{
     }//GEN-LAST:event_botonModificarClienteActionPerformed
 
     private void botonConsultarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarUsuarioActionPerformed
-
+        String texto = campoConsultaUsuario.getText();
+        LogicaUsuario logicaUsuario = new LogicaUsuario();
+        List<Usuario> usuarios = logicaUsuario.consultarUsuarioNombre(texto);
+        Usuario usuarioCedula = logicaUsuario.consultarUsuarioCedula(texto);
+        if(usuarioCedula!=null)
+        {
+            usuarios.add(usuarioCedula);
+        }
+                
+        llenarTablaUsuarios(usuarios);
     }//GEN-LAST:event_botonConsultarUsuarioActionPerformed
 
     private void botonInactivarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarUsuarioActionPerformed
-
+        int filaSeleccionada= tablaUsuarios.getSelectedRow();
+        if(filaSeleccionada!= -1)
+        {
+            try {
+                String cedulaUsuario = tablaUsuarios.getValueAt(filaSeleccionada, 0).toString();
+                LogicaUsuario logicaUsuario = new LogicaUsuario();
+                Usuario usuario =  logicaUsuario.consultarUsuarioCedula(cedulaUsuario);
+                boolean estado = usuario.getEstadousuario();
+                if(estado)
+                {
+                     usuario.setEstadousuario(false);
+                }
+                else
+                {
+                     usuario.setEstadousuario(true);
+                }
+                
+                if(!usuario.getCedulausuario().equals(usuarioActivo.getCedulausuario()))
+                {
+                    logicaUsuario.modificarUsuario(usuario);
+                    List<Usuario> usuarios = new ArrayList<>();
+                    usuarios.add(usuario);
+                    llenarTablaUsuarios(usuarios);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,"Error, no se puede inactivar el usuario activo");
+                }
+                
+            } catch (Exception ex) 
+            {
+                JOptionPane.showMessageDialog(null,"Error, no se pudo modificar el usuario");
+            }
+        }
     }//GEN-LAST:event_botonInactivarUsuarioActionPerformed
 
     private void botonModificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarUsuarioActionPerformed
-
+        int filaSeleccionada= tablaUsuarios.getSelectedRow();
+        if(filaSeleccionada!= -1)
+        {
+            String cedulaUsuario = tablaUsuarios.getValueAt(filaSeleccionada, 0).toString();
+            LogicaUsuario logicaUsuario = new LogicaUsuario();
+            Usuario usuario =  logicaUsuario.consultarUsuarioCedula(cedulaUsuario);
+            ModificarUsuario modificarUsuario = new ModificarUsuario(this,false,usuario);
+            modificarUsuario.setVisible(true);
+            llenarTablaUsuarios(null);
+        }
     }//GEN-LAST:event_botonModificarUsuarioActionPerformed
 
     private void botonAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarUsuarioActionPerformed
-
+         RegistrarUsuario registro = new RegistrarUsuario(this,false);
+        registro.setVisible(true);
+        llenarTablaUsuarios(null);
     }//GEN-LAST:event_botonAgregarUsuarioActionPerformed
 
     private void botonAgregarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarModemActionPerformed
@@ -769,7 +826,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
         }
     }
-
+    
+    
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarCliente;
     private javax.swing.JButton botonAgregarModem;
