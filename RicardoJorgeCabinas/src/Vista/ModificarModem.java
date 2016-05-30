@@ -21,9 +21,7 @@ public class ModificarModem extends javax.swing.JFrame {
     
     public ModificarModem(Long cod) {
         initComponents();
-        this.setTitle("Modificar Modem");
-        this.setResizable(false);
-        this.setLocationRelativeTo(null); 
+        this.setLocationRelativeTo(null);
         llenarCampos(cod);
     }
 
@@ -59,19 +57,35 @@ public class ModificarModem extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 530));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(162, 146, 146));
         jLabel1.setText("Modificar Modem");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(162, 146, 146));
         jLabel2.setText("Nombre Modem:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(162, 146, 146));
         jLabel3.setText("Proveedor:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(162, 146, 146));
         jLabel4.setText("Disponibilidad:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(162, 146, 146));
         jLabel5.setText("Costo por día:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(162, 146, 146));
         jLabel6.setText("Precio por día:");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(162, 146, 146));
         jLabel7.setText("Estado:");
 
         buttonGroup1.add(activoModem);
@@ -84,14 +98,26 @@ public class ModificarModem extends javax.swing.JFrame {
 
         DisponibilidadModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Alquilado", "Reservado", "Alquilado-Reservado" }));
 
+        GuardarModem.setBackground(new java.awt.Color(162, 146, 146));
+        GuardarModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        GuardarModem.setForeground(new java.awt.Color(255, 255, 255));
         GuardarModem.setText("Guardar");
+        GuardarModem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        GuardarModem.setContentAreaFilled(false);
+        GuardarModem.setOpaque(true);
         GuardarModem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarModemActionPerformed(evt);
             }
         });
 
+        Cancelar.setBackground(new java.awt.Color(162, 146, 146));
+        Cancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Cancelar.setForeground(new java.awt.Color(255, 255, 255));
         Cancelar.setText("Cancelar");
+        Cancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Cancelar.setContentAreaFilled(false);
+        Cancelar.setOpaque(true);
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelarActionPerformed(evt);
@@ -102,6 +128,8 @@ public class ModificarModem extends javax.swing.JFrame {
 
         PrecioModem.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(162, 146, 146));
         jLabel8.setText("Código Modem:");
 
         CodigoModem.setEnabled(false);
@@ -113,27 +141,21 @@ public class ModificarModem extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(GuardarModem)
-                        .addGap(49, 49, 49)
-                        .addComponent(Cancelar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(122, 122, 122)
+                        .addComponent(GuardarModem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel8))
-                                .addGap(8, 8, 8)))
-                        .addGap(34, 34, 34)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(79, 79, 79)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(CodigoModem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -146,76 +168,74 @@ public class ModificarModem extends javax.swing.JFrame {
                                 .addComponent(CostoModem)
                                 .addComponent(PrecioModem)
                                 .addComponent(NombreModem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(146, 146, 146))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(43, 43, 43)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CodigoModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel8)
+                    .addComponent(CodigoModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(NombreModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(NombreModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(ProveedorModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(ProveedorModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(DisponibilidadModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CostoModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel5)
+                    .addComponent(CostoModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PrecioModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel6)
+                    .addComponent(PrecioModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(activoModem)
                     .addComponent(inactivoModem)
                     .addComponent(jLabel7))
-                .addGap(53, 53, 53)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GuardarModem)
-                    .addComponent(Cancelar))
-                .addGap(22, 22, 22))
+                    .addComponent(GuardarModem, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /* Método que guarda el modem modificado al presionar el botón. Busca en la BD
-       el modem seleccionado en la tabla, imprime los datos en la ventana y guarda
-       nuevamente el objeto de tipo UsbModem en la base de datos.
-       Entrada: evento del botón
-       Salida: ---    
-    */
     private void GuardarModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarModemActionPerformed
         long cod = Long.parseLong(CodigoModem.getText());
         UsbModem um = null;
         try {
             um = lum.consultarModemCodigo(cod);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            Logger.getLogger(ModificarModem.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if(NombreModem.getText().equals("")){
@@ -253,55 +273,42 @@ public class ModificarModem extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GuardarModemActionPerformed
 
-    /* Método para cerrar la ventana y descartar cualquier cambio
-       al presionar el botón
-       Entrada: evento del botón
-       Salida: ---
-    */
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
-    /* Método para mostrar los datos del modem seleccionado en la ventana de
-       modificación. Realiza una consulta en la BD con el código del objeto.
-       Entrada: código de tipo Long del usbmodem
-       Salida: ---
-    
-    */
     private void llenarCampos(Long cod){
         UsbModem um = null;
         try {
             um = lum.consultarModemCodigo(cod);
-            
-            CodigoModem.setText(um.getCodigomodem()+"");
-        
-            NombreModem.setText(um.getNombremodem());
-
-            for (int i = 0; i < ProveedorModem.getItemCount(); i++) {
-                if(ProveedorModem.getItemAt(i).equals(um.getProveedor())){
-                    ProveedorModem.setSelectedIndex(i);
-                }
-            }
-
-            for (int i = 0; i < DisponibilidadModem.getItemCount(); i++) {
-                if(DisponibilidadModem.getItemAt(i).toString().equals(um.getDisponibilidad())){
-                    DisponibilidadModem.setSelectedIndex(i);
-                }
-            }
-
-            CostoModem.setText(um.getCostodia()+"");
-            PrecioModem.setText(um.getPreciodia()+"");
-
-            if(um.getEstadousbmodem()){
-                activoModem.setSelected(true);
-            }else{
-                inactivoModem.setSelected(true);
-            }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            Logger.getLogger(ModificarModem.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        CodigoModem.setText(um.getCodigomodem()+"");
         
+        NombreModem.setText(um.getNombremodem());
+        
+        for (int i = 0; i < ProveedorModem.getItemCount(); i++) {
+            if(ProveedorModem.getItemAt(i).equals(um.getProveedor())){
+                ProveedorModem.setSelectedIndex(i);
+            }
+        }
+        
+        for (int i = 0; i < DisponibilidadModem.getItemCount(); i++) {
+            if(DisponibilidadModem.getItemAt(i).toString().equals(um.getDisponibilidad())){
+                DisponibilidadModem.setSelectedIndex(i);
+            }
+        }
+       
+        CostoModem.setText(um.getCostodia()+"");
+        PrecioModem.setText(um.getPreciodia()+"");
+        
+        if(um.getEstadousbmodem()){
+            activoModem.setSelected(true);
+        }else{
+            inactivoModem.setSelected(true);
+        }
                 
     }
 

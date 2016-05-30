@@ -33,7 +33,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         this.setTitle("Ricardo Jorge Cabinas - Vendedor");
         this.setResizable(false);
         this.usuarioActivo=usuarioActivo;
-        
         llenarTablaClientes(lc.consultarClientes());
         lp.consultarPromociones();
 
@@ -51,366 +50,117 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        botonAtras = new javax.swing.JButton();
         jTabbedPaneVistaVendedor = new javax.swing.JTabbedPane();
         panelRegistrarVenta = new javax.swing.JPanel();
         panelAlquilarModem = new javax.swing.JPanel();
+        panelClientesVendedor = new javax.swing.JPanel();
+        botonModificarCliente = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaClientes = new javax.swing.JTable();
+        campoConsultaCliente = new javax.swing.JTextField();
+        botonConsultarCliente = new javax.swing.JButton();
+        botonAgregarCliente = new javax.swing.JButton();
+        botonEstadoCliente = new javax.swing.JButton();
+        botonActualizarTablaClientes = new javax.swing.JButton();
+        jLabelBusqueda = new javax.swing.JLabel();
+        labeltituloCliente1 = new javax.swing.JLabel();
         panelPlanes = new javax.swing.JPanel();
         labeltituloPlanes = new javax.swing.JLabel();
-        campoConsultaPlanes = new javax.swing.JTextField();
         botonConsultarPlanes = new javax.swing.JButton();
         botonInactivarPlan = new javax.swing.JButton();
         botonModificarPlan = new javax.swing.JButton();
         botonAgregarPlan = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaPlanes = new javax.swing.JTable();
-        botonRecargarPlan = new javax.swing.JButton();
+        botonActualizarTablaPlan = new javax.swing.JButton();
+        jLabelBusqueda1 = new javax.swing.JLabel();
+        campoConsultaPlanes = new javax.swing.JTextField();
         panelModems = new javax.swing.JPanel();
         labeltituloModems = new javax.swing.JLabel();
-        campoConsultaModems = new javax.swing.JTextField();
         botonConsultarModem = new javax.swing.JButton();
         botonCambiarEstadoModem = new javax.swing.JButton();
         botonModificarModem = new javax.swing.JButton();
         botonAgregarModem = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaModems = new javax.swing.JTable();
-        ActualizarTablaModems = new javax.swing.JButton();
-        panelUsurios = new javax.swing.JPanel();
-        botonAgregarUsuario = new javax.swing.JButton();
-        botonModificarUsuario = new javax.swing.JButton();
-        botonInactivarUsuario = new javax.swing.JButton();
-        botonConsultarUsuario = new javax.swing.JButton();
-        campoConsultaUsuario = new javax.swing.JTextField();
-        labeltituloUsuario = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaUsuarios = new javax.swing.JTable();
-        panelClientesVendedor = new javax.swing.JPanel();
-        botonModificarCliente = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaClientes = new javax.swing.JTable();
-        campoConsultaCliente = new javax.swing.JTextField();
-        labeltituloCliente = new javax.swing.JLabel();
-        botonConsultarCliente = new javax.swing.JButton();
-        botonAgregarCliente = new javax.swing.JButton();
+        botonActualizarTablaModems = new javax.swing.JButton();
+        jLabelBusqueda2 = new javax.swing.JLabel();
+        campoConsultaModems = new javax.swing.JTextField();
         panelPromociones = new javax.swing.JPanel();
         labeltituloPromociones = new javax.swing.JLabel();
-        campoConsultaPromociones = new javax.swing.JTextField();
         botonConsultarPromociones = new javax.swing.JButton();
         botonInactivarPromocion = new javax.swing.JButton();
         botonAgregarPromocion = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaPromociones = new javax.swing.JTable();
+        jLabelBusqueda3 = new javax.swing.JLabel();
+        botonActualizarTablaPromo = new javax.swing.JButton();
+        campoConsultaPromociones = new javax.swing.JTextField();
         panelReportes = new javax.swing.JPanel();
-        botonAtras = new javax.swing.JButton();
+        panelUsurios = new javax.swing.JPanel();
+        botonAgregarUsuario = new javax.swing.JButton();
+        botonModificarUsuario = new javax.swing.JButton();
+        botonInactivarUsuario = new javax.swing.JButton();
+        botonConsultarUsuario = new javax.swing.JButton();
+        labeltituloUsuario = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaUsuarios = new javax.swing.JTable();
+        jLabelBusqueda4 = new javax.swing.JLabel();
+        botonActualizarTablaUsuarios = new javax.swing.JButton();
+        campoConsultaUsuario = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(700, 500));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(900, 560));
+        setResizable(false);
+        setSize(new java.awt.Dimension(900, 560));
 
+        botonAtras.setBackground(new java.awt.Color(255, 255, 255));
+        botonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/salir.png"))); // NOI18N
+        botonAtras.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonAtras.setBorderPainted(false);
+        botonAtras.setContentAreaFilled(false);
+        botonAtras.setOpaque(true);
+        botonAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAtrasActionPerformed(evt);
+            }
+        });
+
+        jTabbedPaneVistaVendedor.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPaneVistaVendedor.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPaneVistaVendedor.setOpaque(true);
+        jTabbedPaneVistaVendedor.setPreferredSize(new java.awt.Dimension(900, 470));
+
+        panelRegistrarVenta.setBackground(new java.awt.Color(255, 255, 255));
         panelRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPaneVistaVendedor.addTab("Venta Minutos", panelRegistrarVenta);
-        jTabbedPaneVistaVendedor.addTab("Alquilar Modem", panelAlquilarModem);
 
-        labeltituloPlanes.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labeltituloPlanes.setForeground(new java.awt.Color(255, 255, 255));
-        labeltituloPlanes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltituloPlanes.setText("PLANES");
+        panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/ventas.png")), panelAlquilarModem); // NOI18N
 
-        botonConsultarPlanes.setText("Consultar");
-        botonConsultarPlanes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonConsultarPlanesActionPerformed(evt);
-            }
-        });
-
-        botonInactivarPlan.setText("Inactivar");
-        botonInactivarPlan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonInactivarPlanActionPerformed(evt);
-            }
-        });
-
-        botonModificarPlan.setText("Modificar");
-        botonModificarPlan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarPlanActionPerformed(evt);
-            }
-        });
-
-        botonAgregarPlan.setText("Agregar");
-        botonAgregarPlan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAgregarPlanActionPerformed(evt);
-            }
-        });
-
-        tablaPlanes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane5.setViewportView(tablaPlanes);
-
-        botonRecargarPlan.setText("Recargar");
-        botonRecargarPlan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRecargarPlanActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelPlanesLayout = new javax.swing.GroupLayout(panelPlanes);
-        panelPlanes.setLayout(panelPlanesLayout);
-        panelPlanesLayout.setHorizontalGroup(
-            panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlanesLayout.createSequentialGroup()
-                .addGap(0, 60, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
-            .addGroup(panelPlanesLayout.createSequentialGroup()
-                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPlanesLayout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPlanesLayout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(botonConsultarPlanes))
-                    .addGroup(panelPlanesLayout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(botonAgregarPlan)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonModificarPlan)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonInactivarPlan)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonRecargarPlan)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelPlanesLayout.setVerticalGroup(
-            panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPlanesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonConsultarPlanes))
-                .addGap(12, 12, 12)
-                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAgregarPlan)
-                    .addComponent(botonModificarPlan)
-                    .addComponent(botonInactivarPlan)
-                    .addComponent(botonRecargarPlan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jTabbedPaneVistaVendedor.addTab("Planes", panelPlanes);
-
-        labeltituloModems.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labeltituloModems.setForeground(new java.awt.Color(255, 255, 255));
-        labeltituloModems.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltituloModems.setText("MODEMS");
-
-        botonConsultarModem.setText("Consultar");
-        botonConsultarModem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonConsultarModemActionPerformed(evt);
-            }
-        });
-
-        botonCambiarEstadoModem.setText("Cambiar Estado");
-        botonCambiarEstadoModem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCambiarEstadoModemActionPerformed(evt);
-            }
-        });
-
-        botonModificarModem.setText("Modificar");
-        botonModificarModem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarModemActionPerformed(evt);
-            }
-        });
-
-        botonAgregarModem.setText("Agregar");
-        botonAgregarModem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAgregarModemActionPerformed(evt);
-            }
-        });
-
-        tablaModems.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane4.setViewportView(tablaModems);
-
-        ActualizarTablaModems.setText("Actualizar");
-        ActualizarTablaModems.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ActualizarTablaModemsActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelModemsLayout = new javax.swing.GroupLayout(panelModems);
-        panelModems.setLayout(panelModemsLayout);
-        panelModemsLayout.setHorizontalGroup(
-            panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModemsLayout.createSequentialGroup()
-                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelModemsLayout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(labeltituloModems, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelModemsLayout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(campoConsultaModems, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(botonConsultarModem))
-                    .addGroup(panelModemsLayout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(botonAgregarModem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonModificarModem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonCambiarEstadoModem)
-                        .addGap(113, 113, 113)
-                        .addComponent(ActualizarTablaModems))
-                    .addGroup(panelModemsLayout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60))
-        );
-        panelModemsLayout.setVerticalGroup(
-            panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModemsLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labeltituloModems, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoConsultaModems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonConsultarModem))
-                .addGap(12, 12, 12)
-                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonModificarModem)
-                    .addComponent(botonAgregarModem)
-                    .addComponent(botonCambiarEstadoModem)
-                    .addComponent(ActualizarTablaModems))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jTabbedPaneVistaVendedor.addTab("Modems", panelModems);
-
-        botonAgregarUsuario.setText("Agregar");
-        botonAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAgregarUsuarioActionPerformed(evt);
-            }
-        });
-
-        botonModificarUsuario.setText("Modificar");
-        botonModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarUsuarioActionPerformed(evt);
-            }
-        });
-
-        botonInactivarUsuario.setText("Inactivar");
-        botonInactivarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonInactivarUsuarioActionPerformed(evt);
-            }
-        });
-
-        botonConsultarUsuario.setText("Consultar");
-        botonConsultarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonConsultarUsuarioActionPerformed(evt);
-            }
-        });
-
-        labeltituloUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labeltituloUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        labeltituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltituloUsuario.setText("USUARIOS");
-
-        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane3.setViewportView(tablaUsuarios);
-
-        javax.swing.GroupLayout panelUsuriosLayout = new javax.swing.GroupLayout(panelUsurios);
-        panelUsurios.setLayout(panelUsuriosLayout);
-        panelUsuriosLayout.setHorizontalGroup(
-            panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelUsuriosLayout.createSequentialGroup()
-                .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelUsuriosLayout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(labeltituloUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelUsuriosLayout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(campoConsultaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(botonConsultarUsuario))
-                    .addGroup(panelUsuriosLayout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(botonAgregarUsuario)
-                        .addGap(11, 11, 11)
-                        .addComponent(botonModificarUsuario)
-                        .addGap(13, 13, 13)
-                        .addComponent(botonInactivarUsuario))
-                    .addGroup(panelUsuriosLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(58, 58, 58))
-        );
-        panelUsuriosLayout.setVerticalGroup(
-            panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelUsuriosLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labeltituloUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoConsultaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonConsultarUsuario))
-                .addGap(12, 12, 12)
-                .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonAgregarUsuario)
-                    .addComponent(botonModificarUsuario)
-                    .addComponent(botonInactivarUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jTabbedPaneVistaVendedor.addTab("Usuarios", panelUsurios);
-
+        panelClientesVendedor.setBackground(new java.awt.Color(255, 255, 255));
         panelClientesVendedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        botonModificarCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonModificarCliente.setForeground(new java.awt.Color(162, 146, 146));
+        botonModificarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/editar.png"))); // NOI18N
         botonModificarCliente.setText("Modificar");
+        botonModificarCliente.setBorderPainted(false);
+        botonModificarCliente.setContentAreaFilled(false);
         botonModificarCliente.setEnabled(false);
+        botonModificarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonModificarCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botonModificarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonModificarClienteActionPerformed(evt);
             }
         });
-        panelClientesVendedor.add(botonModificarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
+        panelClientesVendedor.add(botonModificarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, -1));
 
+        tablaClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -427,54 +177,387 @@ public class VistaAdministrador extends javax.swing.JFrame{
         });
         jScrollPane2.setViewportView(tablaClientes);
 
-        panelClientesVendedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 603, 260));
-        panelClientesVendedor.add(campoConsultaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 180, -1));
+        panelClientesVendedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 700, 170));
+        panelClientesVendedor.add(campoConsultaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 300, 25));
 
-        labeltituloCliente.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labeltituloCliente.setForeground(new java.awt.Color(255, 255, 255));
-        labeltituloCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltituloCliente.setText("CLIENTES");
-        panelClientesVendedor.add(labeltituloCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 150, 40));
-
-        botonConsultarCliente.setText("Consultar");
+        botonConsultarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        botonConsultarCliente.setBorderPainted(false);
+        botonConsultarCliente.setContentAreaFilled(false);
         botonConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonConsultarClienteActionPerformed(evt);
             }
         });
-        panelClientesVendedor.add(botonConsultarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
+        panelClientesVendedor.add(botonConsultarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 40, 40));
 
-        botonAgregarCliente.setText("Agregar");
+        botonAgregarCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAgregarCliente.setForeground(new java.awt.Color(162, 146, 146));
+        botonAgregarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
+        botonAgregarCliente.setText("Registrar");
+        botonAgregarCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonAgregarCliente.setBorderPainted(false);
+        botonAgregarCliente.setContentAreaFilled(false);
+        botonAgregarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarCliente.setMaximumSize(new java.awt.Dimension(61, 75));
+        botonAgregarCliente.setMinimumSize(new java.awt.Dimension(61, 75));
+        botonAgregarCliente.setPreferredSize(new java.awt.Dimension(80, 75));
+        botonAgregarCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botonAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarClienteActionPerformed(evt);
             }
         });
-        panelClientesVendedor.add(botonAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
+        panelClientesVendedor.add(botonAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 90, -1));
 
-        jTabbedPaneVistaVendedor.addTab(" Clientes", panelClientesVendedor);
+        botonEstadoCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonEstadoCliente.setForeground(new java.awt.Color(162, 146, 146));
+        botonEstadoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/inactivar.png"))); // NOI18N
+        botonEstadoCliente.setText("Cambiar Estado");
+        botonEstadoCliente.setBorderPainted(false);
+        botonEstadoCliente.setContentAreaFilled(false);
+        botonEstadoCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonEstadoCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        panelClientesVendedor.add(botonEstadoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, -1, -1));
 
-        labeltituloPromociones.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labeltituloPromociones.setForeground(new java.awt.Color(255, 255, 255));
+        botonActualizarTablaClientes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonActualizarTablaClientes.setForeground(new java.awt.Color(162, 146, 146));
+        botonActualizarTablaClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/actualizar.png"))); // NOI18N
+        botonActualizarTablaClientes.setText("Actualizar");
+        botonActualizarTablaClientes.setBorderPainted(false);
+        botonActualizarTablaClientes.setContentAreaFilled(false);
+        botonActualizarTablaClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonActualizarTablaClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        panelClientesVendedor.add(botonActualizarTablaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, -1));
+
+        jLabelBusqueda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelBusqueda.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelBusqueda.setText("Búsqueda:");
+        panelClientesVendedor.add(jLabelBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+
+        labeltituloCliente1.setBackground(new java.awt.Color(254, 254, 254));
+        labeltituloCliente1.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloCliente1.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloCliente1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloCliente1.setText("Clientes");
+        panelClientesVendedor.add(labeltituloCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 110, 40));
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/cliente.png")), panelClientesVendedor); // NOI18N
+
+        panelPlanes.setBackground(new java.awt.Color(255, 255, 255));
+
+        labeltituloPlanes.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloPlanes.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloPlanes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloPlanes.setText("Planes");
+
+        botonConsultarPlanes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        botonConsultarPlanes.setBorderPainted(false);
+        botonConsultarPlanes.setContentAreaFilled(false);
+        botonConsultarPlanes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarPlanesActionPerformed(evt);
+            }
+        });
+
+        botonInactivarPlan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonInactivarPlan.setForeground(new java.awt.Color(162, 146, 146));
+        botonInactivarPlan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/inactivar.png"))); // NOI18N
+        botonInactivarPlan.setText("Cambiar Estado");
+        botonInactivarPlan.setBorderPainted(false);
+        botonInactivarPlan.setContentAreaFilled(false);
+        botonInactivarPlan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonInactivarPlan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonInactivarPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInactivarPlanActionPerformed(evt);
+            }
+        });
+
+        botonModificarPlan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonModificarPlan.setForeground(new java.awt.Color(162, 146, 146));
+        botonModificarPlan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/editar.png"))); // NOI18N
+        botonModificarPlan.setText("Modificar");
+        botonModificarPlan.setBorderPainted(false);
+        botonModificarPlan.setContentAreaFilled(false);
+        botonModificarPlan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonModificarPlan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonModificarPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarPlanActionPerformed(evt);
+            }
+        });
+
+        botonAgregarPlan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAgregarPlan.setForeground(new java.awt.Color(162, 146, 146));
+        botonAgregarPlan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
+        botonAgregarPlan.setText("Registrar");
+        botonAgregarPlan.setBorderPainted(false);
+        botonAgregarPlan.setContentAreaFilled(false);
+        botonAgregarPlan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarPlan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonAgregarPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarPlanActionPerformed(evt);
+            }
+        });
+
+        tablaPlanes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(tablaPlanes);
+
+        botonActualizarTablaPlan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonActualizarTablaPlan.setForeground(new java.awt.Color(162, 146, 146));
+        botonActualizarTablaPlan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/actualizar.png"))); // NOI18N
+        botonActualizarTablaPlan.setText("Actualizar");
+        botonActualizarTablaPlan.setBorderPainted(false);
+        botonActualizarTablaPlan.setContentAreaFilled(false);
+        botonActualizarTablaPlan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonActualizarTablaPlan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaPlanActionPerformed(evt);
+            }
+        });
+
+        jLabelBusqueda1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelBusqueda1.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelBusqueda1.setText("Búsqueda");
+
+        javax.swing.GroupLayout panelPlanesLayout = new javax.swing.GroupLayout(panelPlanes);
+        panelPlanes.setLayout(panelPlanesLayout);
+        panelPlanesLayout.setHorizontalGroup(
+            panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPlanesLayout.createSequentialGroup()
+                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPlanesLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(botonAgregarPlan)
+                        .addGap(72, 72, 72)
+                        .addComponent(botonModificarPlan)
+                        .addGap(64, 64, 64)
+                        .addComponent(botonInactivarPlan)
+                        .addGap(59, 59, 59)
+                        .addComponent(botonActualizarTablaPlan))
+                    .addGroup(panelPlanesLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelPlanesLayout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabelBusqueda1)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonConsultarPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        panelPlanesLayout.setVerticalGroup(
+            panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlanesLayout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelBusqueda1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonConsultarPlanes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonModificarPlan, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonAgregarPlan, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonInactivarPlan, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonActualizarTablaPlan, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(33, 33, 33))
+        );
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/plan.png")), panelPlanes); // NOI18N
+
+        panelModems.setBackground(new java.awt.Color(255, 255, 255));
+
+        labeltituloModems.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloModems.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloModems.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloModems.setText("Modems");
+
+        botonConsultarModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        botonConsultarModem.setBorderPainted(false);
+        botonConsultarModem.setContentAreaFilled(false);
+        botonConsultarModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarModemActionPerformed(evt);
+            }
+        });
+
+        botonCambiarEstadoModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonCambiarEstadoModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonCambiarEstadoModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/inactivar.png"))); // NOI18N
+        botonCambiarEstadoModem.setText("Cambiar Estado");
+        botonCambiarEstadoModem.setBorderPainted(false);
+        botonCambiarEstadoModem.setContentAreaFilled(false);
+        botonCambiarEstadoModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonCambiarEstadoModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonCambiarEstadoModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCambiarEstadoModemActionPerformed(evt);
+            }
+        });
+
+        botonModificarModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonModificarModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonModificarModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/editar.png"))); // NOI18N
+        botonModificarModem.setText("Modificar");
+        botonModificarModem.setBorderPainted(false);
+        botonModificarModem.setContentAreaFilled(false);
+        botonModificarModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonModificarModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonModificarModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarModemActionPerformed(evt);
+            }
+        });
+
+        botonAgregarModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAgregarModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonAgregarModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
+        botonAgregarModem.setText("Registrar");
+        botonAgregarModem.setBorderPainted(false);
+        botonAgregarModem.setContentAreaFilled(false);
+        botonAgregarModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonAgregarModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarModemActionPerformed(evt);
+            }
+        });
+
+        tablaModems.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(tablaModems);
+
+        botonActualizarTablaModems.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonActualizarTablaModems.setForeground(new java.awt.Color(162, 146, 146));
+        botonActualizarTablaModems.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/actualizar.png"))); // NOI18N
+        botonActualizarTablaModems.setText("Actualizar");
+        botonActualizarTablaModems.setBorderPainted(false);
+        botonActualizarTablaModems.setContentAreaFilled(false);
+        botonActualizarTablaModems.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonActualizarTablaModems.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaModems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaModemsActionPerformed(evt);
+            }
+        });
+
+        jLabelBusqueda2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelBusqueda2.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelBusqueda2.setText("Búsqueda");
+
+        javax.swing.GroupLayout panelModemsLayout = new javax.swing.GroupLayout(panelModems);
+        panelModems.setLayout(panelModemsLayout);
+        panelModemsLayout.setHorizontalGroup(
+            panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModemsLayout.createSequentialGroup()
+                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelModemsLayout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(botonAgregarModem)
+                        .addGap(74, 74, 74)
+                        .addComponent(botonModificarModem)
+                        .addGap(62, 62, 62)
+                        .addComponent(botonCambiarEstadoModem)
+                        .addGap(61, 61, 61)
+                        .addComponent(botonActualizarTablaModems))
+                    .addGroup(panelModemsLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabelBusqueda2)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoConsultaModems, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonConsultarModem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelModemsLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labeltituloModems, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        panelModemsLayout.setVerticalGroup(
+            panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModemsLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campoConsultaModems, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelBusqueda2)
+                    .addComponent(botonConsultarModem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(labeltituloModems, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonActualizarTablaModems, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonModificarModem, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonAgregarModem, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonCambiarEstadoModem, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(33, 33, 33))
+        );
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/modem.png")), panelModems); // NOI18N
+
+        panelPromociones.setBackground(new java.awt.Color(255, 255, 255));
+
+        labeltituloPromociones.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloPromociones.setForeground(new java.awt.Color(162, 146, 146));
         labeltituloPromociones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltituloPromociones.setText("PROMOCIONES");
+        labeltituloPromociones.setText("Promociones");
 
-        botonConsultarPromociones.setText("Consultar");
+        botonConsultarPromociones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        botonConsultarPromociones.setBorderPainted(false);
+        botonConsultarPromociones.setContentAreaFilled(false);
         botonConsultarPromociones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonConsultarPromocionesActionPerformed(evt);
             }
         });
 
+        botonInactivarPromocion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonInactivarPromocion.setForeground(new java.awt.Color(162, 146, 146));
+        botonInactivarPromocion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/inactivar.png"))); // NOI18N
         botonInactivarPromocion.setText("Inactivar");
+        botonInactivarPromocion.setBorderPainted(false);
+        botonInactivarPromocion.setContentAreaFilled(false);
         botonInactivarPromocion.setEnabled(false);
+        botonInactivarPromocion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonInactivarPromocion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botonInactivarPromocion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonInactivarPromocionActionPerformed(evt);
             }
         });
 
+        botonAgregarPromocion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAgregarPromocion.setForeground(new java.awt.Color(162, 146, 146));
+        botonAgregarPromocion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
         botonAgregarPromocion.setText("Agregar");
+        botonAgregarPromocion.setBorderPainted(false);
+        botonAgregarPromocion.setContentAreaFilled(false);
+        botonAgregarPromocion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarPromocion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         botonAgregarPromocion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarPromocionActionPerformed(evt);
@@ -496,6 +579,19 @@ public class VistaAdministrador extends javax.swing.JFrame{
         });
         jScrollPane6.setViewportView(tablaPromociones);
 
+        jLabelBusqueda3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelBusqueda3.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelBusqueda3.setText("Búsqueda");
+
+        botonActualizarTablaPromo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonActualizarTablaPromo.setForeground(new java.awt.Color(162, 146, 146));
+        botonActualizarTablaPromo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/actualizar.png"))); // NOI18N
+        botonActualizarTablaPromo.setText("Actualizar");
+        botonActualizarTablaPromo.setBorderPainted(false);
+        botonActualizarTablaPromo.setContentAreaFilled(false);
+        botonActualizarTablaPromo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonActualizarTablaPromo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout panelPromocionesLayout = new javax.swing.GroupLayout(panelPromociones);
         panelPromociones.setLayout(panelPromocionesLayout);
         panelPromocionesLayout.setHorizontalGroup(
@@ -503,85 +599,225 @@ public class VistaAdministrador extends javax.swing.JFrame{
             .addGroup(panelPromocionesLayout.createSequentialGroup()
                 .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPromocionesLayout.createSequentialGroup()
-                        .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panelPromocionesLayout.createSequentialGroup()
-                                .addGap(263, 263, 263)
-                                .addComponent(botonAgregarPromocion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonInactivarPromocion))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPromocionesLayout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(campoConsultaPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20)
-                        .addComponent(botonConsultarPromociones))
+                        .addGap(151, 151, 151)
+                        .addComponent(botonAgregarPromocion)
+                        .addGap(90, 90, 90)
+                        .addComponent(botonInactivarPromocion)
+                        .addGap(90, 90, 90)
+                        .addComponent(botonActualizarTablaPromo))
                     .addGroup(panelPromocionesLayout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPromocionesLayout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(61, 61, 61))
+                        .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPromocionesLayout.createSequentialGroup()
+                                .addComponent(jLabelBusqueda3)
+                                .addGap(31, 31, 31)
+                                .addComponent(campoConsultaPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonConsultarPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         panelPromocionesLayout.setVerticalGroup(
             panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPromocionesLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPromocionesLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(botonConsultarPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPromocionesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelBusqueda3)
+                            .addComponent(campoConsultaPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
                 .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoConsultaPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonConsultarPromociones))
-                .addGap(12, 12, 12)
-                .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonInactivarPromocion)
-                    .addComponent(botonAgregarPromocion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(botonInactivarPromocion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonAgregarPromocion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonActualizarTablaPromo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(40, 40, 40))
         );
 
-        jTabbedPaneVistaVendedor.addTab("Promociones", panelPromociones);
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/promo.png")), panelPromociones); // NOI18N
+
+        panelReportes.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelReportesLayout = new javax.swing.GroupLayout(panelReportes);
         panelReportes.setLayout(panelReportesLayout);
         panelReportesLayout.setHorizontalGroup(
             panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGap(0, 808, Short.MAX_VALUE)
         );
         panelReportesLayout.setVerticalGroup(
             panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
 
-        jTabbedPaneVistaVendedor.addTab("Reportes", panelReportes);
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/reporte.png")), panelReportes); // NOI18N
 
-        botonAtras.setText("Menu Inicio");
-        botonAtras.addActionListener(new java.awt.event.ActionListener() {
+        panelUsurios.setBackground(new java.awt.Color(255, 255, 255));
+
+        botonAgregarUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAgregarUsuario.setForeground(new java.awt.Color(162, 146, 146));
+        botonAgregarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
+        botonAgregarUsuario.setText("Agregar");
+        botonAgregarUsuario.setBorderPainted(false);
+        botonAgregarUsuario.setContentAreaFilled(false);
+        botonAgregarUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAtrasActionPerformed(evt);
+                botonAgregarUsuarioActionPerformed(evt);
             }
         });
+
+        botonModificarUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonModificarUsuario.setForeground(new java.awt.Color(162, 146, 146));
+        botonModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/editar.png"))); // NOI18N
+        botonModificarUsuario.setText("Modificar");
+        botonModificarUsuario.setBorderPainted(false);
+        botonModificarUsuario.setContentAreaFilled(false);
+        botonModificarUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonModificarUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarUsuarioActionPerformed(evt);
+            }
+        });
+
+        botonInactivarUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonInactivarUsuario.setForeground(new java.awt.Color(162, 146, 146));
+        botonInactivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/inactivar.png"))); // NOI18N
+        botonInactivarUsuario.setText("Inactivar");
+        botonInactivarUsuario.setBorderPainted(false);
+        botonInactivarUsuario.setContentAreaFilled(false);
+        botonInactivarUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonInactivarUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonInactivarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInactivarUsuarioActionPerformed(evt);
+            }
+        });
+
+        botonConsultarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        botonConsultarUsuario.setBorderPainted(false);
+        botonConsultarUsuario.setContentAreaFilled(false);
+        botonConsultarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarUsuarioActionPerformed(evt);
+            }
+        });
+
+        labeltituloUsuario.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloUsuario.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloUsuario.setText("Usuarios");
+
+        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tablaUsuarios);
+
+        jLabelBusqueda4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelBusqueda4.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelBusqueda4.setText("Búsqueda");
+
+        botonActualizarTablaUsuarios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonActualizarTablaUsuarios.setForeground(new java.awt.Color(162, 146, 146));
+        botonActualizarTablaUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/actualizar.png"))); // NOI18N
+        botonActualizarTablaUsuarios.setText("Actualizar");
+        botonActualizarTablaUsuarios.setBorderPainted(false);
+        botonActualizarTablaUsuarios.setContentAreaFilled(false);
+        botonActualizarTablaUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonActualizarTablaUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout panelUsuriosLayout = new javax.swing.GroupLayout(panelUsurios);
+        panelUsurios.setLayout(panelUsuriosLayout);
+        panelUsuriosLayout.setHorizontalGroup(
+            panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUsuriosLayout.createSequentialGroup()
+                .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelUsuriosLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labeltituloUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelUsuriosLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabelBusqueda4)
+                        .addGap(32, 32, 32)
+                        .addComponent(campoConsultaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonConsultarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelUsuriosLayout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(botonAgregarUsuario)
+                        .addGap(67, 67, 67)
+                        .addComponent(botonModificarUsuario)
+                        .addGap(79, 79, 79)
+                        .addComponent(botonInactivarUsuario)
+                        .addGap(67, 67, 67)
+                        .addComponent(botonActualizarTablaUsuarios)))
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        panelUsuriosLayout.setVerticalGroup(
+            panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelUsuriosLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelBusqueda4)
+                        .addComponent(campoConsultaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonConsultarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(labeltituloUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonModificarUsuario)
+                    .addComponent(botonAgregarUsuario)
+                    .addComponent(botonInactivarUsuario)
+                    .addComponent(botonActualizarTablaUsuarios))
+                .addGap(392, 392, 392))
+        );
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/usuario.png")), panelUsurios); // NOI18N
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Cabinas Ricardo Jorge");
+        jLabel1.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPaneVistaVendedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonAtras)
-                .addGap(25, 25, 25))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPaneVistaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(botonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPaneVistaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPaneVistaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonAtras)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -627,18 +863,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
         botonInactivarPromocion.setEnabled(false);
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
-
-    /*
-        Metodo para buscar mostrar la venana de agregar cliente
-        Entrada: evento del boton
-        Salida: --
-    */
-    private void botonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarClienteActionPerformed
-         AgregarCliente ac = new AgregarCliente(this, true);
-         ac.setVisible(true);
-         llenarTablaClientes(lc.consultarClientes());
-         botonModificarCliente.setEnabled(false);
-    }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
     /*
         Metodo para buscar clientes
@@ -874,14 +1098,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
        Entrada: evento del boton
        Salida: ---
     */
-    private void ActualizarTablaModemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarTablaModemsActionPerformed
+    private void botonActualizarTablaModemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaModemsActionPerformed
        List<UsbModem> modems = lum.consultarModems();
        llenarTablaModems(modems);
-    }//GEN-LAST:event_ActualizarTablaModemsActionPerformed
+    }//GEN-LAST:event_botonActualizarTablaModemsActionPerformed
 
-    private void botonRecargarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarPlanActionPerformed
+    private void botonActualizarTablaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPlanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonRecargarPlanActionPerformed
+    }//GEN-LAST:event_botonActualizarTablaPlanActionPerformed
 
     private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
         botonModificarCliente.setEnabled(true);
@@ -890,6 +1114,18 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void tablaPromocionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPromocionesMouseClicked
         botonInactivarPromocion.setEnabled(true);
     }//GEN-LAST:event_tablaPromocionesMouseClicked
+
+    /*
+        Metodo para buscar mostrar la venana de agregar cliente
+        Entrada: evento del boton
+        Salida: --
+    */
+    private void botonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarClienteActionPerformed
+        AgregarCliente ac = new AgregarCliente(this, true);
+        ac.setVisible(true);
+        llenarTablaClientes(lc.consultarClientes());
+        botonModificarCliente.setEnabled(false);
+    }//GEN-LAST:event_botonAgregarClienteActionPerformed
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -1097,7 +1333,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ActualizarTablaModems;
+    private javax.swing.JButton botonActualizarTablaClientes;
+    private javax.swing.JButton botonActualizarTablaModems;
+    private javax.swing.JButton botonActualizarTablaPlan;
+    private javax.swing.JButton botonActualizarTablaPromo;
+    private javax.swing.JButton botonActualizarTablaUsuarios;
     private javax.swing.JButton botonAgregarCliente;
     private javax.swing.JButton botonAgregarModem;
     private javax.swing.JButton botonAgregarPlan;
@@ -1110,6 +1350,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
     private javax.swing.JButton botonConsultarUsuario;
+    private javax.swing.JButton botonEstadoCliente;
     private javax.swing.JButton botonInactivarPlan;
     private javax.swing.JButton botonInactivarPromocion;
     private javax.swing.JButton botonInactivarUsuario;
@@ -1117,12 +1358,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonModificarModem;
     private javax.swing.JButton botonModificarPlan;
     private javax.swing.JButton botonModificarUsuario;
-    private javax.swing.JButton botonRecargarPlan;
     private javax.swing.JTextField campoConsultaCliente;
     private javax.swing.JTextField campoConsultaModems;
     private javax.swing.JTextField campoConsultaPlanes;
     private javax.swing.JTextField campoConsultaPromociones;
     private javax.swing.JTextField campoConsultaUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelBusqueda;
+    private javax.swing.JLabel jLabelBusqueda1;
+    private javax.swing.JLabel jLabelBusqueda2;
+    private javax.swing.JLabel jLabelBusqueda3;
+    private javax.swing.JLabel jLabelBusqueda4;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1131,7 +1377,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPaneVistaVendedor;
-    private javax.swing.JLabel labeltituloCliente;
+    private javax.swing.JLabel labeltituloCliente1;
     private javax.swing.JLabel labeltituloModems;
     private javax.swing.JLabel labeltituloPlanes;
     private javax.swing.JLabel labeltituloPromociones;
