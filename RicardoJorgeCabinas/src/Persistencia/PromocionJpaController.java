@@ -13,22 +13,31 @@ import Modelo.Promocion;
 import Persistencia.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import static javax.persistence.Persistence.createEntityManagerFactory;
 
-/**
- *
- * @author Daniel
- */
+
 public class PromocionJpaController implements Serializable {
 
     public PromocionJpaController() 
     {
-        this.emf = Persistence.createEntityManagerFactory("RicardoJorgeCabinasPU");
+        this.emf = createEntityManagerFactory("RicardoJorgeCabinasPU");
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+    
+    /*
+        Metodo para realizar una búsqueda de promociones en su respectiva tabla de base de datos
+        Entrada: String con parámetros de búsqueda
+        Salida: List<Promocion> lista de promociones que coincidan con el parámetro ingresado
+    */
+    public List<Promocion> findPromocionDescripcion(String descripcion){
+        String consulta = "SELECT * FROM promocion WHERE descripcion LIKE '%"+descripcion+"%'";
+        EntityManager em = getEntityManager(); 
+        Query query = em.createNativeQuery(consulta,Promocion.class);
+        return query.getResultList();
     }
 
     public void create(Promocion promocion) {

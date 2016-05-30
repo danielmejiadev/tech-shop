@@ -25,95 +25,197 @@ public class RegistrarUsuario extends javax.swing.JDialog {
 
         campoCedulaUsuario9 = new javax.swing.JTextField();
         labelFondo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        botonCancelar = new javax.swing.JButton();
+        botonAgregarUsuario = new javax.swing.JButton();
+        labelTipo = new javax.swing.JLabel();
+        comboBoxTipoUsuario = new javax.swing.JComboBox<>();
+        combobEstadoUsuario = new javax.swing.JComboBox<>();
+        labelEstado = new javax.swing.JLabel();
+        labelCorreo = new javax.swing.JLabel();
+        campoCorreo = new javax.swing.JTextField();
+        campoTelefono = new javax.swing.JTextField();
+        labelTelefono = new javax.swing.JLabel();
+        labelContraseña = new javax.swing.JLabel();
+        campoContraseña = new javax.swing.JTextField();
+        labeltitulo = new javax.swing.JLabel();
+        campoCedulaUsuario = new javax.swing.JTextField();
         campoNombre = new javax.swing.JTextField();
+        campoDireccion = new javax.swing.JTextField();
         labelCedula = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
         labelDireccion = new javax.swing.JLabel();
-        labelContraseña = new javax.swing.JLabel();
-        labelTelefono = new javax.swing.JLabel();
-        botonAgregarUsuario = new javax.swing.JButton();
-        botonCancelar = new javax.swing.JButton();
-        comboBoxTipoUsuario = new javax.swing.JComboBox<String>();
-        combobEstadoUsuario = new javax.swing.JComboBox<String>();
-        labelTipo = new javax.swing.JLabel();
-        labelEstado = new javax.swing.JLabel();
-        labelCorreo = new javax.swing.JLabel();
-        labeltitulo = new javax.swing.JLabel();
-        campoCorreo = new javax.swing.JTextField();
-        campoTelefono = new javax.swing.JTextField();
-        campoContraseña = new javax.swing.JTextField();
-        campoDireccion = new javax.swing.JTextField();
-        labelFonodo = new javax.swing.JLabel();
-        campoCedulaUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(campoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 205, 30));
+        setPreferredSize(new java.awt.Dimension(500, 530));
 
-        labelCedula.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelCedula.setText("Cedula * ");
-        getContentPane().add(labelCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 530));
 
-        labelNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelNombre.setText("Nombre *");
-        getContentPane().add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
-
-        labelDireccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelDireccion.setText("Dirección");
-        getContentPane().add(labelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
-
-        labelContraseña.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelContraseña.setText("Contraseña *");
-        getContentPane().add(labelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
-
-        labelTelefono.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelTelefono.setText("Teléfono");
-        getContentPane().add(labelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
-
-        botonAgregarUsuario.setText("Guardar");
-        botonAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAgregarUsuarioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, -1));
-
+        botonCancelar.setBackground(new java.awt.Color(162, 146, 146));
+        botonCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonCancelar.setForeground(new java.awt.Color(255, 255, 255));
         botonCancelar.setText("Cancelar");
+        botonCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonCancelar.setContentAreaFilled(false);
+        botonCancelar.setOpaque(true);
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
 
-        comboBoxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "vendedor", "administrador" }));
-        getContentPane().add(comboBoxTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 205, -1));
+        botonAgregarUsuario.setBackground(new java.awt.Color(162, 146, 146));
+        botonAgregarUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAgregarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        botonAgregarUsuario.setText("Guardar");
+        botonAgregarUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonAgregarUsuario.setContentAreaFilled(false);
+        botonAgregarUsuario.setOpaque(true);
+        botonAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarUsuarioActionPerformed(evt);
+            }
+        });
 
-        combobEstadoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "activo", "inactivo" }));
-        getContentPane().add(combobEstadoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 205, 30));
-
-        labelTipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelTipo.setForeground(new java.awt.Color(162, 146, 146));
         labelTipo.setText("Tipo  *");
-        getContentPane().add(labelTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
-        labelEstado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        comboBoxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Administrador" }));
+
+        combobEstadoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+
+        labelEstado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelEstado.setForeground(new java.awt.Color(162, 146, 146));
         labelEstado.setText("Estado:  ");
-        getContentPane().add(labelEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
 
-        labelCorreo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelCorreo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelCorreo.setForeground(new java.awt.Color(162, 146, 146));
         labelCorreo.setText("E - Mail ");
-        getContentPane().add(labelCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
-        labeltitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelTelefono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelTelefono.setForeground(new java.awt.Color(162, 146, 146));
+        labelTelefono.setText("Teléfono");
+
+        labelContraseña.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelContraseña.setForeground(new java.awt.Color(162, 146, 146));
+        labelContraseña.setText("Contraseña *");
+
+        labeltitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labeltitulo.setForeground(new java.awt.Color(162, 146, 146));
         labeltitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltitulo.setText("REGISTRAR USUARIO");
-        getContentPane().add(labeltitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 450, -1));
-        getContentPane().add(campoCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 205, 30));
-        getContentPane().add(campoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 205, 30));
-        getContentPane().add(campoContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 205, 30));
-        getContentPane().add(campoDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 205, 30));
-        getContentPane().add(labelFonodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 380));
-        getContentPane().add(campoCedulaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 205, 30));
+        labeltitulo.setText("Registrar Usuario");
+
+        labelCedula.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelCedula.setForeground(new java.awt.Color(162, 146, 146));
+        labelCedula.setText("Cedula * ");
+
+        labelNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelNombre.setForeground(new java.awt.Color(162, 146, 146));
+        labelNombre.setText("Nombre *");
+
+        labelDireccion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelDireccion.setForeground(new java.awt.Color(162, 146, 146));
+        labelDireccion.setText("Dirección");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEstado)
+                            .addComponent(labelTipo))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(comboBoxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combobEstadoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCedula)
+                            .addComponent(labelNombre)
+                            .addComponent(labelTelefono)
+                            .addComponent(labelContraseña)
+                            .addComponent(labelDireccion)
+                            .addComponent(labelCorreo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoContraseña, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoDireccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCedulaUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(labeltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(labeltitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoCedulaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCedula))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNombre))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDireccion))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelContraseña))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTelefono))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCorreo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combobEstadoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEstado))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTipo))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+        );
 
         getAccessibleContext().setAccessibleParent(null);
 
@@ -189,13 +291,13 @@ public class RegistrarUsuario extends javax.swing.JDialog {
     private javax.swing.JTextField campoTelefono;
     private javax.swing.JComboBox<String> comboBoxTipoUsuario;
     private javax.swing.JComboBox<String> combobEstadoUsuario;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCedula;
     private javax.swing.JLabel labelContraseña;
     private javax.swing.JLabel labelCorreo;
     private javax.swing.JLabel labelDireccion;
     private javax.swing.JLabel labelEstado;
     private javax.swing.JLabel labelFondo;
-    private javax.swing.JLabel labelFonodo;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelTelefono;
     private javax.swing.JLabel labelTipo;

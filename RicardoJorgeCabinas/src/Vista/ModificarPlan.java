@@ -37,174 +37,220 @@ public class ModificarPlan extends javax.swing.JFrame {
 
         buttonGroupAcomulable = new javax.swing.ButtonGroup();
         buttonGroupEstado = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBoxNombrePlan = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jRadioButtonSI = new javax.swing.JRadioButton();
-        jRadioButtonNO = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
-        tiempoAlAire = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        valorCompra = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        valorVenta = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        cantidadMinAlerta = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jRadioButtonActivo = new javax.swing.JRadioButton();
-        jRadioButtonInactivo = new javax.swing.JRadioButton();
+        jPanel1 = new javax.swing.JPanel();
         jButtonModificar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jRadioButtonActivo = new javax.swing.JRadioButton();
+        jRadioButtonInactivo = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        cantidadMinAlerta = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        valorVenta = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        valorCompra = new javax.swing.JTextField();
+        tiempoAlAire = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jRadioButtonSI = new javax.swing.JRadioButton();
+        jRadioButtonNO = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxNombrePlan = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 530));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Agregar Plan Minutos");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Nombre Plan");
-
-        jComboBoxNombrePlan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Acomulable");
-
-        buttonGroupAcomulable.add(jRadioButtonSI);
-        jRadioButtonSI.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButtonSI.setText("SI");
-
-        buttonGroupAcomulable.add(jRadioButtonNO);
-        jRadioButtonNO.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButtonNO.setText("NO");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Tiempo al aire (Min)");
-
-        tiempoAlAire.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Valor Compra");
-
-        valorCompra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Valor Venta");
-
-        valorVenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Cantidad Minima Alerta");
-
-        cantidadMinAlerta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Estado");
-
-        buttonGroupEstado.add(jRadioButtonActivo);
-        jRadioButtonActivo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButtonActivo.setText("Activo");
-
-        buttonGroupEstado.add(jRadioButtonInactivo);
-        jRadioButtonInactivo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButtonInactivo.setText("Inactivo");
-
-        jButtonModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonModificar.setBackground(new java.awt.Color(162, 146, 146));
+        jButtonModificar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonModificar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonModificar.setText("Modificar");
+        jButtonModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonModificar.setContentAreaFilled(false);
+        jButtonModificar.setOpaque(true);
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarActionPerformed(evt);
             }
         });
 
-        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonCancelar.setBackground(new java.awt.Color(162, 146, 146));
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonCancelar.setContentAreaFilled(false);
+        jButtonCancelar.setOpaque(true);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
 
+        buttonGroupEstado.add(jRadioButtonActivo);
+        jRadioButtonActivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioButtonActivo.setText("Activo");
+
+        buttonGroupEstado.add(jRadioButtonInactivo);
+        jRadioButtonInactivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioButtonInactivo.setText("Inactivo");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel9.setText("Estado");
+
+        cantidadMinAlerta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel8.setText("Cantidad Minima Alerta");
+
+        valorVenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel7.setText("Valor Venta");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel6.setText("Valor Compra");
+
+        valorCompra.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        tiempoAlAire.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel5.setText("Tiempo al aire (Min)");
+
+        buttonGroupAcomulable.add(jRadioButtonSI);
+        jRadioButtonSI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioButtonSI.setText("Sí");
+
+        buttonGroupAcomulable.add(jRadioButtonNO);
+        jRadioButtonNO.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioButtonNO.setText("No");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel4.setText("Acumulable");
+
+        jComboBoxNombrePlan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel3.setText("Nombre Plan");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel1.setText("Modificar Plan");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jRadioButtonSI)
+                                                .addGap(76, 76, 76)
+                                                .addComponent(jRadioButtonNO))
+                                            .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tiempoAlAire, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(valorCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addComponent(valorVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jRadioButtonActivo)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jRadioButtonInactivo))
+                                    .addComponent(cantidadMinAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(98, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonSI)
+                    .addComponent(jRadioButtonNO)
+                    .addComponent(jLabel4))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valorVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cantidadMinAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonActivo)
+                    .addComponent(jRadioButtonInactivo)
+                    .addComponent(jLabel9))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel9)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jButtonModificar))
-                    .addComponent(jLabel7))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tiempoAlAire)
-                    .addComponent(valorCompra)
-                    .addComponent(valorVenta)
-                    .addComponent(cantidadMinAlerta)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButtonSI)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonNO))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButtonActivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonInactivo))
-                    .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCancelar))
-                .addContainerGap(83, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jRadioButtonSI)
-                    .addComponent(jRadioButtonNO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(valorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valorVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cantidadMinAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonActivo)
-                    .addComponent(jRadioButtonInactivo)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonModificar)
-                    .addComponent(jButtonCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -291,6 +337,7 @@ public class ModificarPlan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonActivo;
     private javax.swing.JRadioButton jRadioButtonInactivo;
     private javax.swing.JRadioButton jRadioButtonNO;
