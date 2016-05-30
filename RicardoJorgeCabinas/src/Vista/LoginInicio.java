@@ -210,7 +210,8 @@ public class LoginInicio extends javax.swing.JFrame {
                          }
                          else
                          {
-                             VistaVendedor vistaVendedor=new VistaVendedor();
+                             Usuario usuario= logicaUsuario.consultarUsuarioCedula(cedulaUsuario);
+                             VistaVendedor vistaVendedor=new VistaVendedor(usuario);
                              vistaVendedor.setVisible(true);
                              this.dispose();
                          }

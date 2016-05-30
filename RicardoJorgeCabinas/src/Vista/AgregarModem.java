@@ -7,8 +7,6 @@ package Vista;
 
 import Logica.LogicaUsbModem;
 import Modelo.UsbModem;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**

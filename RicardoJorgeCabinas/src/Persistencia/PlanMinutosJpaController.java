@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Persistencia;
 
 import Modelo.PlanMinutos;
@@ -5,7 +10,6 @@ import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import Modelo.VentaMinutos;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +26,12 @@ import javax.persistence.Persistence;
  */
 public class PlanMinutosJpaController implements Serializable {
 
+    private EntityManagerFactory emf = null;
+    
     public PlanMinutosJpaController() 
     {
         this.emf = Persistence.createEntityManagerFactory("RicardoJorgeCabinasPU");
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -237,7 +242,7 @@ public class PlanMinutosJpaController implements Serializable {
             em.close();
         }
     }
-    
+
     /* Método que accede a la base de datos y realiza la búsqueda de planes de minutos usando el 
        nombre como parámetro de consulta
        Entrada: nombre de tipo String
@@ -250,19 +255,6 @@ public class PlanMinutosJpaController implements Serializable {
         EntityManager em = getEntityManager(); 
         Query query = em.createNativeQuery(consulta,PlanMinutos.class);
         return query.getResultList();
-    }
-
-    public int getPlanMinutosCount() {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<PlanMinutos> rt = cq.from(PlanMinutos.class);
-            cq.select(em.getCriteriaBuilder().count(rt));
-            Query q = em.createQuery(cq);
-            return ((Long) q.getSingleResult()).intValue();
-        } finally {
-            em.close();
-        }
     }
     
 }

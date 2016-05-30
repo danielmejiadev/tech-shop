@@ -54,7 +54,7 @@ public class ModificarPlan extends javax.swing.JFrame {
         jRadioButtonSI = new javax.swing.JRadioButton();
         jRadioButtonNO = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBoxNombrePlan = new javax.swing.JComboBox<>();
+        jComboBoxNombrePlan = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -138,7 +138,7 @@ public class ModificarPlan extends javax.swing.JFrame {
         jLabel4.setText("Acumulable");
 
         jComboBoxNombrePlan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
+        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(162, 146, 146));
