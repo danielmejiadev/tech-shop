@@ -1225,7 +1225,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
     }//GEN-LAST:event_botonActualizarTablaModemsActionPerformed
 
     private void botonActualizarTablaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPlanActionPerformed
-        // TODO add your handling code here:
+        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+        List<PlanMinutos> losPlanes = logicaPlanMinutos.consultarPlanMinutos();
+        llenarTablaPlanMinutos(losPlanes);
     }//GEN-LAST:event_botonActualizarTablaPlanActionPerformed
 
     private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
@@ -1446,9 +1448,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void llenarTablaPlanMinutos(List<PlanMinutos> listaPlanMinutos){
         DefaultTableModel dtm = new DefaultTableModel();
         tablaPlanes.setModel(dtm);
+        Calendar fecha = Calendar.getInstance();
+        String laFecha;
         dtm.addColumn("Codigo");
         dtm.addColumn("Nombre");
         dtm.addColumn("Tiempo aire");
+        dtm.addColumn("Saldo");
+        dtm.addColumn("Próxima Recarga");
         dtm.addColumn("Valor compra");
         dtm.addColumn("Valor venta");
         dtm.addColumn("Acomulable");
@@ -1456,16 +1462,20 @@ public class VistaAdministrador extends javax.swing.JFrame{
         dtm.addColumn("Estado");
         
         if(listaPlanMinutos != null){
-            String[] fila = new String[8];
+            String[] fila = new String[10];
             for(PlanMinutos listaPlanMinuto : listaPlanMinutos){
                 fila[0] = String.valueOf(listaPlanMinuto.getCodigoplan());
                 fila[1] = listaPlanMinuto.getNombreplan();
-                fila[2] = String.valueOf(listaPlanMinuto.getCantidadminutos());
-                fila[3] = String.valueOf(listaPlanMinuto.getCostominuto());
-                fila[4] = String.valueOf(listaPlanMinuto.getPreciominuto());
-                fila[5] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
-                fila[6] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
-                fila[7] = String.valueOf(listaPlanMinuto.getEstadoplanminutos());
+                fila[2] = String.valueOf(listaPlanMinuto.getCantidadminutosfijos());
+                fila[3] = String.valueOf(listaPlanMinuto.getCantidadminutos());
+                fecha.setTimeInMillis(listaPlanMinuto.getFechaproximarecarga().getTime());
+                laFecha = fecha.get(Calendar.DAY_OF_MONTH)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
+                fila[4] = laFecha;
+                fila[5] = String.valueOf(listaPlanMinuto.getCostominuto());
+                fila[6] = String.valueOf(listaPlanMinuto.getPreciominuto());
+                fila[7] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
+                fila[8] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
+                fila[9] = String.valueOf(listaPlanMinuto.getEstadoplanminutos());
                 dtm.addRow(fila);
             }
         }

@@ -7,6 +7,8 @@ package Vista;
 
 import Logica.LogicaPlanMinutos;
 import Modelo.PlanMinutos;
+import java.sql.Date;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +25,7 @@ public class AgregarPlan extends javax.swing.JFrame {
         this.setTitle("Agregar Plan Minutos");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        llenarJComboBoxFecha();
     }
 
     /**
@@ -56,6 +59,10 @@ public class AgregarPlan extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBoxDia = new javax.swing.JComboBox<>();
+        jComboBoxMes = new javax.swing.JComboBox<>();
+        jComboBoxAnio = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -153,6 +160,12 @@ public class AgregarPlan extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(162, 146, 146));
         jLabel1.setText("Agregar Plan Minutos");
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel10.setText("Fecha Próxima Recarga");
+
+        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -190,10 +203,6 @@ public class AgregarPlan extends javax.swing.JFrame {
                                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(58, 58, 58)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3))
@@ -203,8 +212,24 @@ public class AgregarPlan extends javax.swing.JFrame {
                                         .addComponent(jRadioButtonSI)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jRadioButtonNO))
-                                    .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(140, 140, 140))
+                                    .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(35, 35, 35)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addGap(136, 136, 136))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,11 +246,17 @@ public class AgregarPlan extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButtonSI)
                         .addComponent(jLabel4)))
-                .addGap(0, 28, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(31, 31, 31)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -247,7 +278,7 @@ public class AgregarPlan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 530));
@@ -272,6 +303,50 @@ public class AgregarPlan extends javax.swing.JFrame {
         String nombrePlan = jComboBoxNombrePlan.getSelectedItem().toString();
         boolean acomulable = jRadioButtonSI.isSelected();
         String tiempoAire = tiempoAlAire.getText();
+        int dia = Integer.parseInt(jComboBoxDia.getSelectedItem().toString());
+        int mes = 0;
+        switch(jComboBoxMes.getSelectedItem().toString()){
+            case "Enero":
+                mes = 0;
+                break;
+            case "Febrero":
+                mes = 1;
+                break;
+            case "Marzo":
+                mes = 2;
+                break;
+            case "Abril":
+                mes = 3;
+                break;    
+            case "Mayo":
+                mes = 4;
+                break;
+            case "Junio":
+                mes = 5;
+                break;
+            case "Julio":
+                mes = 6;
+                break;
+            case "Agosto":
+                mes = 7;
+                break;
+            case "Septiembre":
+                mes = 8;
+                break;
+            case "Octubre":
+                mes = 9;
+                break;
+            case "Noviembre":
+                mes = 10;
+                break;
+            case "Diciembre":
+                mes = 11;
+                break;
+        }
+        int anio = Integer.parseInt(jComboBoxAnio.getSelectedItem().toString());
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(anio, mes, dia);
+        Date fechaRecarga = new Date(calendario.getTimeInMillis());
         String precioCompra = valorCompra.getText();
         String precioVenta = valorVenta.getText();
         String minutoAlerta = cantidadMinAlerta.getText();
@@ -290,6 +365,8 @@ public class AgregarPlan extends javax.swing.JFrame {
                 elPlan.setNombreplan(nombrePlan);
                 elPlan.setMinutosacumulables(acomulable);
                 elPlan.setCantidadminutos(Integer.parseInt(tiempoAire));
+                elPlan.setCantidadminutosfijos(Integer.parseInt(tiempoAire));
+                elPlan.setFechaproximarecarga(fechaRecarga);
                 elPlan.setCostominuto(Integer.parseInt(precioCompra));
                 elPlan.setPreciominuto(Integer.parseInt(precioVenta));
                 elPlan.setCantidadminimaminutos(Integer.parseInt(minutoAlerta));
@@ -304,6 +381,57 @@ public class AgregarPlan extends javax.swing.JFrame {
      
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    public void llenarJComboBoxFecha(){
+        Calendar fechaActual = Calendar.getInstance();
+        for (int i = fechaActual.get(Calendar.YEAR) ; i < fechaActual.get(Calendar.YEAR)+10; i++) {
+            jComboBoxAnio.addItem(i+"");
+        }
+        for (int i = 1; i <= 31; i++) {
+            jComboBoxDia.addItem(i+"");
+        }
+        jComboBoxDia.setSelectedItem(fechaActual.get(Calendar.DAY_OF_MONTH)+"");
+        switch(fechaActual.get(Calendar.MONTH)){
+            case 0:
+                jComboBoxMes.setSelectedItem("Enero");
+                break;
+            case 1:
+                jComboBoxMes.setSelectedItem("Febrero");
+                break;
+            case 2:
+                jComboBoxMes.setSelectedItem("Marzo");
+                break;
+            case 3:
+                jComboBoxMes.setSelectedItem("Abril");
+                break;
+            case 4:
+                jComboBoxMes.setSelectedItem("Mayo");
+                break;
+            case 5:
+                jComboBoxMes.setSelectedItem("Junio");
+                break;
+            case 6:
+                jComboBoxMes.setSelectedItem("Julio");
+                break;
+            case 7:
+                jComboBoxMes.setSelectedItem("Agosto");
+                break;
+            case 8:
+                jComboBoxMes.setSelectedItem("Septiembre");
+                break;
+            case 9:
+                jComboBoxMes.setSelectedItem("Octubre");
+                break;
+            case 10:
+                jComboBoxMes.setSelectedItem("Noviembre");
+                break;
+            case 11:
+                jComboBoxMes.setSelectedItem("Diciembre");
+                break;
+        }
+        jComboBoxAnio.setSelectedItem(fechaActual.get(Calendar.YEAR));
+    }
+    
+    
     private void jComboBoxNombrePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNombrePlanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxNombrePlanActionPerformed
@@ -315,8 +443,12 @@ public class AgregarPlan extends javax.swing.JFrame {
     private javax.swing.JTextField cantidadMinAlerta;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JComboBox<String> jComboBoxAnio;
+    private javax.swing.JComboBox<String> jComboBoxDia;
+    private javax.swing.JComboBox<String> jComboBoxMes;
     private javax.swing.JComboBox<String> jComboBoxNombrePlan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -7,6 +7,8 @@ package Vista;
 
 import Logica.LogicaPlanMinutos;
 import Modelo.PlanMinutos;
+import java.sql.Date;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class ModificarPlan extends javax.swing.JFrame {
 
-    public PlanMinutos elPlan;
+     private PlanMinutos elPlan;
     
     public ModificarPlan(PlanMinutos elPlan) {
         initComponents();
@@ -54,12 +56,15 @@ public class ModificarPlan extends javax.swing.JFrame {
         jRadioButtonSI = new javax.swing.JRadioButton();
         jRadioButtonNO = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBoxNombrePlan = new javax.swing.JComboBox<String>();
+        jComboBoxNombrePlan = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBoxDia = new javax.swing.JComboBox<>();
+        jComboBoxMes = new javax.swing.JComboBox<>();
+        jComboBoxAnio = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 530));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -138,7 +143,7 @@ public class ModificarPlan extends javax.swing.JFrame {
         jLabel4.setText("Acumulable");
 
         jComboBoxNombrePlan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
+        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(162, 146, 146));
@@ -147,6 +152,12 @@ public class ModificarPlan extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(162, 146, 146));
         jLabel1.setText("Modificar Plan");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel10.setText("Fecha Próxima Recarga");
+
+        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,25 +176,16 @@ public class ModificarPlan extends javax.swing.JFrame {
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))
+                                .addGap(38, 38, 38)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(43, 43, 43)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jRadioButtonSI)
-                                                .addGap(76, 76, 76)
-                                                .addComponent(jRadioButtonNO))
-                                            .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tiempoAlAire, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(valorCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(valorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(41, 41, 41)
                                         .addComponent(valorVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -197,15 +199,38 @@ public class ModificarPlan extends javax.swing.JFrame {
                                         .addComponent(jRadioButtonActivo)
                                         .addGap(24, 24, 24)
                                         .addComponent(jRadioButtonInactivo))
-                                    .addComponent(cantidadMinAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(98, Short.MAX_VALUE))
+                                    .addComponent(cantidadMinAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jRadioButtonSI)
+                                        .addGap(76, 76, 76)
+                                        .addComponent(jRadioButtonNO))
+                                    .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(43, 43, 43)
+                                .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(27, 27, 27)
+                                .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxNombrePlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -214,11 +239,17 @@ public class ModificarPlan extends javax.swing.JFrame {
                     .addComponent(jRadioButtonSI)
                     .addComponent(jRadioButtonNO)
                     .addComponent(jLabel4))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tiempoAlAire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -246,7 +277,10 @@ public class ModificarPlan extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,6 +306,50 @@ public class ModificarPlan extends javax.swing.JFrame {
         String nombrePlan = jComboBoxNombrePlan.getSelectedItem().toString();
         boolean acomulable = jRadioButtonSI.isSelected();
         String tiempoAire = tiempoAlAire.getText();
+        int dia = Integer.parseInt(jComboBoxDia.getSelectedItem().toString());
+        int mes = 0;
+        switch(jComboBoxMes.getSelectedItem().toString()){
+            case "Enero":
+                mes = 0;
+                break;
+            case "Febrero":
+                mes = 1;
+                break;
+            case "Marzo":
+                mes = 2;
+                break;
+            case "Abril":
+                mes = 3;
+                break;    
+            case "Mayo":
+                mes = 4;
+                break;
+            case "Junio":
+                mes = 5;
+                break;
+            case "Julio":
+                mes = 6;
+                break;
+            case "Agosto":
+                mes = 7;
+                break;
+            case "Septiembre":
+                mes = 8;
+                break;
+            case "Octubre":
+                mes = 9;
+                break;
+            case "Noviembre":
+                mes = 10;
+                break;
+            case "Diciembre":
+                mes = 11;
+                break;
+        }
+        int anio = Integer.parseInt(jComboBoxAnio.getSelectedItem().toString());
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(anio, mes, dia);
+        Date fechaRecarga = new Date(calendario.getTimeInMillis());
         String precioCompra = valorCompra.getText();
         String precioVenta = valorVenta.getText();
         String minutoAlerta = cantidadMinAlerta.getText();
@@ -288,7 +366,8 @@ public class ModificarPlan extends javax.swing.JFrame {
                 LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
                 elPlan.setNombreplan(nombrePlan);
                 elPlan.setMinutosacumulables(acomulable);
-                elPlan.setCantidadminutos(Integer.parseInt(tiempoAire));
+                elPlan.setCantidadminutosfijos(Integer.parseInt(tiempoAire));
+                elPlan.setFechaproximarecarga(fechaRecarga);
                 elPlan.setCostominuto(Integer.parseInt(precioCompra));
                 elPlan.setPreciominuto(Integer.parseInt(precioVenta));
                 elPlan.setCantidadminimaminutos(Integer.parseInt(minutoAlerta));
@@ -313,6 +392,7 @@ public class ModificarPlan extends javax.swing.JFrame {
         else
             jRadioButtonNO.setSelected(true);
         tiempoAlAire.setText(Integer.toString(elPlan.getCantidadminutos()));
+        llenarJComboBoxFecha();
         valorCompra.setText(Integer.toString(elPlan.getCostominuto()));
         valorVenta.setText(Integer.toString(elPlan.getPreciominuto()));
         cantidadMinAlerta.setText(Integer.toString(elPlan.getCantidadminimaminutos()));
@@ -321,6 +401,59 @@ public class ModificarPlan extends javax.swing.JFrame {
         else
             jRadioButtonInactivo.setSelected(true);
     }
+    
+    
+    public void llenarJComboBoxFecha(){
+        Calendar fechaRecarga = Calendar.getInstance();
+        Calendar fechaActual = Calendar.getInstance();
+        fechaRecarga.setTimeInMillis(elPlan.getFechaproximarecarga().getTime());
+        for (int i = fechaActual.get(Calendar.YEAR) ; i < fechaActual.get(Calendar.YEAR)+10; i++) {
+            jComboBoxAnio.addItem(i+"");
+        }
+        for (int i = 1; i <= 31; i++) {
+            jComboBoxDia.addItem(i+"");
+        }
+        jComboBoxDia.setSelectedItem(fechaRecarga.get(Calendar.DAY_OF_MONTH)+"");
+        switch(fechaRecarga.get(Calendar.MONTH)){
+            case 0:
+                jComboBoxMes.setSelectedItem("Enero");
+                break;
+            case 1:
+                jComboBoxMes.setSelectedItem("Febrero");
+                break;
+            case 2:
+                jComboBoxMes.setSelectedItem("Marzo");
+                break;
+            case 3:
+                jComboBoxMes.setSelectedItem("Abril");
+                break;
+            case 4:
+                jComboBoxMes.setSelectedItem("Mayo");
+                break;
+            case 5:
+                jComboBoxMes.setSelectedItem("Junio");
+                break;
+            case 6:
+                jComboBoxMes.setSelectedItem("Julio");
+                break;
+            case 7:
+                jComboBoxMes.setSelectedItem("Agosto");
+                break;
+            case 8:
+                jComboBoxMes.setSelectedItem("Septiembre");
+                break;
+            case 9:
+                jComboBoxMes.setSelectedItem("Octubre");
+                break;
+            case 10:
+                jComboBoxMes.setSelectedItem("Noviembre");
+                break;
+            case 11:
+                jComboBoxMes.setSelectedItem("Diciembre");
+                break;
+        }
+        jComboBoxAnio.setSelectedItem(fechaRecarga.get(Calendar.YEAR));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupAcomulable;
@@ -328,8 +461,12 @@ public class ModificarPlan extends javax.swing.JFrame {
     private javax.swing.JTextField cantidadMinAlerta;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonModificar;
+    private javax.swing.JComboBox<String> jComboBoxAnio;
+    private javax.swing.JComboBox<String> jComboBoxDia;
+    private javax.swing.JComboBox<String> jComboBoxMes;
     private javax.swing.JComboBox<String> jComboBoxNombrePlan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
