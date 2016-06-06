@@ -1,5 +1,6 @@
 package Vista;
 
+import Logica.LogicaAlquilerModem;
 import Logica.LogicaCliente;
 import Logica.LogicaPlanMinutos;
 import Logica.LogicaPromocion;
@@ -7,6 +8,7 @@ import Modelo.Cliente;
 import Modelo.PlanMinutos;
 import Logica.LogicaUsbModem;
 import Logica.LogicaVentaMinutos;
+import Modelo.AlquilerModem;
 import Modelo.Promocion;
 import Modelo.UsbModem;
 import Modelo.Usuario;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +31,7 @@ public class VistaVendedor extends javax.swing.JFrame{
     List<UsbModem> modems = lum.consultarModems();
     Usuario usuariActivo;
     Cliente clienteVenta;
+    Cliente clienteAlquiler;
     PlanMinutos planVenta;
     boolean ventaLista;
     int precioMinuto;
@@ -44,6 +49,8 @@ public class VistaVendedor extends javax.swing.JFrame{
         this.ventaLista=false;
         llenarTablaModems(modems);
         llenarComboPlanesVenta();
+        ActualizarFechaAlquiler();
+        llenarJComboBoxModem();
     }
 
   
@@ -71,6 +78,23 @@ public class VistaVendedor extends javax.swing.JFrame{
         campoPrecioMinuto = new javax.swing.JFormattedTextField();
         botonCalcular = new javax.swing.JButton();
         panelAlquilarModem = new javax.swing.JPanel();
+        labeltituloPlanes3 = new javax.swing.JLabel();
+        jLabelClienteAlquiler1 = new javax.swing.JLabel();
+        campoConsultaClienteAlquiler = new javax.swing.JTextField();
+        jComboBoxModem = new javax.swing.JComboBox<>();
+        jLabelModem = new javax.swing.JLabel();
+        jLabelFechaEntrega1 = new javax.swing.JLabel();
+        campoCantidadDias = new javax.swing.JTextField();
+        jLabelFechaEntrega = new javax.swing.JLabel();
+        jLabelEntregaAlquiler = new javax.swing.JLabel();
+        jLabelPrecio = new javax.swing.JLabel();
+        campoPrecioAlquiler = new javax.swing.JTextField();
+        jLabelMulta = new javax.swing.JLabel();
+        campoPrecioMulta1 = new javax.swing.JTextField();
+        botonRegistrarAlquilerModem = new javax.swing.JButton();
+        jButtonLimpiar = new javax.swing.JButton();
+        jLabelClienteAlquiler3 = new javax.swing.JLabel();
+        jLabelPagarAlquiler = new javax.swing.JLabel();
         panelClientesVendedor = new javax.swing.JPanel();
         botonAgregarCliente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -213,7 +237,139 @@ public class VistaVendedor extends javax.swing.JFrame{
         panelRegistrarVenta.add(botonCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
 
         jTabbedPaneVistaVendedor.addTab("Venta Minutos", panelRegistrarVenta);
-        jTabbedPaneVistaVendedor.addTab("Alquilar Modem", panelAlquilarModem);
+
+        panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
+        panelAlquilarModem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labeltituloPlanes3.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloPlanes3.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloPlanes3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloPlanes3.setText("Alquiler USB-Modem");
+        panelAlquilarModem.add(labeltituloPlanes3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
+
+        jLabelClienteAlquiler1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelClienteAlquiler1.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelClienteAlquiler1.setText("Cliente");
+        panelAlquilarModem.add(jLabelClienteAlquiler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
+
+        campoConsultaClienteAlquiler.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoConsultaClienteAlquilercampoMinutosVendidosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoConsultaClienteAlquilerFocusLost(evt);
+            }
+        });
+        panelAlquilarModem.add(campoConsultaClienteAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 180, 25));
+
+        jComboBoxModem.setToolTipText("");
+        jComboBoxModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxModemActionPerformed(evt);
+            }
+        });
+        panelAlquilarModem.add(jComboBoxModem, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 190, -1));
+
+        jLabelModem.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelModem.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelModem.setText("Modem");
+        panelAlquilarModem.add(jLabelModem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, -1));
+
+        jLabelFechaEntrega1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelFechaEntrega1.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelFechaEntrega1.setText("Días Alquiler");
+        panelAlquilarModem.add(jLabelFechaEntrega1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
+
+        campoCantidadDias.setText("0");
+        campoCantidadDias.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoCantidadDiascampoMinutosVendidosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                campoCantidadDiasFocusLost(evt);
+            }
+        });
+        panelAlquilarModem.add(campoCantidadDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 80, 25));
+
+        jLabelFechaEntrega.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelFechaEntrega.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelFechaEntrega.setText("Fecha Entrega");
+        panelAlquilarModem.add(jLabelFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
+
+        jLabelEntregaAlquiler.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelEntregaAlquiler.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelEntregaAlquiler.setText("XX/XX/XXX");
+        panelAlquilarModem.add(jLabelEntregaAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, -1));
+
+        jLabelPrecio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelPrecio.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelPrecio.setText("Precio día $");
+        panelAlquilarModem.add(jLabelPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
+
+        campoPrecioAlquiler.setEditable(false);
+        campoPrecioAlquiler.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPrecioAlquilercampoMinutosVendidosFocusGained(evt);
+            }
+        });
+        campoPrecioAlquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPrecioAlquilerActionPerformed(evt);
+            }
+        });
+        panelAlquilarModem.add(campoPrecioAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 80, 25));
+
+        jLabelMulta.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelMulta.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelMulta.setText("Multa $");
+        panelAlquilarModem.add(jLabelMulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, -1, -1));
+
+        campoPrecioMulta1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPrecioMulta1campoMinutosVendidosFocusGained(evt);
+            }
+        });
+        campoPrecioMulta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPrecioMulta1ActionPerformed(evt);
+            }
+        });
+        panelAlquilarModem.add(campoPrecioMulta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 80, 25));
+
+        botonRegistrarAlquilerModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonRegistrarAlquilerModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonRegistrarAlquilerModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
+        botonRegistrarAlquilerModem.setText("Registrar");
+        botonRegistrarAlquilerModem.setBorderPainted(false);
+        botonRegistrarAlquilerModem.setContentAreaFilled(false);
+        botonRegistrarAlquilerModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonRegistrarAlquilerModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonRegistrarAlquilerModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarAlquilerModemActionPerformed(evt);
+            }
+        });
+        panelAlquilarModem.add(botonRegistrarAlquilerModem, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
+
+        jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarActionPerformed(evt);
+            }
+        });
+        panelAlquilarModem.add(jButtonLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, -1, -1));
+
+        jLabelClienteAlquiler3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabelClienteAlquiler3.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelClienteAlquiler3.setText("Total a pagar $: ");
+        panelAlquilarModem.add(jLabelClienteAlquiler3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
+
+        jLabelPagarAlquiler.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabelPagarAlquiler.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelPagarAlquiler.setText("0");
+        panelAlquilarModem.add(jLabelPagarAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, -1, -1));
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/ventas.png")), panelAlquilarModem); // NOI18N
 
         panelClientesVendedor.setBackground(new java.awt.Color(255, 255, 255));
         panelClientesVendedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -355,7 +511,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                     .addGroup(panelPlanesLayout.createSequentialGroup()
                         .addGap(325, 325, 325)
                         .addComponent(botonActualizarTablaPlan)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPlanesLayout.setVerticalGroup(
             panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,7 +686,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                     .addGroup(panelPromocionesLayout.createSequentialGroup()
                         .addGap(324, 324, 324)
                         .addComponent(botonActualizarTablaPromo)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPromocionesLayout.setVerticalGroup(
             panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -768,6 +924,219 @@ public class VistaVendedor extends javax.swing.JFrame{
         List<PlanMinutos> losPlanes = logicaPlanMinutos.consultarPlanMinutos();
         llenarTablaPlanMinutos(losPlanes);
     }//GEN-LAST:event_botonActualizarTablaPlanActionPerformed
+
+    private void campoConsultaClienteAlquilercampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConsultaClienteAlquilercampoMinutosVendidosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoConsultaClienteAlquilercampoMinutosVendidosFocusGained
+
+    private void campoConsultaClienteAlquilerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConsultaClienteAlquilerFocusLost
+        LogicaCliente logicaCliente = new LogicaCliente();
+        clienteAlquiler = logicaCliente.consultarCliente(campoConsultaClienteAlquiler.getText());
+        if(clienteAlquiler==null){
+            Color rojo = new Color(255, 170, 170);
+            campoConsultaClienteAlquiler.setBackground(rojo);
+            clienteAlquiler = logicaCliente.consultarCliente("default");
+            campoConsultaClienteAlquiler.setText(clienteAlquiler.getCedulacliente());
+        }else{
+            Color verde = new Color(170, 255, 170);
+            campoConsultaClienteAlquiler.setBackground(verde);
+            JOptionPane.showMessageDialog(null, "Cliente verificado");
+            campoConsultaClienteAlquiler.setEditable(false);
+        }
+    }//GEN-LAST:event_campoConsultaClienteAlquilerFocusLost
+
+    private void jComboBoxModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModemActionPerformed
+        LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
+        UsbModem usbModem = new UsbModem();
+        Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+        try {
+            usbModem = logicaUsbModem.consultarModemCodigo(codigoModem);
+        } catch (Exception ex) {
+            Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        campoPrecioAlquiler.setText(""+usbModem.getPreciodia());
+    }//GEN-LAST:event_jComboBoxModemActionPerformed
+
+    private void campoCantidadDiascampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCantidadDiascampoMinutosVendidosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCantidadDiascampoMinutosVendidosFocusGained
+
+    private void campoCantidadDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCantidadDiasFocusLost
+        // TODO add your handling code here:
+        int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+        Calendar calendario = Calendar.getInstance();
+        calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
+        Date fechaEntrega = new Date(calendario.getTimeInMillis());
+        int dia = fechaEntrega.getDate();
+        int mes = fechaEntrega.getMonth();
+        int anio = fechaEntrega.getYear();
+        String elMes = "";
+        switch(mes){
+            case 0:
+            elMes = "Enero";
+            break;
+            case 1:
+            elMes = "Febrero";
+            break;
+            case 2:
+            elMes = "Marzo";
+            break;
+            case 3:
+            elMes = "Abril";
+            break;
+            case 4:
+            elMes = "Mayo";
+            break;
+            case 5:
+            elMes = "Junio";
+            break;
+            case 6:
+            elMes = "Julio";
+            break;
+            case 7:
+            elMes = "Agosto";
+            break;
+            case 8:
+            elMes = "Septiembre";
+            break;
+            case 9:
+            elMes = "Octubre";
+            break;
+            case 10:
+            elMes = "Noviembre";
+            break;
+            case 11:
+            elMes = "Diciembre";
+            break;
+        }
+        String laFecha = dia+"/"+elMes+"/"+(anio+1900);
+        jLabelEntregaAlquiler.setText(laFecha);
+    }//GEN-LAST:event_campoCantidadDiasFocusLost
+
+    private void campoPrecioAlquilercampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecioAlquilercampoMinutosVendidosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecioAlquilercampoMinutosVendidosFocusGained
+
+    private void campoPrecioAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecioAlquilerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecioAlquilerActionPerformed
+
+    private void campoPrecioMulta1campoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecioMulta1campoMinutosVendidosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecioMulta1campoMinutosVendidosFocusGained
+
+    private void campoPrecioMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecioMulta1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecioMulta1ActionPerformed
+
+    private void botonRegistrarAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModemActionPerformed
+        if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "No hay campos vacíos");
+        }else{
+            try {
+                int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+                int preciodia = Integer.parseInt(campoPrecioAlquiler.getText());
+                int totalPagar = preciodia*cantidadDias;
+                jLabelPagarAlquiler.setText(""+totalPagar);
+                AlquilerModem alquilerModem = new AlquilerModem();
+                UsbModem usbModem = new UsbModem();
+                LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
+                Cliente clienteAlquiler = new Cliente();
+                LogicaCliente logicaCliente = new LogicaCliente();
+                clienteAlquiler = logicaCliente.consultarCliente(campoConsultaClienteAlquiler.getText());
+                alquilerModem.setCedulacliente(clienteAlquiler);
+                alquilerModem.setCedulausuario(usuariActivo);
+                Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+                usbModem = logicaUsbModem.consultarModemCodigo(codigoModem);
+                alquilerModem.setCodigomodem(usbModem);
+                Date fechaActual = new Date();
+                alquilerModem.setFechainicioalquiler(fechaActual);
+                Calendar calendario = Calendar.getInstance();
+                calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
+                Date fechaEntrega = new Date(calendario.getTimeInMillis());
+                int dia = fechaEntrega.getDate();
+                int mes = fechaEntrega.getMonth();
+                int anio = fechaEntrega.getYear();
+                String elMes = "";
+                switch(mes){
+                    case 0:
+                    elMes = "Enero";
+                    break;
+                    case 1:
+                    elMes = "Febrero";
+                    break;
+                    case 2:
+                    elMes = "Marzo";
+                    break;
+                    case 3:
+                    elMes = "Abril";
+                    break;
+                    case 4:
+                    elMes = "Mayo";
+                    break;
+                    case 5:
+                    elMes = "Junio";
+                    break;
+                    case 6:
+                    elMes = "Julio";
+                    break;
+                    case 7:
+                    elMes = "Agosto";
+                    break;
+                    case 8:
+                    elMes = "Septiembre";
+                    break;
+                    case 9:
+                    elMes = "Octubre";
+                    break;
+                    case 10:
+                    elMes = "Noviembre";
+                    break;
+                    case 11:
+                    elMes = "Diciembre";
+                    break;
+                }
+                String laFecha = dia+"/"+elMes+"/"+(anio+1900);
+                jLabelEntregaAlquiler.setText(laFecha);
+                alquilerModem.setFechafinalquiler(fechaEntrega);
+                int multa = Integer.parseInt(campoPrecioAlquiler.getText());
+                alquilerModem.setMulta(multa);
+                alquilerModem.setPreciodia(preciodia);
+                Date fechaDevolucion = fechaEntrega;
+                alquilerModem.setFechadevolucion(fechaDevolucion);
+
+                int dialogo = JOptionPane.YES_NO_OPTION;
+                JOptionPane.showConfirmDialog(null, "Datos registro alquiler\n"
+                    + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
+                    + "Modem: "+usbModem.getNombremodem()+"\n"
+                    + "Días alquiler: "+cantidadDias+"\n"
+                    + "Fecha Entrega: "+fechaEntrega.getDate()+" "+(fechaEntrega.getMonth()+1)+" "+(fechaEntrega.getYear()+1900)+"\n"
+                    + "Precio por día: "+preciodia+"\n"
+                    + "Multa: "+multa+"\n"
+                    + "Total a pagar: "+totalPagar+"\n"
+                    + "¿Son correctos los datos?");
+                if(dialogo == JOptionPane.YES_NO_OPTION){
+                    JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
+                    LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
+                    logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
+            }
+
+        }
+    }//GEN-LAST:event_botonRegistrarAlquilerModemActionPerformed
+
+    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
+        campoConsultaClienteAlquiler.setText("");
+        campoConsultaClienteAlquiler.setEditable(true);
+        campoConsultaClienteAlquiler.setBackground(Color.white);
+        campoCantidadDias.setText("");
+        jLabelPagarAlquiler.setText("0");
+
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
     
     public void llenarTablaPlanMinutos(List<PlanMinutos> listaPlanMinutos){
         DefaultTableModel dtm = new DefaultTableModel();
@@ -945,6 +1314,64 @@ public class VistaVendedor extends javax.swing.JFrame{
         }  
     }
      
+     
+    private void llenarJComboBoxModem(){
+         LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
+         List<UsbModem> usbModem = logicaUsbModem.consultarModems();
+         for (UsbModem usbModem1 : usbModem) {
+             jComboBoxModem.addItem(usbModem1.getCodigomodem()+" "+usbModem1.getNombremodem());
+         }
+     }
+     
+          private void ActualizarFechaAlquiler(){
+        //Calendar fechaHoy = Calendar.getInstance();
+        Date fechaActual = new Date();
+        int dia = fechaActual.getDate();
+        int mes = fechaActual.getMonth();
+        int anio = fechaActual.getYear();
+        String elMes = "";
+        switch(mes){
+            case 0:
+                elMes = "Enero";
+                break;
+            case 1:
+                elMes = "Febrero";
+                break;
+            case 2:
+                elMes = "Marzo";
+                break;
+            case 3:
+                elMes = "Abril";
+                break;
+            case 4:
+                elMes = "Mayo";
+                break;
+            case 5:
+                elMes = "Junio";
+                break;
+            case 6:
+                elMes = "Julio";
+                break;
+            case 7:
+                elMes = "Agosto";
+                break;
+            case 8:
+                elMes = "Septiembre";
+                break;
+            case 9:
+                elMes = "Octubre";
+                break;
+            case 10:
+                elMes = "Noviembre";
+                break;
+            case 11:
+                elMes = "Diciembre";
+                break;
+        }
+        String laFecha = dia+"/"+elMes+"/"+(anio+1900);
+        jLabelEntregaAlquiler.setText(laFecha);
+    }
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarTablaModems;
@@ -958,17 +1385,24 @@ public class VistaVendedor extends javax.swing.JFrame{
     private javax.swing.JButton botonConsultarModem;
     private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
+    private javax.swing.JButton botonRegistrarAlquilerModem;
     private javax.swing.JButton botonRegistrarVenta;
+    private javax.swing.JTextField campoCantidadDias;
     private javax.swing.JTextField campoConsultaCliente;
+    private javax.swing.JTextField campoConsultaClienteAlquiler;
     private javax.swing.JTextField campoConsultaClienteVenta;
     private javax.swing.JTextField campoConsultaModems;
     private javax.swing.JTextField campoConsultaPlanes;
     private javax.swing.JTextField campoConsultaPromociones;
     private javax.swing.JFormattedTextField campoMinutosFacturados;
     private javax.swing.JFormattedTextField campoMinutosVendidos;
+    private javax.swing.JTextField campoPrecioAlquiler;
     private javax.swing.JFormattedTextField campoPrecioMinuto;
+    private javax.swing.JTextField campoPrecioMulta1;
     private javax.swing.JFormattedTextField campoTotalVenta;
     private javax.swing.JComboBox comboPlanesVenta;
+    private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JComboBox<String> jComboBoxModem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBusqueda;
     private javax.swing.JLabel jLabelBusqueda1;
@@ -980,6 +1414,15 @@ public class VistaVendedor extends javax.swing.JFrame{
     private javax.swing.JLabel jLabelBusqueda7;
     private javax.swing.JLabel jLabelBusqueda8;
     private javax.swing.JLabel jLabelBusqueda9;
+    private javax.swing.JLabel jLabelClienteAlquiler1;
+    private javax.swing.JLabel jLabelClienteAlquiler3;
+    private javax.swing.JLabel jLabelEntregaAlquiler;
+    private javax.swing.JLabel jLabelFechaEntrega;
+    private javax.swing.JLabel jLabelFechaEntrega1;
+    private javax.swing.JLabel jLabelModem;
+    private javax.swing.JLabel jLabelMulta;
+    private javax.swing.JLabel jLabelPagarAlquiler;
+    private javax.swing.JLabel jLabelPrecio;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
@@ -991,6 +1434,7 @@ public class VistaVendedor extends javax.swing.JFrame{
     private javax.swing.JLabel labeltituloModems;
     private javax.swing.JLabel labeltituloPlanes;
     private javax.swing.JLabel labeltituloPlanes1;
+    private javax.swing.JLabel labeltituloPlanes3;
     private javax.swing.JLabel labeltituloPromociones;
     private javax.swing.JPanel panelAlquilarModem;
     private javax.swing.JPanel panelClientesVendedor;
