@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Logica/LogicaAlquilerModem.java</file>
             <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Vista/AgregarPromo.java</file>
-            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Vista/AgregarCliente.java</file>
-            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Modelo/Cliente.java</file>
+            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Vista/VistaAdministrador.java</file>
+            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Logica/LogicaCliente.java</file>
             <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Vista/AgregarPlan.java</file>
+            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Vista/VistaVendedor.java</file>
+            <file>file:/C:/Users/ALVARO%20ANDRES/Documents/NetBeansProjects/RepositorioRicardoJorge/RicardoJorgeCabinas/src/Logica/LogicaPlanMinutos.java</file>
         </group>
     </open-files>
 </project-private>
