@@ -246,8 +246,7 @@ public class AgregarModem extends javax.swing.JFrame {
             }else{
                 um.setPreciodia(Integer.parseInt(PrecioModem.getText()));
             }
-
-
+            
             if(activoModem.isSelected()){
                 um.setEstadousbmodem(true);
             }else if(inactivoModem.isSelected()){

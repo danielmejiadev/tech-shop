@@ -374,7 +374,8 @@ public class ModificarPlan extends javax.swing.JFrame {
                 elPlan.setEstadoplanminutos(estado);
                 logicaPlanMinutos.modificarPlanMinutos(elPlan);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error, no se pudo modificar");
+                System.out.println(e.getMessage());
+//                JOptionPane.showMessageDialog(null, "Error, no se pudo modificar");
             } finally{
                 this.dispose();
             }

@@ -1,9 +1,10 @@
-package Vista;
+    package Vista;
 
 import Logica.LogicaAlquilerModem;
 import Logica.LogicaCliente;
 import Logica.LogicaPlanMinutos;
 import Logica.LogicaPromocion;
+import Logica.LogicaRecarga;
 import Logica.LogicaUsuario;
 import Modelo.Cliente;
 import Modelo.PlanMinutos;
@@ -12,6 +13,7 @@ import Modelo.Usuario;
 import Logica.LogicaUsbModem;
 import Logica.LogicaVentaMinutos;
 import Modelo.AlquilerModem;
+import Modelo.Recarga;
 import Modelo.UsbModem;
 import Modelo.VentaMinutos;
 import java.awt.Color;
@@ -53,8 +55,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarTablaModems(modems);
         llenarComboPlanesVenta();
         ActualizarFechaAlquiler();
-        llenarJComboBoxModem();
-
+        panelDevolucionModem.setVisible(false);
+        panelAlquilarModem.setVisible(false);
+        panelSeleccionModem.setVisible(true);
+        alertaDevolucion();
+        recargaAutomaticaPlan();
+        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());
     }
     public VistaAdministrador(){
         
@@ -65,8 +71,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
         botonAtras = new javax.swing.JButton();
         jTabbedPaneVistaVendedor = new javax.swing.JTabbedPane();
         panelRegistrarVenta = new javax.swing.JPanel();
@@ -85,24 +89,40 @@ public class VistaAdministrador extends javax.swing.JFrame{
         campoTotalVenta = new javax.swing.JFormattedTextField();
         botonCalcular = new javax.swing.JButton();
         botonRegistrarVenta = new javax.swing.JButton();
+        panelMovimientosModem = new javax.swing.JPanel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        panelSeleccionModem = new javax.swing.JPanel();
+        botonAlquilerModem = new javax.swing.JButton();
+        botonDevolucionModem = new javax.swing.JButton();
+        labeltituloCliente2 = new javax.swing.JLabel();
         panelAlquilarModem = new javax.swing.JPanel();
         jLabelModem = new javax.swing.JLabel();
-        campoPrecioAlquiler = new javax.swing.JTextField();
+        campoDisponibildadModem = new javax.swing.JTextField();
         labeltituloPlanes3 = new javax.swing.JLabel();
-        jLabelPagarAlquiler = new javax.swing.JLabel();
         jLabelMulta = new javax.swing.JLabel();
         jComboBoxModem = new javax.swing.JComboBox<>();
         jLabelFechaEntrega = new javax.swing.JLabel();
         campoConsultaClienteAlquiler = new javax.swing.JTextField();
-        jLabelPrecio = new javax.swing.JLabel();
+        jLabelDisponibilidad = new javax.swing.JLabel();
         campoCantidadDias = new javax.swing.JTextField();
         botonRegistrarAlquilerModem = new javax.swing.JButton();
         jLabelFechaEntrega1 = new javax.swing.JLabel();
-        jButtonLimpiar = new javax.swing.JButton();
         jLabelClienteAlquiler1 = new javax.swing.JLabel();
         jLabelEntregaAlquiler = new javax.swing.JLabel();
         campoPrecioMulta1 = new javax.swing.JTextField();
-        jLabelClienteAlquiler3 = new javax.swing.JLabel();
+        campoPrecioAlquiler1 = new javax.swing.JTextField();
+        jLabelPrecio1 = new javax.swing.JLabel();
+        botonAtrasAlquiler1 = new javax.swing.JButton();
+        panelDevolucionModem = new javax.swing.JPanel();
+        BuscarClienteAlquiler = new javax.swing.JButton();
+        botonDevolverModem = new javax.swing.JButton();
+        jTextFieldClienteAlquiler = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        labeltituloPlanes4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaModemsAlquilados = new javax.swing.JTable();
+        botonAtrasAlquiler = new javax.swing.JButton();
+        actualizarTablaModemsAlquilados = new javax.swing.JButton();
         panelClientesVendedor = new javax.swing.JPanel();
         botonModificarCliente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -125,6 +145,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonActualizarTablaPlan = new javax.swing.JButton();
         jLabelBusqueda1 = new javax.swing.JLabel();
         campoConsultaPlanes = new javax.swing.JTextField();
+        jButtonRecargar = new javax.swing.JButton();
         panelModems = new javax.swing.JPanel();
         labeltituloModems = new javax.swing.JLabel();
         botonConsultarModem = new javax.swing.JButton();
@@ -158,7 +179,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelBusqueda4 = new javax.swing.JLabel();
         botonActualizarTablaUsuarios = new javax.swing.JButton();
         campoConsultaUsuario = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -181,6 +202,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jTabbedPaneVistaVendedor.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         jTabbedPaneVistaVendedor.setOpaque(true);
         jTabbedPaneVistaVendedor.setPreferredSize(new java.awt.Dimension(900, 470));
+        jTabbedPaneVistaVendedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPaneVistaVendedorMouseClicked(evt);
+            }
+        });
 
         panelRegistrarVenta.setBackground(new java.awt.Color(255, 255, 255));
         panelRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -278,44 +304,100 @@ public class VistaAdministrador extends javax.swing.JFrame{
         });
         panelRegistrarVenta.add(botonRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
 
-        jTabbedPaneVistaVendedor.addTab("Venta Minutos", panelRegistrarVenta);
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/ventas.png")), panelRegistrarVenta); // NOI18N
+
+        panelMovimientosModem.setPreferredSize(new java.awt.Dimension(770, 490));
+
+        jLayeredPane1.setPreferredSize(new java.awt.Dimension(818, 490));
+
+        panelSeleccionModem.setBackground(new java.awt.Color(255, 255, 255));
+        panelSeleccionModem.setPreferredSize(new java.awt.Dimension(818, 490));
+
+        botonAlquilerModem.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        botonAlquilerModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonAlquilerModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/alquilar.png"))); // NOI18N
+        botonAlquilerModem.setText("Alquiler Modem");
+        botonAlquilerModem.setBorderPainted(false);
+        botonAlquilerModem.setContentAreaFilled(false);
+        botonAlquilerModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAlquilerModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonAlquilerModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAlquilerModemActionPerformed(evt);
+            }
+        });
+
+        botonDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
+        botonDevolucionModem.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        botonDevolucionModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonDevolucionModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/devolver.png"))); // NOI18N
+        botonDevolucionModem.setText("Devolución Modem");
+        botonDevolucionModem.setBorderPainted(false);
+        botonDevolucionModem.setContentAreaFilled(false);
+        botonDevolucionModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonDevolucionModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonDevolucionModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonDevolucionModemActionPerformed(evt);
+            }
+        });
+
+        labeltituloCliente2.setBackground(new java.awt.Color(254, 254, 254));
+        labeltituloCliente2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        labeltituloCliente2.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloCliente2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloCliente2.setText("Movimientos Usb-Modem");
+
+        javax.swing.GroupLayout panelSeleccionModemLayout = new javax.swing.GroupLayout(panelSeleccionModem);
+        panelSeleccionModem.setLayout(panelSeleccionModemLayout);
+        panelSeleccionModemLayout.setHorizontalGroup(
+            panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSeleccionModemLayout.createSequentialGroup()
+                .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSeleccionModemLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(botonAlquilerModem, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132)
+                        .addComponent(botonDevolucionModem, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSeleccionModemLayout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(labeltituloCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(103, Short.MAX_VALUE))
+        );
+        panelSeleccionModemLayout.setVerticalGroup(
+            panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSeleccionModemLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(labeltituloCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115)
+                .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
+        );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
-        panelAlquilarModem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelAlquilarModem.setPreferredSize(new java.awt.Dimension(818, 490));
 
         jLabelModem.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelModem.setForeground(new java.awt.Color(162, 146, 146));
         jLabelModem.setText("Modem");
-        panelAlquilarModem.add(jLabelModem, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, -1));
 
-        campoPrecioAlquiler.setEditable(false);
-        campoPrecioAlquiler.addFocusListener(new java.awt.event.FocusAdapter() {
+        campoDisponibildadModem.setEditable(false);
+        campoDisponibildadModem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                campoPrecioAlquilercampoMinutosVendidosFocusGained(evt);
+                campoDisponibildadModemcampoMinutosVendidosFocusGained(evt);
             }
         });
-        campoPrecioAlquiler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoPrecioAlquilerActionPerformed(evt);
-            }
-        });
-        panelAlquilarModem.add(campoPrecioAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 80, 25));
 
         labeltituloPlanes3.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         labeltituloPlanes3.setForeground(new java.awt.Color(162, 146, 146));
         labeltituloPlanes3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labeltituloPlanes3.setText("Alquiler USB-Modem");
-        panelAlquilarModem.add(labeltituloPlanes3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
-
-        jLabelPagarAlquiler.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabelPagarAlquiler.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelPagarAlquiler.setText("0");
-        panelAlquilarModem.add(jLabelPagarAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, -1, -1));
 
         jLabelMulta.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelMulta.setForeground(new java.awt.Color(162, 146, 146));
         jLabelMulta.setText("Multa $");
-        panelAlquilarModem.add(jLabelMulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, -1, -1));
 
         jComboBoxModem.setToolTipText("");
         jComboBoxModem.addActionListener(new java.awt.event.ActionListener() {
@@ -323,12 +405,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 jComboBoxModemActionPerformed(evt);
             }
         });
-        panelAlquilarModem.add(jComboBoxModem, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 190, -1));
 
         jLabelFechaEntrega.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelFechaEntrega.setForeground(new java.awt.Color(162, 146, 146));
         jLabelFechaEntrega.setText("Fecha Entrega");
-        panelAlquilarModem.add(jLabelFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
         campoConsultaClienteAlquiler.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -338,12 +418,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 campoConsultaClienteAlquilerFocusLost(evt);
             }
         });
-        panelAlquilarModem.add(campoConsultaClienteAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 180, 25));
 
-        jLabelPrecio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabelPrecio.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelPrecio.setText("Precio día $");
-        panelAlquilarModem.add(jLabelPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, -1, -1));
+        jLabelDisponibilidad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelDisponibilidad.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelDisponibilidad.setText("Disponibilidad");
 
         campoCantidadDias.setText("0");
         campoCantidadDias.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -354,11 +432,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 campoCantidadDiasFocusLost(evt);
             }
         });
-        panelAlquilarModem.add(campoCantidadDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 80, 25));
 
         botonRegistrarAlquilerModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         botonRegistrarAlquilerModem.setForeground(new java.awt.Color(162, 146, 146));
-        botonRegistrarAlquilerModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/registro.png"))); // NOI18N
+        botonRegistrarAlquilerModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/alquilar.png"))); // NOI18N
         botonRegistrarAlquilerModem.setText("Registrar");
         botonRegistrarAlquilerModem.setBorderPainted(false);
         botonRegistrarAlquilerModem.setContentAreaFilled(false);
@@ -369,49 +446,301 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 botonRegistrarAlquilerModemActionPerformed(evt);
             }
         });
-        panelAlquilarModem.add(botonRegistrarAlquilerModem, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
 
         jLabelFechaEntrega1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelFechaEntrega1.setForeground(new java.awt.Color(162, 146, 146));
         jLabelFechaEntrega1.setText("Días Alquiler");
-        panelAlquilarModem.add(jLabelFechaEntrega1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
-
-        jButtonLimpiar.setText("Limpiar");
-        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarActionPerformed(evt);
-            }
-        });
-        panelAlquilarModem.add(jButtonLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, -1, -1));
 
         jLabelClienteAlquiler1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelClienteAlquiler1.setForeground(new java.awt.Color(162, 146, 146));
         jLabelClienteAlquiler1.setText("Cliente");
-        panelAlquilarModem.add(jLabelClienteAlquiler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
         jLabelEntregaAlquiler.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelEntregaAlquiler.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelEntregaAlquiler.setText("XX/XX/XXX");
-        panelAlquilarModem.add(jLabelEntregaAlquiler, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, -1));
+        jLabelEntregaAlquiler.setText("XX/XX/XXXX");
 
         campoPrecioMulta1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 campoPrecioMulta1campoMinutosVendidosFocusGained(evt);
             }
         });
-        campoPrecioMulta1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoPrecioMulta1ActionPerformed(evt);
+
+        campoPrecioAlquiler1.setEditable(false);
+        campoPrecioAlquiler1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                campoPrecioAlquiler1campoMinutosVendidosFocusGained(evt);
             }
         });
-        panelAlquilarModem.add(campoPrecioMulta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 80, 25));
+        campoPrecioAlquiler1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPrecioAlquiler1ActionPerformed(evt);
+            }
+        });
 
-        jLabelClienteAlquiler3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabelClienteAlquiler3.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelClienteAlquiler3.setText("Total a pagar $: ");
-        panelAlquilarModem.add(jLabelClienteAlquiler3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
+        jLabelPrecio1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabelPrecio1.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelPrecio1.setText("Precio día $");
 
-        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/ventas.png")), panelAlquilarModem); // NOI18N
+        botonAtrasAlquiler1.setBackground(new java.awt.Color(255, 255, 255));
+        botonAtrasAlquiler1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAtrasAlquiler1.setForeground(new java.awt.Color(162, 146, 146));
+        botonAtrasAlquiler1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/atras.png"))); // NOI18N
+        botonAtrasAlquiler1.setText("Atrás");
+        botonAtrasAlquiler1.setBorderPainted(false);
+        botonAtrasAlquiler1.setContentAreaFilled(false);
+        botonAtrasAlquiler1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAtrasAlquiler1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonAtrasAlquiler1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAtrasAlquiler1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAlquilarModemLayout = new javax.swing.GroupLayout(panelAlquilarModem);
+        panelAlquilarModem.setLayout(panelAlquilarModemLayout);
+        panelAlquilarModemLayout.setHorizontalGroup(
+            panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                        .addGap(266, 266, 266)
+                        .addComponent(botonRegistrarAlquilerModem)
+                        .addGap(54, 54, 54)
+                        .addComponent(botonAtrasAlquiler1))
+                    .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addComponent(labeltituloPlanes3))
+                    .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabelDisponibilidad)
+                                .addComponent(jLabelFechaEntrega1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelPrecio1)
+                                    .addComponent(jLabelFechaEntrega)
+                                    .addComponent(jLabelMulta)))
+                            .addComponent(jLabelClienteAlquiler1)
+                            .addComponent(jLabelModem))
+                        .addGap(66, 66, 66)
+                        .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoPrecioMulta1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoConsultaClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxModem, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoCantidadDias, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoDisponibildadModem, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelEntregaAlquiler)
+                                .addComponent(campoPrecioAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+        );
+        panelAlquilarModemLayout.setVerticalGroup(
+            panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(labeltituloPlanes3)
+                .addGap(18, 18, 18)
+                .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                        .addComponent(campoConsultaClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoDisponibildadModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoCantidadDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelEntregaAlquiler)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoPrecioAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(campoPrecioMulta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAlquilarModemLayout.createSequentialGroup()
+                        .addComponent(jLabelClienteAlquiler1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelModem)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelDisponibilidad)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelFechaEntrega1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelFechaEntrega)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelPrecio1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelMulta)))
+                .addGap(18, 18, 18)
+                .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonRegistrarAlquilerModem)
+                    .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
+        panelDevolucionModem.setPreferredSize(new java.awt.Dimension(818, 490));
+
+        BuscarClienteAlquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/buscar.png"))); // NOI18N
+        BuscarClienteAlquiler.setBorderPainted(false);
+        BuscarClienteAlquiler.setContentAreaFilled(false);
+        BuscarClienteAlquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarClienteAlquilerActionPerformed(evt);
+            }
+        });
+
+        botonDevolverModem.setBackground(new java.awt.Color(255, 255, 255));
+        botonDevolverModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonDevolverModem.setForeground(new java.awt.Color(162, 146, 146));
+        botonDevolverModem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/devolver.png"))); // NOI18N
+        botonDevolverModem.setText("Devolver");
+        botonDevolverModem.setBorderPainted(false);
+        botonDevolverModem.setContentAreaFilled(false);
+        botonDevolverModem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonDevolverModem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonDevolverModem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonDevolverModemActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel2.setText("Cliente");
+
+        labeltituloPlanes4.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        labeltituloPlanes4.setForeground(new java.awt.Color(162, 146, 146));
+        labeltituloPlanes4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labeltituloPlanes4.setText("Devolución USB-Modem");
+
+        tablaModemsAlquilados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tablaModemsAlquilados);
+
+        botonAtrasAlquiler.setBackground(new java.awt.Color(255, 255, 255));
+        botonAtrasAlquiler.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonAtrasAlquiler.setForeground(new java.awt.Color(162, 146, 146));
+        botonAtrasAlquiler.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/atras.png"))); // NOI18N
+        botonAtrasAlquiler.setText("Atrás");
+        botonAtrasAlquiler.setBorderPainted(false);
+        botonAtrasAlquiler.setContentAreaFilled(false);
+        botonAtrasAlquiler.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAtrasAlquiler.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonAtrasAlquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAtrasAlquilerActionPerformed(evt);
+            }
+        });
+
+        actualizarTablaModemsAlquilados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        actualizarTablaModemsAlquilados.setForeground(new java.awt.Color(162, 146, 146));
+        actualizarTablaModemsAlquilados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/actualizar.png"))); // NOI18N
+        actualizarTablaModemsAlquilados.setText("Actualizar");
+        actualizarTablaModemsAlquilados.setBorderPainted(false);
+        actualizarTablaModemsAlquilados.setContentAreaFilled(false);
+        actualizarTablaModemsAlquilados.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        actualizarTablaModemsAlquilados.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        actualizarTablaModemsAlquilados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarTablaModemsAlquiladosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDevolucionModemLayout = new javax.swing.GroupLayout(panelDevolucionModem);
+        panelDevolucionModem.setLayout(panelDevolucionModemLayout);
+        panelDevolucionModemLayout.setHorizontalGroup(
+            panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDevolucionModemLayout.createSequentialGroup()
+                .addGroup(panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDevolucionModemLayout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(labeltituloPlanes4))
+                    .addGroup(panelDevolucionModemLayout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(BuscarClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(201, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDevolucionModemLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
+            .addGroup(panelDevolucionModemLayout.createSequentialGroup()
+                .addGap(185, 185, 185)
+                .addComponent(botonDevolverModem)
+                .addGap(70, 70, 70)
+                .addComponent(actualizarTablaModemsAlquilados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonAtrasAlquiler)
+                .addGap(169, 169, 169))
+        );
+        panelDevolucionModemLayout.setVerticalGroup(
+            panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDevolucionModemLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(labeltituloPlanes4)
+                .addGap(41, 41, 41)
+                .addGroup(panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BuscarClienteAlquiler, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonDevolverModem, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelDevolucionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(actualizarTablaModemsAlquilados)
+                        .addComponent(botonAtrasAlquiler)))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSeleccionModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAlquilarModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelDevolucionModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(panelSeleccionModem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelAlquilarModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelDevolucionModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
+        );
+
+        javax.swing.GroupLayout panelMovimientosModemLayout = new javax.swing.GroupLayout(panelMovimientosModem);
+        panelMovimientosModem.setLayout(panelMovimientosModemLayout);
+        panelMovimientosModemLayout.setHorizontalGroup(
+            panelMovimientosModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        panelMovimientosModemLayout.setVerticalGroup(
+            panelMovimientosModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/alquiler.png")), panelMovimientosModem); // NOI18N
 
         panelClientesVendedor.setBackground(new java.awt.Color(255, 255, 255));
         panelClientesVendedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -601,6 +930,19 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelBusqueda1.setForeground(new java.awt.Color(162, 146, 146));
         jLabelBusqueda1.setText("Búsqueda");
 
+        jButtonRecargar.setBackground(new java.awt.Color(162, 146, 146));
+        jButtonRecargar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonRecargar.setText("Recargar Plan");
+        jButtonRecargar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButtonRecargar.setBorderPainted(false);
+        jButtonRecargar.setContentAreaFilled(false);
+        jButtonRecargar.setOpaque(true);
+        jButtonRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPlanesLayout = new javax.swing.GroupLayout(panelPlanes);
         panelPlanes.setLayout(panelPlanesLayout);
         panelPlanesLayout.setHorizontalGroup(
@@ -618,29 +960,34 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         .addComponent(botonActualizarTablaPlan))
                     .addGroup(panelPlanesLayout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelPlanesLayout.createSequentialGroup()
+                                .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelPlanesLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
+                        .addGap(70, 70, 70)
                         .addComponent(jLabelBusqueda1)
                         .addGap(18, 18, 18)
                         .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonConsultarPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         panelPlanesLayout.setVerticalGroup(
             panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlanesLayout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelBusqueda1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonConsultarPlanes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labeltituloPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addGroup(panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,6 +1001,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/plan.png")), panelPlanes); // NOI18N
 
         panelModems.setBackground(new java.awt.Color(255, 255, 255));
+        panelModems.setPreferredSize(new java.awt.Dimension(767, 487));
 
         labeltituloModems.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         labeltituloModems.setForeground(new java.awt.Color(162, 146, 146));
@@ -780,7 +1128,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addComponent(labeltituloModems, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(panelModemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonActualizarTablaModems, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonModificarModem, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -888,7 +1236,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                                 .addComponent(botonConsultarPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         panelPromocionesLayout.setVerticalGroup(
             panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -906,7 +1254,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonInactivarPromocion, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonAgregarPromocion, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -922,11 +1270,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelReportes.setLayout(panelReportesLayout);
         panelReportesLayout.setHorizontalGroup(
             panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 839, Short.MAX_VALUE)
+            .addGap(0, 818, Short.MAX_VALUE)
         );
         panelReportesLayout.setVerticalGroup(
             panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
 
         jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/reporte.png")), panelReportes); // NOI18N
@@ -1039,7 +1387,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         .addComponent(botonInactivarUsuario)
                         .addGap(67, 67, 67)
                         .addComponent(botonActualizarTablaUsuarios)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelUsuriosLayout.setVerticalGroup(
             panelUsuriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1065,12 +1413,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
         jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/usuario.png")), panelUsurios); // NOI18N
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(162, 146, 146));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cabinas Ricardo Jorge");
-        jLabel1.setOpaque(true);
+        jLabelSesion.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelSesion.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabelSesion.setForeground(new java.awt.Color(162, 146, 146));
+        jLabelSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSesion.setText("Cabinas Ricardo Jorge");
+        jLabelSesion.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1080,15 +1428,15 @@ public class VistaAdministrador extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addComponent(botonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPaneVistaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPaneVistaVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -1472,9 +1820,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
         ventaLista=false;
     }//GEN-LAST:event_campoMinutosVendidosFocusGained
 
-    private void campoPrecioAlquilercampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecioAlquilercampoMinutosVendidosFocusGained
+    private void campoDisponibildadModemcampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDisponibildadModemcampoMinutosVendidosFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoPrecioAlquilercampoMinutosVendidosFocusGained
+    }//GEN-LAST:event_campoDisponibildadModemcampoMinutosVendidosFocusGained
 
     private void campoConsultaClienteAlquilercampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConsultaClienteAlquilercampoMinutosVendidosFocusGained
         // TODO add your handling code here:
@@ -1484,131 +1832,22 @@ public class VistaAdministrador extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCantidadDiascampoMinutosVendidosFocusGained
 
-    private void botonRegistrarAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModemActionPerformed
-        if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "No hay campos vacíos");
-        }else{
-            try {
-                int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
-                int preciodia = Integer.parseInt(campoPrecioAlquiler.getText());
-                int totalPagar = preciodia*cantidadDias;
-                jLabelPagarAlquiler.setText(""+totalPagar);
-                AlquilerModem alquilerModem = new AlquilerModem();
-                UsbModem usbModem = new UsbModem();
-                LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
-                Cliente clienteAlquiler = new Cliente();
-                LogicaCliente logicaCliente = new LogicaCliente();
-                clienteAlquiler = logicaCliente.consultarCliente(campoConsultaClienteAlquiler.getText());
-                alquilerModem.setCedulacliente(clienteAlquiler);
-                alquilerModem.setCedulausuario(usuarioActivo);
-                Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
-                usbModem = logicaUsbModem.consultarModemCodigo(codigoModem);
-                alquilerModem.setCodigomodem(usbModem);
-                Date fechaActual = new Date();
-                alquilerModem.setFechainicioalquiler(fechaActual);
-                Calendar calendario = Calendar.getInstance();
-                calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
-                Date fechaEntrega = new Date(calendario.getTimeInMillis());
-                int dia = fechaEntrega.getDate();
-                int mes = fechaEntrega.getMonth();
-                int anio = fechaEntrega.getYear();
-                String elMes = "";
-                switch(mes){
-                    case 0:
-                        elMes = "Enero";
-                        break;
-                    case 1:
-                        elMes = "Febrero";
-                        break;
-                    case 2:
-                        elMes = "Marzo";
-                        break;
-                    case 3:
-                        elMes = "Abril";
-                        break;
-                    case 4:
-                        elMes = "Mayo";
-                        break;
-                    case 5:
-                        elMes = "Junio";
-                        break;
-                    case 6:
-                        elMes = "Julio";
-                        break;
-                    case 7:
-                        elMes = "Agosto";
-                        break;
-                    case 8:
-                        elMes = "Septiembre";
-                        break;
-                    case 9:
-                        elMes = "Octubre";
-                        break;
-                    case 10:
-                        elMes = "Noviembre";
-                        break;
-                    case 11:
-                        elMes = "Diciembre";
-                        break;
-                }
-                String laFecha = dia+"/"+elMes+"/"+(anio+1900);
-                jLabelEntregaAlquiler.setText(laFecha);
-                alquilerModem.setFechafinalquiler(fechaEntrega);
-                int multa = Integer.parseInt(campoPrecioAlquiler.getText());
-                alquilerModem.setMulta(multa);
-                alquilerModem.setPreciodia(preciodia);
-                Date fechaDevolucion = fechaEntrega;
-                alquilerModem.setFechadevolucion(fechaDevolucion);
-                
-                int dialogo = JOptionPane.YES_NO_OPTION;
-                JOptionPane.showConfirmDialog(null, "Datos registro alquiler\n"
-                        + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
-                        + "Modem: "+usbModem.getNombremodem()+"\n"
-                        + "Días alquiler: "+cantidadDias+"\n"
-                        + "Fecha Entrega: "+fechaEntrega.getDate()+" "+(fechaEntrega.getMonth()+1)+" "+(fechaEntrega.getYear()+1900)+"\n"
-                        + "Precio por día: "+preciodia+"\n"
-                        + "Multa: "+multa+"\n"
-                        + "Total a pagar: "+totalPagar+"\n"
-                        + "¿Son correctos los datos?");
-                if(dialogo == JOptionPane.YES_NO_OPTION){
-                    JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
-                    LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
-                    logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");  
-                }                                
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
-            }
-            
-        }
-    }//GEN-LAST:event_botonRegistrarAlquilerModemActionPerformed
-
-    
-    
-    private void campoPrecioAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecioAlquilerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPrecioAlquilerActionPerformed
-
-    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        campoConsultaClienteAlquiler.setText("");
-        campoConsultaClienteAlquiler.setEditable(true);
-        campoConsultaClienteAlquiler.setBackground(Color.white);
-        campoCantidadDias.setText("");
-        jLabelPagarAlquiler.setText("0");
-        
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
-
     private void jComboBoxModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModemActionPerformed
         LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
         UsbModem usbModem = new UsbModem();
-        Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+        Long codigoModem = null;
+        if(jComboBoxModem.getItemCount() == 0){
+         codigoModem = Long.parseLong("1");
+        }else{
+            codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+        }
         try {
             usbModem = logicaUsbModem.consultarModemCodigo(codigoModem);
         } catch (Exception ex) {
             Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        campoPrecioAlquiler.setText(""+usbModem.getPreciodia());
+        campoPrecioAlquiler1.setText(""+usbModem.getPreciodia());
+        campoDisponibildadModem.setText(usbModem.getDisponibilidad());
     }//GEN-LAST:event_jComboBoxModemActionPerformed
 
     private void campoConsultaClienteAlquilerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConsultaClienteAlquilerFocusLost
@@ -1622,7 +1861,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }else{
                 Color verde = new Color(170, 255, 170);
             campoConsultaClienteAlquiler.setBackground(verde);
-            JOptionPane.showMessageDialog(null, "Cliente verificado");
+            //JOptionPane.showMessageDialog(null, "Cliente verificado");
             campoConsultaClienteAlquiler.setEditable(false);
             }
     }//GEN-LAST:event_campoConsultaClienteAlquilerFocusLost
@@ -1630,10 +1869,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void campoPrecioMulta1campoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecioMulta1campoMinutosVendidosFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_campoPrecioMulta1campoMinutosVendidosFocusGained
-
-    private void campoPrecioMulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecioMulta1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPrecioMulta1ActionPerformed
 
     private void campoCantidadDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCantidadDiasFocusLost
         // TODO add your handling code here:
@@ -1686,6 +1921,285 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 String laFecha = dia+"/"+elMes+"/"+(anio+1900);
                 jLabelEntregaAlquiler.setText(laFecha);
     }//GEN-LAST:event_campoCantidadDiasFocusLost
+
+    private void jButtonRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecargarActionPerformed
+        if(tablaPlanes.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un plan de la tabla");
+        }else{
+            Long cod = Long.parseLong(tablaPlanes.getValueAt(tablaPlanes.getSelectedRow(),0).toString());
+            RecargarPlan recargar = new RecargarPlan(cod, usuarioActivo);
+            recargar.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonRecargarActionPerformed
+
+    private void campoPrecioAlquiler1campoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecioAlquiler1campoMinutosVendidosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecioAlquiler1campoMinutosVendidosFocusGained
+
+    private void campoPrecioAlquiler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecioAlquiler1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecioAlquiler1ActionPerformed
+
+    private void botonRegistrarAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModemActionPerformed
+        if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "No hay campos vacíos");
+        }else{
+            try {
+                int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+                int preciodia = Integer.parseInt(campoPrecioAlquiler1.getText());
+                int totalPagar = preciodia*cantidadDias;
+                AlquilerModem alquilerModem = new AlquilerModem();
+                UsbModem usbModem = new UsbModem();
+                Cliente clienteAlquiler = new Cliente();
+                LogicaCliente logicaCliente = new LogicaCliente();
+                clienteAlquiler = logicaCliente.consultarCliente(campoConsultaClienteAlquiler.getText());
+                alquilerModem.setCedulacliente(clienteAlquiler);
+                alquilerModem.setCedulausuario(usuarioActivo);
+                Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+                usbModem = lum.consultarModemCodigo(codigoModem);
+                alquilerModem.setCodigomodem(usbModem);
+                Date fechaActual = new Date();
+                alquilerModem.setFechainicioalquiler(fechaActual);
+                Calendar calendario = Calendar.getInstance();
+                calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
+                Date fechaEntrega = new Date(calendario.getTimeInMillis());
+                int dia = fechaEntrega.getDate();
+                int mes = fechaEntrega.getMonth();
+                int anio = fechaEntrega.getYear();
+                String elMes = "";
+                switch(mes){
+                    case 0:
+                    elMes = "Enero";
+                    break;
+                    case 1:
+                    elMes = "Febrero";
+                    break;
+                    case 2:
+                    elMes = "Marzo";
+                    break;
+                    case 3:
+                    elMes = "Abril";
+                    break;
+                    case 4:
+                    elMes = "Mayo";
+                    break;
+                    case 5:
+                    elMes = "Junio";
+                    break;
+                    case 6:
+                    elMes = "Julio";
+                    break;
+                    case 7:
+                    elMes = "Agosto";
+                    break;
+                    case 8:
+                    elMes = "Septiembre";
+                    break;
+                    case 9:
+                    elMes = "Octubre";
+                    break;
+                    case 10:
+                    elMes = "Noviembre";
+                    break;
+                    case 11:
+                    elMes = "Diciembre";
+                    break;
+                }
+                String laFecha = dia+"/"+elMes+"/"+(anio+1900);
+                jLabelEntregaAlquiler.setText(laFecha);
+                alquilerModem.setFechafinalquiler(fechaEntrega);
+                int multa = Integer.parseInt(campoPrecioMulta1.getText());
+                alquilerModem.setMulta(multa);
+                alquilerModem.setPreciodia(preciodia);
+                Date fechaDevolucion = new Date();
+                fechaDevolucion.setDate(0);
+                fechaDevolucion.setMonth(0);
+                fechaDevolucion.setYear(0);
+                alquilerModem.setFechadevolucion(fechaDevolucion);
+
+                if(campoDisponibildadModem.getText().equals("Disponible") || campoDisponibildadModem.getText().equals("Reservado")){
+                    int opcion = JOptionPane.showConfirmDialog(null, "Datos registro alquiler\n"
+                        + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
+                        + "Modem: "+usbModem.getNombremodem()+"\n"
+                        + "Días alquiler: "+cantidadDias+"\n"
+                        + "Fecha Entrega: "+fechaEntrega.getDate()+" "+(fechaEntrega.getMonth()+1)+" "+(fechaEntrega.getYear()+1900)+"\n"
+                        + "Precio por día: "+preciodia+"\n"
+                        + "Multa: "+multa+"\n"
+                        + "Total a pagar: "+totalPagar+"\n"
+                        + "¿Son correctos los datos?");
+
+                    if(opcion==0){
+                        JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
+                        LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
+                        logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
+                        codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+                        //UsbModem modemReserva = lum.consultarModemCodigo(codigoModem);
+                        usbModem.setDisponibilidad("Alquilado");
+                        lum.modificarModem(usbModem);
+
+                        campoConsultaClienteAlquiler.setText("");
+                        campoConsultaClienteAlquiler.setEditable(true);
+                        campoConsultaClienteAlquiler.setBackground(Color.white);
+                        campoCantidadDias.setText("");
+                        panelDevolucionModem.setVisible(false);
+                        panelAlquilarModem.setVisible(false);
+                        panelSeleccionModem.setVisible(true);
+                    }else if(opcion ==1){
+                        JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
+                    }
+                }else if(campoDisponibildadModem.getText().equals("Alquilado")){
+                    int opcion = JOptionPane.showConfirmDialog(null, "El modem se encuentra alquilado \n"
+                        + "¿Desea reservarlo?");
+                    if(opcion ==0){
+                        //                        codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+                        //                        UsbModem modemReserva = lum.consultarModemCodigo(codigoModem);
+                        usbModem.setDisponibilidad("Alquilado-Reservado");
+                        lum.modificarModem(usbModem);
+
+                        campoConsultaClienteAlquiler.setText("");
+                        campoConsultaClienteAlquiler.setEditable(true);
+                        campoConsultaClienteAlquiler.setBackground(Color.white);
+                        campoDisponibildadModem.setText("");
+                        campoCantidadDias.setText("");
+                        campoPrecioAlquiler1.setText("");
+                        campoPrecioMulta1.setText("");
+                    }else if(opcion ==1){
+                        JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
+                    }
+                }else if(campoDisponibildadModem.getText().equals("Alquilado-Reservado")){
+                    JOptionPane.showMessageDialog(null, "El modem ya se encuentra reservado, por favor seleccione otro modem");
+                }
+                llenarTablaModemsAlquilados();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                //JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
+            }
+        }
+    }//GEN-LAST:event_botonRegistrarAlquilerModemActionPerformed
+
+    private void botonAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlquilerModemActionPerformed
+        panelDevolucionModem.setVisible(false);
+        panelAlquilarModem.setVisible(true);
+        panelSeleccionModem.setVisible(false);
+    }//GEN-LAST:event_botonAlquilerModemActionPerformed
+
+    private void botonDevolucionModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionModemActionPerformed
+        panelDevolucionModem.setVisible(true);
+        panelAlquilarModem.setVisible(false);
+        panelSeleccionModem.setVisible(false);
+        llenarTablaModemsAlquilados();
+    }//GEN-LAST:event_botonDevolucionModemActionPerformed
+
+    private void botonDevolverModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolverModemActionPerformed
+        if(tablaModemsAlquilados.getSelectedRow()<0){
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un modem de la tabla");
+        }else{
+            Long cod = Long.parseLong(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),0).toString());
+            LogicaAlquilerModem lam = new LogicaAlquilerModem();
+            AlquilerModem alquilerDev = lam.consultaAlquilerModemCod(cod);
+            
+            int opcion = JOptionPane.showConfirmDialog(panelModems, "¿Desea realizar la devolución del modem \n"+
+                            alquilerDev.getCodigomodem().getNombremodem()+
+                            " alquilado por el cliente"+alquilerDev.getCedulacliente().getNombrecliente()+"?");
+            
+            if(opcion==0){
+                Date fechaActual = new Date();
+                alquilerDev.setFechadevolucion(fechaActual);
+                alquilerDev.setMulta(Integer.parseInt(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),5).toString()));
+
+                try {
+                    lam.modificarAlquilerModem(alquilerDev);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+                UsbModem modemDevolucion = alquilerDev.getCodigomodem();
+                if(modemDevolucion.getDisponibilidad().equals("Alquilado")){
+                    modemDevolucion.setDisponibilidad("Disponible");
+                }else if(modemDevolucion.getDisponibilidad().equals("Alquilado-Reservado")){
+                    modemDevolucion.setDisponibilidad("Reservado");
+                }
+
+                lum.modificarModem(modemDevolucion);
+                llenarTablaModemsAlquilados();
+            }
+        }
+    }//GEN-LAST:event_botonDevolverModemActionPerformed
+
+    private void botonAtrasAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasAlquilerActionPerformed
+        panelDevolucionModem.setVisible(false);
+        panelAlquilarModem.setVisible(false);
+        panelSeleccionModem.setVisible(true);
+    }//GEN-LAST:event_botonAtrasAlquilerActionPerformed
+
+    private void botonAtrasAlquiler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasAlquiler1ActionPerformed
+        panelDevolucionModem.setVisible(false);
+        panelAlquilarModem.setVisible(false);
+        panelSeleccionModem.setVisible(true);
+    }//GEN-LAST:event_botonAtrasAlquiler1ActionPerformed
+
+    private void jTabbedPaneVistaVendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneVistaVendedorMouseClicked
+        llenarJComboBoxModemAlquiler();
+    }//GEN-LAST:event_jTabbedPaneVistaVendedorMouseClicked
+
+    private void BuscarClienteAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarClienteAlquilerActionPerformed
+        String cedula = jTextFieldClienteAlquiler.getText();
+        
+        LogicaAlquilerModem lam = new LogicaAlquilerModem();
+        LogicaCliente lc = new LogicaCliente();
+        Cliente clienteAlquila = lc.consultarCliente(cedula);
+        AlquilerModem alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
+        
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaModemsAlquilados.setModel(dtm);
+         
+        dtm.addColumn("Código");
+        dtm.addColumn("Cliente ");
+        dtm.addColumn("Modem");
+        dtm.addColumn("Fecha Final");
+        dtm.addColumn("Precio Día");
+        dtm.addColumn("Multa");
+        dtm.addColumn("Disponibilidad");
+         
+        String[] fila = new String[7];
+        
+        fila[0] = alquiler.getCodigoalquiler()+"";
+        fila[1] = alquiler.getCedulacliente().getNombrecliente();
+        fila[2] = alquiler.getCodigomodem().getNombremodem();
+
+        Date fecha = alquiler.getFechafinalquiler();
+        String fechaD = ""+fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
+
+        fila[3] = fechaD;
+
+        fila[4] = alquiler.getPreciodia()+"";
+
+        Date fechaActual = new Date();
+        Date fechaDevolucion = alquiler.getFechadevolucion();
+        if(!fechaDevolucion.toString().equals(fechaActual.toString())){
+            long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+            long diferencia = ( fecha.getTime() - fechaActual.getTime())/MILLSECS_PER_DAY;
+            if(diferencia<0){
+                int diaMulta = alquiler.getMulta();
+                fila[5] = diferencia*diaMulta*(-1)+"";
+            }
+        else{
+            fila[5] = 0+"";
+        }}
+
+        fila[6] = alquiler.getCodigomodem().getDisponibilidad();
+
+        if(fila[6].equals("Alquilado") || fila[6].equals("Alquilado-Reservado")){
+            dtm.addRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(panelModems, "El cliente no tiene ningún modem alquilado");
+        }
+        
+    }//GEN-LAST:event_BuscarClienteAlquilerActionPerformed
+
+    private void actualizarTablaModemsAlquiladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarTablaModemsAlquiladosActionPerformed
+        llenarTablaModemsAlquilados();
+    }//GEN-LAST:event_actualizarTablaModemsAlquiladosActionPerformed
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -1818,12 +2332,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         String laFecha;
         dtm.addColumn("Codigo");
         dtm.addColumn("Nombre");
-        dtm.addColumn("Tiempo aire");
-        dtm.addColumn("Saldo");
+        dtm.addColumn("Min. fijos");
+        dtm.addColumn("Cant. Actual");
         dtm.addColumn("Próxima Recarga");
         dtm.addColumn("Valor compra");
         dtm.addColumn("Valor venta");
-        dtm.addColumn("Acomulable");
+        dtm.addColumn("Acumulable");
         dtm.addColumn("Minuto alerta");
         dtm.addColumn("Estado");
         
@@ -1909,13 +2423,16 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }  
     }
      
-     private void llenarJComboBoxModem(){
-         LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
-         List<UsbModem> usbModem = logicaUsbModem.consultarModems();
-         for (UsbModem usbModem1 : usbModem) {
-             jComboBoxModem.addItem(usbModem1.getCodigomodem()+" "+usbModem1.getNombremodem());
+    private void llenarJComboBoxModemAlquiler(){
+        LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
+         List<UsbModem> usbModems = logicaUsbModem.consultarModems();
+         jComboBoxModem.removeAllItems();
+         for (UsbModem usbModem : usbModems) {
+             if(usbModem.getEstadousbmodem()){
+                jComboBoxModem.addItem(usbModem.getCodigomodem()+" "+usbModem.getNombremodem());
+             }
          }
-     }
+    }
      
      private void ActualizarFechaAlquiler(){
         //Calendar fechaHoy = Calendar.getInstance();
@@ -1967,7 +2484,134 @@ public class VistaAdministrador extends javax.swing.JFrame{
     }
         
  
+    public void llenarTablaModemsAlquilados(){
+        LogicaAlquilerModem lam = new LogicaAlquilerModem();
+        List<AlquilerModem> modemsAlquiler = lam.consultarAlquilerModem();
+        
+        DefaultTableModel dtm = new DefaultTableModel();
+        tablaModemsAlquilados.setModel(dtm);
+         
+        dtm.addColumn("Código");
+        dtm.addColumn("Cliente ");
+        dtm.addColumn("Modem");
+        dtm.addColumn("Fecha Final");
+        dtm.addColumn("Precio Día");
+        dtm.addColumn("Multa");
+        dtm.addColumn("Disponibilidad");
+         
+        String[] fila = new String[7];
+         
+        for (int i = 0; i < modemsAlquiler.size(); i++) {
+            fila[0] = modemsAlquiler.get(i).getCodigoalquiler()+"";
+            fila[1] = modemsAlquiler.get(i).getCedulacliente().getNombrecliente();
+            fila[2] = modemsAlquiler.get(i).getCodigomodem().getNombremodem();
+            
+            Date fecha = modemsAlquiler.get(i).getFechafinalquiler();
+            String fechaD = ""+fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
+            
+            fila[3] = fechaD;
+            
+            fila[4] = modemsAlquiler.get(i).getPreciodia()+"";
+            
+            Date fechaActual = new Date();
+            Date fechaFinal = modemsAlquiler.get(i).getFechafinalquiler();
+            if(!fechaFinal.toString().equals(fechaActual.toString())){
+                long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+                long diferencia = ( fecha.getTime() - fechaActual.getTime())/MILLSECS_PER_DAY;
+                if(diferencia<0){
+                    int diaMulta = modemsAlquiler.get(i).getMulta();
+                    fila[5] = diferencia*diaMulta*(-1)+"";
+                }
+            else{
+                fila[5] = 0+"";
+            }}
+            
+            fila[6] = modemsAlquiler.get(i).getCodigomodem().getDisponibilidad();
+            
+            Date fechaNula = new Date();
+            fechaNula.setDate(0);
+            fechaNula.setMonth(0);
+            fechaNula.setYear(0);
+            String fechaN = fechaNula.getDate()+"/"+(fechaNula.getMonth()+1)+"/"+(fechaNula.getYear()+1900);
+            Date fechaDev =modemsAlquiler.get(i).getFechadevolucion();
+            String fechaDevo = fechaDev.getDate()+"/"+(fechaDev.getMonth()+1)+"/"+(fechaDev.getYear()+1900);
+            
+            if(fechaN.equals(fechaDevo)){
+                dtm.addRow(fila);
+            }
+           
+        }
+     }
+    
+    public void alertaDevolucion(){
+        Date hoy = new Date();
+        String fechaHoy= hoy.getDate()+"/"+(hoy.getMonth()+1)+"/"+(hoy.getYear()+1900);
+        
+        LogicaAlquilerModem lam = new LogicaAlquilerModem();
+        List<AlquilerModem> alquilados = lam.consultarAlquilerModem();
+        
+        for (int i = 0; i < alquilados.size(); i++) {
+            Date fechaF = alquilados.get(i).getFechafinalquiler();
+            String fechaFinal= fechaF.getDate()+"/"+(fechaF.getMonth()+1)+"/"+(fechaF.getYear()+1900);
+            
+            long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+            long diferencia = ( hoy.getTime() - fechaF.getTime())/MILLSECS_PER_DAY;
+            if(diferencia>0){
+                JOptionPane.showMessageDialog(panelModems, "El cliente "+alquilados.get(i).getCedulacliente().getNombrecliente()
+                    +" no ha retornado el modem "+alquilados.get(i).getCodigomodem().getNombremodem()+".\n"+
+                    "Puede contactarlo al número "+alquilados.get(i).getCedulacliente().getTelefonocliente());
+            }
+        }
+    }
+    
+    public void recargaAutomaticaPlan(){
+        LogicaPlanMinutos lp = new LogicaPlanMinutos();
+        List<PlanMinutos> planes = lp.consultarPlanMinutos();
+        Calendar calendario = Calendar.getInstance();
+        calendario.add(Calendar.DAY_OF_MONTH, 30);
+        Date hoy = new Date();
+        
+        String fechaHoy= hoy.getDate()+"/"+(hoy.getMonth()+1)+"/"+(hoy.getYear()+1900);
+        
+        for (int i = 0; i < planes.size(); i++) {
+            
+            Date fecha = planes.get(i).getFechaproximarecarga();
+            String fechaRecarga = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
+            
+            if(fechaHoy.equals(fechaRecarga)){
+                if(planes.get(i).getMinutosacumulables()){
+                    
+                    try {
+                        int minActual = planes.get(i).getCantidadminutos();
+                        planes.get(i).setCantidadminutos(minActual+planes.get(i).getCantidadminutosfijos());
+                    
+                        fecha = new Date(calendario.getTimeInMillis());
+                        planes.get(i).setFechaproximarecarga(fecha);
+                        lp.modificarPlanMinutos(planes.get(i));
+                        
+                        Recarga recargaAuto = new Recarga();
+                        recargaAuto.setFecharecarga(hoy);
+                        recargaAuto.setCodigoplan(planes.get(i));
+                        recargaAuto.setCedulausuario(usuarioActivo);
+                        recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
+                        recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+
+                        LogicaRecarga lr = new LogicaRecarga();
+                        lr.registrarRecarga(recargaAuto);
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }else{
+                    
+                }
+            }
+            
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuscarClienteAlquiler;
+    private javax.swing.JButton actualizarTablaModemsAlquilados;
     private javax.swing.JButton botonActualizarTablaClientes;
     private javax.swing.JButton botonActualizarTablaModems;
     private javax.swing.JButton botonActualizarTablaPlan;
@@ -1978,7 +2622,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonAgregarPlan;
     private javax.swing.JButton botonAgregarPromocion;
     private javax.swing.JButton botonAgregarUsuario;
+    private javax.swing.JButton botonAlquilerModem;
     private javax.swing.JButton botonAtras;
+    private javax.swing.JButton botonAtrasAlquiler;
+    private javax.swing.JButton botonAtrasAlquiler1;
     private javax.swing.JButton botonCalcular;
     private javax.swing.JButton botonCambiarEstadoModem;
     private javax.swing.JButton botonConsultarCliente;
@@ -1986,6 +2633,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonConsultarPlanes;
     private javax.swing.JButton botonConsultarPromociones;
     private javax.swing.JButton botonConsultarUsuario;
+    private javax.swing.JButton botonDevolucionModem;
+    private javax.swing.JButton botonDevolverModem;
     private javax.swing.JButton botonEstadoCliente;
     private javax.swing.JButton botonInactivarPlan;
     private javax.swing.JButton botonInactivarPromocion;
@@ -2004,16 +2653,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JTextField campoConsultaPlanes;
     private javax.swing.JTextField campoConsultaPromociones;
     private javax.swing.JTextField campoConsultaUsuario;
+    private javax.swing.JTextField campoDisponibildadModem;
     private javax.swing.JFormattedTextField campoMinutosFacturados;
     private javax.swing.JFormattedTextField campoMinutosVendidos;
-    private javax.swing.JTextField campoPrecioAlquiler;
+    private javax.swing.JTextField campoPrecioAlquiler1;
     private javax.swing.JFormattedTextField campoPrecioMinuto;
     private javax.swing.JTextField campoPrecioMulta1;
     private javax.swing.JFormattedTextField campoTotalVenta;
     private javax.swing.JComboBox comboPlanesVenta;
-    private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JButton jButtonRecargar;
     private javax.swing.JComboBox<String> jComboBoxModem;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelBusqueda;
     private javax.swing.JLabel jLabelBusqueda1;
     private javax.swing.JLabel jLabelBusqueda10;
@@ -2026,39 +2676,46 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JLabel jLabelBusqueda8;
     private javax.swing.JLabel jLabelBusqueda9;
     private javax.swing.JLabel jLabelClienteAlquiler1;
-    private javax.swing.JLabel jLabelClienteAlquiler3;
+    private javax.swing.JLabel jLabelDisponibilidad;
     private javax.swing.JLabel jLabelEntregaAlquiler;
     private javax.swing.JLabel jLabelFechaEntrega;
     private javax.swing.JLabel jLabelFechaEntrega1;
     private javax.swing.JLabel jLabelModem;
     private javax.swing.JLabel jLabelMulta;
-    private javax.swing.JLabel jLabelPagarAlquiler;
-    private javax.swing.JLabel jLabelPrecio;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel jLabelPrecio1;
+    private javax.swing.JLabel jLabelSesion;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPaneVistaVendedor;
+    private javax.swing.JTextField jTextFieldClienteAlquiler;
     private javax.swing.JLabel labeltituloCliente1;
+    private javax.swing.JLabel labeltituloCliente2;
     private javax.swing.JLabel labeltituloModems;
     private javax.swing.JLabel labeltituloPlanes;
     private javax.swing.JLabel labeltituloPlanes1;
     private javax.swing.JLabel labeltituloPlanes3;
+    private javax.swing.JLabel labeltituloPlanes4;
     private javax.swing.JLabel labeltituloPromociones;
     private javax.swing.JLabel labeltituloUsuario;
     private javax.swing.JPanel panelAlquilarModem;
     private javax.swing.JPanel panelClientesVendedor;
+    private javax.swing.JPanel panelDevolucionModem;
     private javax.swing.JPanel panelModems;
+    private javax.swing.JPanel panelMovimientosModem;
     private javax.swing.JPanel panelPlanes;
     private javax.swing.JPanel panelPromociones;
     private javax.swing.JPanel panelRegistrarVenta;
     private javax.swing.JPanel panelReportes;
+    private javax.swing.JPanel panelSeleccionModem;
     private javax.swing.JPanel panelUsurios;
     private javax.swing.JTable tablaClientes;
     private javax.swing.JTable tablaModems;
+    private javax.swing.JTable tablaModemsAlquilados;
     private javax.swing.JTable tablaPlanes;
     private javax.swing.JTable tablaPromociones;
     private javax.swing.JTable tablaUsuarios;

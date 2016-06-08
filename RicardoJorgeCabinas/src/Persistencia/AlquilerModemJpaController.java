@@ -260,5 +260,17 @@ public class AlquilerModemJpaController implements Serializable {
             em.close();
         }
     }
+//    
+    public AlquilerModem findAlquilerModemCliente(Cliente cedula) {
+        EntityManager em = getEntityManager();
+        try {
+            Query alquilerCliente = em.createNamedQuery("AlquilerModem.findByCliente");
+            alquilerCliente.setParameter("cedulacliente", cedula);
+            AlquilerModem alquiler = (AlquilerModem) alquilerCliente.getSingleResult();
+            return alquiler;
+        }finally{
+            em.close();
+        }
+    }
     
 }

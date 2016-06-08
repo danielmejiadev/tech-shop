@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AlquilerModem.findByFechafinalquiler", query = "SELECT a FROM AlquilerModem a WHERE a.fechafinalquiler = :fechafinalquiler"),
     @NamedQuery(name = "AlquilerModem.findByFechadevolucion", query = "SELECT a FROM AlquilerModem a WHERE a.fechadevolucion = :fechadevolucion"),
     @NamedQuery(name = "AlquilerModem.findByPreciodia", query = "SELECT a FROM AlquilerModem a WHERE a.preciodia = :preciodia"),
-    @NamedQuery(name = "AlquilerModem.findByMulta", query = "SELECT a FROM AlquilerModem a WHERE a.multa = :multa")})
+    @NamedQuery(name = "AlquilerModem.findByMulta", query = "SELECT a FROM AlquilerModem a WHERE a.multa = :multa"),
+    @NamedQuery(name = "AlquilerModem.findByCliente", query = "SELECT a FROM AlquilerModem a WHERE a.cedulacliente = :cedulacliente")})
 public class AlquilerModem implements Serializable {
     private static final long serialVersionUID = 1L;
     
