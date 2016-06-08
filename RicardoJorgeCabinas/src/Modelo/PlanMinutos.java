@@ -3,6 +3,7 @@ package Modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -204,4 +205,28 @@ public class PlanMinutos implements Serializable {
     public void setFechaproximarecarga(Date fechaproximarecarga) {
         this.fechaproximarecarga = fechaproximarecarga;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.codigoplan);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PlanMinutos other = (PlanMinutos) obj;
+        if (!Objects.equals(this.codigoplan, other.codigoplan)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

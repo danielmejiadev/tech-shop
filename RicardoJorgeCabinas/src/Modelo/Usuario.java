@@ -2,6 +2,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -184,5 +185,29 @@ public class Usuario implements Serializable {
 
     public void setRecargaList(List<Recarga> recargaList) {
         this.recargaList = recargaList;
-    }   
+    } 
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.cedulausuario);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.cedulausuario, other.cedulausuario)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

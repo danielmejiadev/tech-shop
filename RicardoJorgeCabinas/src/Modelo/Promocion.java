@@ -3,6 +3,7 @@ package Modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -184,4 +185,28 @@ public class Promocion implements Serializable {
     public void setAlquilerModemList(List<AlquilerModem> alquilerModemList) {
         this.alquilerModemList = alquilerModemList;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.codigopromocion);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Promocion other = (Promocion) obj;
+        if (!Objects.equals(this.codigopromocion, other.codigopromocion)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

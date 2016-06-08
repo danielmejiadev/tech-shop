@@ -71,18 +71,16 @@ public class UsbModemJpaController implements Serializable {
             UsbModem persistentUsbModem = em.find(UsbModem.class, usbModem.getCodigomodem());
             List<AlquilerModem> alquilerModemListOld = persistentUsbModem.getAlquilerModemList();
             List<AlquilerModem> alquilerModemListNew = usbModem.getAlquilerModemList();
-//            List<String> illegalOrphanMessages = null;
-//            for (AlquilerModem alquilerModemListOldAlquilerModem : alquilerModemListOld) {
-//                if (!alquilerModemListNew.contains(alquilerModemListOldAlquilerModem)) {
-//                    if (illegalOrphanMessages == null) {
-//                        illegalOrphanMessages = new ArrayList<String>();
-//                    }
-//                    illegalOrphanMessages.add("You must retain AlquilerModem " + alquilerModemListOldAlquilerModem + " since its codigomodem field is not nullable.");
-//                }
-//            }
-//            if (illegalOrphanMessages != null) {
-//                throw new IllegalOrphanException(illegalOrphanMessages);
-//            }
+            List<String> illegalOrphanMessages = null;
+            for (AlquilerModem alquilerModemListOldAlquilerModem : alquilerModemListOld) {
+                if (!alquilerModemListNew.contains(alquilerModemListOldAlquilerModem)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain AlquilerModem " + alquilerModemListOldAlquilerModem + " since its cedulausuario field is not nullable.");
+                }
+            }
+           
             List<AlquilerModem> attachedAlquilerModemListNew = new ArrayList<AlquilerModem>();
             for (AlquilerModem alquilerModemListNewAlquilerModemToAttach : alquilerModemListNew) {
                 alquilerModemListNewAlquilerModemToAttach = em.getReference(alquilerModemListNewAlquilerModemToAttach.getClass(), alquilerModemListNewAlquilerModemToAttach.getCodigoalquiler());

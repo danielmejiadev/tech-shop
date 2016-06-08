@@ -233,6 +233,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 logicaUsuario.modificarUsuario(usuario);
                 } catch (Exception ex) 
                 {
+                    System.err.println(ex);
                     JOptionPane.showMessageDialog(null,"Error, no se pudo modificar el usuario");
                 }
                 finally

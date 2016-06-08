@@ -97,26 +97,26 @@ public class PlanMinutosJpaController implements Serializable {
             List<VentaMinutos> ventaMinutosListNew = planMinutos.getVentaMinutosList();
             List<Recarga> recargaListOld = persistentPlanMinutos.getRecargaList();
             List<Recarga> recargaListNew = planMinutos.getRecargaList();
-//            List<String> illegalOrphanMessages = null;
-//            for (VentaMinutos ventaMinutosListOldVentaMinutos : ventaMinutosListOld) {
-//                if (!ventaMinutosListNew.contains(ventaMinutosListOldVentaMinutos)) {
-//                    if (illegalOrphanMessages == null) {
-//                        illegalOrphanMessages = new ArrayList<String>();
-//                    }
-//                    illegalOrphanMessages.add("You must retain VentaMinutos " + ventaMinutosListOldVentaMinutos + " since its codigoplan field is not nullable.");
-//                }
-//            }
-//            for (Recarga recargaListOldRecarga : recargaListOld) {
-//                if (!recargaListNew.contains(recargaListOldRecarga)) {
-//                    if (illegalOrphanMessages == null) {
-//                        illegalOrphanMessages = new ArrayList<String>();
-//                    }
-//                    illegalOrphanMessages.add("You must retain Recarga " + recargaListOldRecarga + " since its codigoplan field is not nullable.");
-//                }
-//            }
-//            if (illegalOrphanMessages != null) {
-//                throw new IllegalOrphanException(illegalOrphanMessages);
-////            }
+            List<String> illegalOrphanMessages = null;
+            for (VentaMinutos ventaMinutosListOldVentaMinutos : ventaMinutosListOld) {
+                if (!ventaMinutosListNew.contains(ventaMinutosListOldVentaMinutos)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain VentaMinutos " + ventaMinutosListOldVentaMinutos + " since its codigoplan field is not nullable.");
+                }
+            }
+            for (Recarga recargaListOldRecarga : recargaListOld) {
+                if (!recargaListNew.contains(recargaListOldRecarga)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Recarga " + recargaListOldRecarga + " since its codigoplan field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
             List<VentaMinutos> attachedVentaMinutosListNew = new ArrayList<VentaMinutos>();
             for (VentaMinutos ventaMinutosListNewVentaMinutosToAttach : ventaMinutosListNew) {
                 ventaMinutosListNewVentaMinutosToAttach = em.getReference(ventaMinutosListNewVentaMinutosToAttach.getClass(), ventaMinutosListNewVentaMinutosToAttach.getCodigoventa());

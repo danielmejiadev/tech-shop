@@ -230,6 +230,7 @@ public class AgregarModem extends javax.swing.JFrame {
         if(NombreModem.getText().equals("")){
             JOptionPane.showMessageDialog(null, "El nombre es obligatorio");
         }else{
+            um.setCodigomodem(null);
             um.setNombremodem(NombreModem.getText());
             
             um.setProveedor(ProveedorModem.getSelectedItem().toString());

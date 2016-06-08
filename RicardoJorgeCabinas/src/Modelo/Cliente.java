@@ -3,6 +3,7 @@ package Modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -163,4 +164,28 @@ public class Cliente implements Serializable {
     public void setAlquilerModemList(List<AlquilerModem> alquilerModemList) {
         this.alquilerModemList = alquilerModemList;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.cedulacliente);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (!Objects.equals(this.cedulacliente, other.cedulacliente)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

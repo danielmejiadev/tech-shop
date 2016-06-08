@@ -60,7 +60,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelSeleccionModem.setVisible(true);
         alertaDevolucion();
         recargaAutomaticaPlan();
-        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());
+        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());                  
     }
     public VistaAdministrador(){
         
@@ -2103,25 +2103,28 @@ public class VistaAdministrador extends javax.swing.JFrame{
                             " alquilado por el cliente"+alquilerDev.getCedulacliente().getNombrecliente()+"?");
             
             if(opcion==0){
-                Date fechaActual = new Date();
-                alquilerDev.setFechadevolucion(fechaActual);
-                alquilerDev.setMulta(Integer.parseInt(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),5).toString()));
-
                 try {
+                    Date fechaActual = new Date();
+                    alquilerDev.setFechadevolucion(fechaActual);
+                    alquilerDev.setMulta(Integer.parseInt(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),5).toString()));
+                   
                     lam.modificarAlquilerModem(alquilerDev);
+                    
+                    UsbModem modemDevolucion = alquilerDev.getCodigomodem(); 
+                    switch (modemDevolucion.getDisponibilidad()) {
+                        case "Alquilado":
+                            modemDevolucion.setDisponibilidad("Disponible");
+                            break;
+                        case "Alquilado-Reservado":
+                            modemDevolucion.setDisponibilidad("Reservado");
+                            break;
+                    }
+                      
+                    lum.modificarModem(modemDevolucion);
+                    llenarTablaModemsAlquilados();
                 } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                UsbModem modemDevolucion = alquilerDev.getCodigomodem();
-                if(modemDevolucion.getDisponibilidad().equals("Alquilado")){
-                    modemDevolucion.setDisponibilidad("Disponible");
-                }else if(modemDevolucion.getDisponibilidad().equals("Alquilado-Reservado")){
-                    modemDevolucion.setDisponibilidad("Reservado");
-                }
-
-                lum.modificarModem(modemDevolucion);
-                llenarTablaModemsAlquilados();
             }
         }
     }//GEN-LAST:event_botonDevolverModemActionPerformed
@@ -2550,7 +2553,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
         LogicaAlquilerModem lam = new LogicaAlquilerModem();
         List<AlquilerModem> alquilados = lam.consultarAlquilerModem();
         
-        for (int i = 0; i < alquilados.size(); i++) {
+        for (int i = 0; i < alquilados.size(); i++) 
+        {
             Date fechaF = alquilados.get(i).getFechafinalquiler();
             String fechaFinal= fechaF.getDate()+"/"+(fechaF.getMonth()+1)+"/"+(fechaF.getYear()+1900);
             
