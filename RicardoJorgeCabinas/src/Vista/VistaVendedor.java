@@ -1957,34 +1957,52 @@ public class VistaVendedor extends javax.swing.JFrame{
             Date fecha = planes.get(i).getFechaproximarecarga();
             String fechaRecarga = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
             
-            if(fechaHoy.equals(fechaRecarga)){
-                if(planes.get(i).getMinutosacumulables()){
-                    
-                    try {
-                        int minActual = planes.get(i).getCantidadminutos();
-                        planes.get(i).setCantidadminutos(minActual+planes.get(i).getCantidadminutosfijos());
-                    
-                        fecha = new Date(calendario.getTimeInMillis());
-                        planes.get(i).setFechaproximarecarga(fecha);
-                        lp.modificarPlanMinutos(planes.get(i));
-                        
-                        Recarga recargaAuto = new Recarga();
-                        recargaAuto.setFecharecarga(hoy);
-                        recargaAuto.setCodigoplan(planes.get(i));
-                        recargaAuto.setCedulausuario(usuarioActivo);
-                        recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
-                        recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+            if(planes.get(i).getEstadoplanminutos()){
+                if(fechaHoy.equals(fechaRecarga)){
+                    if(planes.get(i).getMinutosacumulables()){
+                        try {
+                            int minActual = planes.get(i).getCantidadminutos();
+                            planes.get(i).setCantidadminutos(minActual+planes.get(i).getCantidadminutosfijos());
 
-                        LogicaRecarga lr = new LogicaRecarga();
-                        lr.registrarRecarga(recargaAuto);
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
+                            fecha = new Date(calendario.getTimeInMillis());
+                            planes.get(i).setFechaproximarecarga(fecha);
+                            lp.modificarPlanMinutos(planes.get(i));
+
+                            Recarga recargaAuto = new Recarga();
+                            recargaAuto.setFecharecarga(hoy);
+                            recargaAuto.setCodigoplan(planes.get(i));
+                            recargaAuto.setCedulausuario(usuarioActivo);
+                            recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
+                            recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+
+                            LogicaRecarga lr = new LogicaRecarga();
+                            lr.registrarRecarga(recargaAuto);
+                        } catch (Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }else{
+                        try {
+                            planes.get(i).setCantidadminutos(planes.get(i).getCantidadminutosfijos());
+
+                            fecha = new Date(calendario.getTimeInMillis());
+                            planes.get(i).setFechaproximarecarga(fecha);
+                            lp.modificarPlanMinutos(planes.get(i));
+
+                            Recarga recargaAuto = new Recarga();
+                            recargaAuto.setFecharecarga(hoy);
+                            recargaAuto.setCodigoplan(planes.get(i));
+                            recargaAuto.setCedulausuario(usuarioActivo);
+                            recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
+                            recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+
+                            LogicaRecarga lr = new LogicaRecarga();
+                            lr.registrarRecarga(recargaAuto);
+                        } catch (Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     }
-                }else{
-                    
                 }
             }
-            
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

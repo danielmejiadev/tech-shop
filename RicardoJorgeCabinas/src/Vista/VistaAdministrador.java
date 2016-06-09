@@ -17,14 +17,20 @@ import Modelo.Recarga;
 import Modelo.UsbModem;
 import Modelo.VentaMinutos;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Reportes.Reporte;
 
 
 public class VistaAdministrador extends javax.swing.JFrame{
@@ -167,7 +173,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelBusqueda3 = new javax.swing.JLabel();
         botonActualizarTablaPromo = new javax.swing.JButton();
         campoConsultaPromociones = new javax.swing.JTextField();
-        panelReportes = new javax.swing.JPanel();
         panelUsurios = new javax.swing.JPanel();
         botonAgregarUsuario = new javax.swing.JButton();
         botonModificarUsuario = new javax.swing.JButton();
@@ -179,6 +184,27 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelBusqueda4 = new javax.swing.JLabel();
         botonActualizarTablaUsuarios = new javax.swing.JButton();
         campoConsultaUsuario = new javax.swing.JTextField();
+        panelReportes = new javax.swing.JPanel();
+        jTextFieldReporteCedulaMinutos = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonGenerarReporte = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldReporteCedulaAlquiler = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        fechaInicioMinutosReporte = new javax.swing.JFormattedTextField();
+        fechaFinMinutosReporte = new javax.swing.JFormattedTextField();
+        fechaInicioAlquilerReportes = new javax.swing.JFormattedTextField();
+        fechaFinAlquilerReportes = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jLabelSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -973,7 +999,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonConsultarPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPlanesLayout.setVerticalGroup(
             panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1236,7 +1262,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                                 .addComponent(botonConsultarPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPromocionesLayout.setVerticalGroup(
             panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1263,21 +1289,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         );
 
         jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/promo.png")), panelPromociones); // NOI18N
-
-        panelReportes.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelReportesLayout = new javax.swing.GroupLayout(panelReportes);
-        panelReportes.setLayout(panelReportesLayout);
-        panelReportesLayout.setHorizontalGroup(
-            panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 818, Short.MAX_VALUE)
-        );
-        panelReportesLayout.setVerticalGroup(
-            panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
-        );
-
-        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/reporte.png")), panelReportes); // NOI18N
 
         panelUsurios.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1412,6 +1423,228 @@ public class VistaAdministrador extends javax.swing.JFrame{
         );
 
         jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/usuario.png")), panelUsurios); // NOI18N
+
+        panelReportes.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTextFieldReporteCedulaMinutos.setEnabled(false);
+        jTextFieldReporteCedulaMinutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldReporteCedulaMinutosMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Cédula:");
+
+        jButtonGenerarReporte.setBackground(new java.awt.Color(162, 146, 146));
+        jButtonGenerarReporte.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonGenerarReporte.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonGenerarReporte.setText("Generar Reporte");
+        jButtonGenerarReporte.setBorderPainted(false);
+        jButtonGenerarReporte.setContentAreaFilled(false);
+        jButtonGenerarReporte.setOpaque(true);
+        jButtonGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarReporteActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Cédula:");
+
+        jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        jTextFieldReporteCedulaAlquiler.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldReporteCedulaAlquilerMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel4.setText("Venta Minutos");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel5.setText("Alquiler Usb-Modem");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel6.setText("Movimientos Cliente");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel7.setText("Movimientos Negocio");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel8.setText("Venta Minutos");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(162, 146, 146));
+        jLabel9.setText("Alquiler Usb-Modem");
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        fechaInicioMinutosReporte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        fechaInicioMinutosReporte.setToolTipText("d/mm/yyyy");
+        fechaInicioMinutosReporte.setEnabled(false);
+        fechaInicioMinutosReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fechaInicioMinutosReporteMouseClicked(evt);
+            }
+        });
+
+        fechaFinMinutosReporte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        fechaFinMinutosReporte.setToolTipText("d/mm/yyyy");
+        fechaFinMinutosReporte.setEnabled(false);
+        fechaFinMinutosReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fechaFinMinutosReporteMouseClicked(evt);
+            }
+        });
+
+        fechaInicioAlquilerReportes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        fechaInicioAlquilerReportes.setToolTipText("d/mm/yyyy");
+        fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioAlquilerReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fechaInicioAlquilerReportesMouseClicked(evt);
+            }
+        });
+
+        fechaFinAlquilerReportes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        fechaFinAlquilerReportes.setToolTipText("d/mm/yyyy");
+        fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinAlquilerReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fechaFinAlquilerReportesMouseClicked(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Fecha Inicio:");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Fecha Fin:");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Fecha Fin:");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Fecha Inicio:");
+
+        javax.swing.GroupLayout panelReportesLayout = new javax.swing.GroupLayout(panelReportes);
+        panelReportes.setLayout(panelReportesLayout);
+        panelReportesLayout.setHorizontalGroup(
+            panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReportesLayout.createSequentialGroup()
+                .addGap(317, 317, 317)
+                .addComponent(jButtonGenerarReporte)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelReportesLayout.createSequentialGroup()
+                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelReportesLayout.createSequentialGroup()
+                        .addContainerGap(83, Short.MAX_VALUE)
+                        .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelReportesLayout.createSequentialGroup()
+                                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(panelReportesLayout.createSequentialGroup()
+                                            .addComponent(jLabel11)
+                                            .addGap(55, 55, 55))
+                                        .addGroup(panelReportesLayout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addGap(41, 41, 41)))
+                                    .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel13)
+                                        .addGroup(panelReportesLayout.createSequentialGroup()
+                                            .addComponent(jLabel12)
+                                            .addGap(11, 11, 11))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(fechaFinMinutosReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaInicioMinutosReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaInicioAlquilerReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaFinAlquilerReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel9))
+                        .addGap(82, 82, 82)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelReportesLayout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldReporteCedulaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelReportesLayout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(36, 36, 36)
+                                    .addComponent(jTextFieldReporteCedulaAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5)))
+                    .addGroup(panelReportesLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)))
+                .addGap(156, 156, 156))
+        );
+        panelReportesLayout.setVerticalGroup(
+            panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelReportesLayout.createSequentialGroup()
+                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelReportesLayout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextFieldReporteCedulaMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldReporteCedulaAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelReportesLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelReportesLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fechaInicioMinutosReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fechaFinMinutosReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(fechaInicioAlquilerReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(13, 13, 13)
+                                .addGroup(panelReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(fechaFinAlquilerReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(1, 1, 1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelReportesLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)))))
+                .addComponent(jButtonGenerarReporte)
+                .addGap(30, 30, 30))
+        );
+
+        jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/reporte.png")), panelReportes); // NOI18N
 
         jLabelSesion.setBackground(new java.awt.Color(255, 255, 255));
         jLabelSesion.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -1611,16 +1844,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
             UsbModem um=null;
             try {
                 um = lum.consultarModemCodigo(cod);
-                if(um.getEstadousbmodem()){
-                um.setEstadousbmodem(false);
-                lum.modificarModem(um);
-                }else{
-                    um.setEstadousbmodem(true);
+                if(um.getDisponibilidad().equals("Disponible")){
+                    if(um.getEstadousbmodem()){
+                    um.setEstadousbmodem(false);
                     lum.modificarModem(um);
+                    }else{
+                        um.setEstadousbmodem(true);
+                        lum.modificarModem(um);
+                    }
+                    List<UsbModem> modems = lum.consultarModems();
+                    llenarTablaModems(modems);
                 }
-                List<UsbModem> modems = lum.consultarModems();
-                llenarTablaModems(modems); 
-                
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             }
@@ -1927,8 +2161,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un plan de la tabla");
         }else{
             Long cod = Long.parseLong(tablaPlanes.getValueAt(tablaPlanes.getSelectedRow(),0).toString());
-            RecargarPlan recargar = new RecargarPlan(cod, usuarioActivo);
-            recargar.setVisible(true);
+            LogicaPlanMinutos lpm = new LogicaPlanMinutos();
+            PlanMinutos pm = lpm.consultarPlanMinutosID(cod);
+            if(pm.getEstadoplanminutos()){
+                RecargarPlan recargar = new RecargarPlan(cod, usuarioActivo);
+                recargar.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "No puede recargar un plan inactivo");
+            }
         }
     }//GEN-LAST:event_jButtonRecargarActionPerformed
 
@@ -2203,6 +2443,105 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void actualizarTablaModemsAlquiladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarTablaModemsAlquiladosActionPerformed
         llenarTablaModemsAlquilados();
     }//GEN-LAST:event_actualizarTablaModemsAlquiladosActionPerformed
+
+    private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
+        Reporte rep = new Reporte();
+        if(jTextFieldReporteCedulaMinutos.isEnabled()){
+            String cedula = jTextFieldReporteCedulaMinutos.getText();
+            String ruta = "C:\\reporteClienteMinutos.jasper";
+//            String ruta = "C:\\Users\\Stefania\\Dropbox\\Univalle\\3743-VII\\DSII\\Proyecto DSII\\RepositorioRicardoJorge\\RicardoJorgeCabinas\\src\\Reportes\\reporteClienteMinutos.jasper";
+            Map param = new HashMap();
+            param.put("cedulaC", cedula);
+
+            Reporte.exportarReporte(ruta, param, "Reporte de Venta Minutos Cliente");
+            File path = new File ("Reporte de Venta Minutos Cliente.pdf");
+            try {
+                Desktop.getDesktop().open(path);
+            } catch (IOException ex) {
+                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            path.deleteOnExit();
+        }else if(jTextFieldReporteCedulaAlquiler.isEnabled()){
+            String cedula = jTextFieldReporteCedulaAlquiler.getText();
+            String ruta = "C:\\reporteClienteAlquiler.jasper";
+//            String ruta = "C:\\Users\\Stefania\\Dropbox\\Univalle\\3743-VII\\DSII\\Proyecto DSII\\RepositorioRicardoJorge\\RicardoJorgeCabinas\\src\\Reportes\\reporteClienteAlquiler.jasper";
+            Map param = new HashMap();
+            param.put("cedulaC", cedula);
+            Reporte.exportarReporte(ruta, param, "Reporte de Alquiler Usb-Modem Cliente");
+            File path = new File ("Reporte de Alquiler Usb-Modem Cliente.pdf");
+            try {
+                Desktop.getDesktop().open(path);
+            } catch (IOException ex) {
+                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            path.deleteOnExit();
+        }
+        
+        
+        jTextFieldReporteCedulaAlquiler.setText("");
+        jTextFieldReporteCedulaMinutos.setText("");
+        jTextFieldReporteCedulaMinutos.setText("");
+        jTextFieldReporteCedulaAlquiler.setText("");
+        fechaFinAlquilerReportes.setText("");
+        fechaFinMinutosReporte.setText("");
+        fechaInicioAlquilerReportes.setText("");
+        fechaInicioMinutosReporte.setText("");
+        
+    }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
+
+    private void jTextFieldReporteCedulaMinutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldReporteCedulaMinutosMouseClicked
+        jTextFieldReporteCedulaMinutos.setEnabled(true);
+        jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinMinutosReporte.setEnabled(false);
+        fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioMinutosReporte.setEnabled(false);
+    }//GEN-LAST:event_jTextFieldReporteCedulaMinutosMouseClicked
+
+    private void jTextFieldReporteCedulaAlquilerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldReporteCedulaAlquilerMouseClicked
+        jTextFieldReporteCedulaMinutos.setEnabled(false);
+        jTextFieldReporteCedulaAlquiler.setEnabled(true);
+        fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinMinutosReporte.setEnabled(false);
+        fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioMinutosReporte.setEnabled(false);
+    }//GEN-LAST:event_jTextFieldReporteCedulaAlquilerMouseClicked
+
+    private void fechaInicioMinutosReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioMinutosReporteMouseClicked
+        jTextFieldReporteCedulaMinutos.setEnabled(false);
+        jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinMinutosReporte.setEnabled(false);
+        fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioMinutosReporte.setEnabled(true);
+    }//GEN-LAST:event_fechaInicioMinutosReporteMouseClicked
+
+    private void fechaFinMinutosReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaFinMinutosReporteMouseClicked
+        jTextFieldReporteCedulaMinutos.setEnabled(false);
+        jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinMinutosReporte.setEnabled(true);
+        fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioMinutosReporte.setEnabled(false);
+    }//GEN-LAST:event_fechaFinMinutosReporteMouseClicked
+
+    private void fechaInicioAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioAlquilerReportesMouseClicked
+        jTextFieldReporteCedulaMinutos.setEnabled(false);
+        jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinMinutosReporte.setEnabled(false);
+        fechaInicioAlquilerReportes.setEnabled(true);
+        fechaInicioMinutosReporte.setEnabled(false);
+    }//GEN-LAST:event_fechaInicioAlquilerReportesMouseClicked
+
+    private void fechaFinAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaFinAlquilerReportesMouseClicked
+        jTextFieldReporteCedulaMinutos.setEnabled(false);
+        jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        fechaFinAlquilerReportes.setEnabled(true);
+        fechaFinMinutosReporte.setEnabled(false);
+        fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioMinutosReporte.setEnabled(false);
+    }//GEN-LAST:event_fechaFinAlquilerReportesMouseClicked
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -2582,34 +2921,52 @@ public class VistaAdministrador extends javax.swing.JFrame{
             Date fecha = planes.get(i).getFechaproximarecarga();
             String fechaRecarga = fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
             
-            if(fechaHoy.equals(fechaRecarga)){
-                if(planes.get(i).getMinutosacumulables()){
-                    
-                    try {
-                        int minActual = planes.get(i).getCantidadminutos();
-                        planes.get(i).setCantidadminutos(minActual+planes.get(i).getCantidadminutosfijos());
-                    
-                        fecha = new Date(calendario.getTimeInMillis());
-                        planes.get(i).setFechaproximarecarga(fecha);
-                        lp.modificarPlanMinutos(planes.get(i));
-                        
-                        Recarga recargaAuto = new Recarga();
-                        recargaAuto.setFecharecarga(hoy);
-                        recargaAuto.setCodigoplan(planes.get(i));
-                        recargaAuto.setCedulausuario(usuarioActivo);
-                        recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
-                        recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+            if(planes.get(i).getEstadoplanminutos()){
+                if(fechaHoy.equals(fechaRecarga)){
+                    if(planes.get(i).getMinutosacumulables()){
+                        try {
+                            int minActual = planes.get(i).getCantidadminutos();
+                            planes.get(i).setCantidadminutos(minActual+planes.get(i).getCantidadminutosfijos());
 
-                        LogicaRecarga lr = new LogicaRecarga();
-                        lr.registrarRecarga(recargaAuto);
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
+                            fecha = new Date(calendario.getTimeInMillis());
+                            planes.get(i).setFechaproximarecarga(fecha);
+                            lp.modificarPlanMinutos(planes.get(i));
+
+                            Recarga recargaAuto = new Recarga();
+                            recargaAuto.setFecharecarga(hoy);
+                            recargaAuto.setCodigoplan(planes.get(i));
+                            recargaAuto.setCedulausuario(usuarioActivo);
+                            recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
+                            recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+
+                            LogicaRecarga lr = new LogicaRecarga();
+                            lr.registrarRecarga(recargaAuto);
+                        } catch (Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }else{
+                        try {
+                            planes.get(i).setCantidadminutos(planes.get(i).getCantidadminutosfijos());
+
+                            fecha = new Date(calendario.getTimeInMillis());
+                            planes.get(i).setFechaproximarecarga(fecha);
+                            lp.modificarPlanMinutos(planes.get(i));
+
+                            Recarga recargaAuto = new Recarga();
+                            recargaAuto.setFecharecarga(hoy);
+                            recargaAuto.setCodigoplan(planes.get(i));
+                            recargaAuto.setCedulausuario(usuarioActivo);
+                            recargaAuto.setMinutos(planes.get(i).getCantidadminutosfijos());
+                            recargaAuto.setValorecarga(planes.get(i).getCostominuto());
+
+                            LogicaRecarga lr = new LogicaRecarga();
+                            lr.registrarRecarga(recargaAuto);
+                        } catch (Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     }
-                }else{
-                    
                 }
             }
-            
         }
     }
     
@@ -2665,9 +3022,26 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JTextField campoPrecioMulta1;
     private javax.swing.JFormattedTextField campoTotalVenta;
     private javax.swing.JComboBox comboPlanesVenta;
+    private javax.swing.JFormattedTextField fechaFinAlquilerReportes;
+    private javax.swing.JFormattedTextField fechaFinMinutosReporte;
+    private javax.swing.JFormattedTextField fechaInicioAlquilerReportes;
+    private javax.swing.JFormattedTextField fechaInicioMinutosReporte;
+    private javax.swing.JButton jButtonGenerarReporte;
     private javax.swing.JButton jButtonRecargar;
     private javax.swing.JComboBox<String> jComboBoxModem;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelBusqueda;
     private javax.swing.JLabel jLabelBusqueda1;
     private javax.swing.JLabel jLabelBusqueda10;
@@ -2695,8 +3069,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPaneVistaVendedor;
     private javax.swing.JTextField jTextFieldClienteAlquiler;
+    private javax.swing.JTextField jTextFieldReporteCedulaAlquiler;
+    private javax.swing.JTextField jTextFieldReporteCedulaMinutos;
     private javax.swing.JLabel labeltituloCliente1;
     private javax.swing.JLabel labeltituloCliente2;
     private javax.swing.JLabel labeltituloModems;
