@@ -11,6 +11,8 @@ import Modelo.PlanMinutos;
 import Modelo.Recarga;
 import Modelo.Usuario;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -282,7 +284,11 @@ public class RecargarPlan extends javax.swing.JFrame {
        Salida: vacio
     */
     public void cargarDatos(Long cod){
-        elPlan =  lpm.consultarPlanMinutosID(cod);
+        try {
+            elPlan =  lpm.consultarPlanMinutosID(cod);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
         nombrePlan.setText(elPlan.getNombreplan());
         if(elPlan.getMinutosacumulables()){
             acumulable.setText("Sí");
