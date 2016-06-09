@@ -4,10 +4,10 @@ import Logica.LogicaPlanMinutos;
 import Logica.LogicaVentaMinutos;
 import Modelo.PlanMinutos;
 import Modelo.VentaMinutos;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -246,7 +246,6 @@ public class RegistrarVenta extends javax.swing.JDialog {
             
             LogicaVentaMinutos logicaVentaMinutos = new LogicaVentaMinutos();
             logicaVentaMinutos.registrarVenta(venta);
-            VistaAdministrador.promocionesGanadas.clear();
             
             PlanMinutos plan = venta.getCodigoplan();
             plan.setCantidadminutos(plan.getCantidadminutos()-venta.getMinutosvendidos());
@@ -258,23 +257,6 @@ public class RegistrarVenta extends javax.swing.JDialog {
         }finally
         {
             this.dispose();
-            VistaAdministrador.promocionesGanadas.clear();
-            alertaPlan();
-            
-        }
-    }
-    
-    public void alertaPlan(){
-        LogicaVentaMinutos lvm = new LogicaVentaMinutos();
-        LogicaPlanMinutos lp = new LogicaPlanMinutos();
-        
-        List<VentaMinutos> listaVentas = lvm.consultarVentas();
-        VentaMinutos v = listaVentas.get(listaVentas.size()-1);
-        PlanMinutos plan = lp.consultarPlanMinutosID(v.getCodigoplan().getCodigoplan());
-        if(plan.getCantidadminutos()<plan.getCantidadminimaminutos()){
-            JOptionPane.showMessageDialog(rootPane, "Su plan de "+plan.getNombreplan()+" está próximo a agotarse.");
-        }else{
-            //El plan no está próximo a vencer
         }
     }
 

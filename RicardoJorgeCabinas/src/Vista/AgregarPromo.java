@@ -389,27 +389,21 @@ public class AgregarPromo extends javax.swing.JDialog {
             p.setFechafinpromocion(fechaFinal);
        //---------------------------------------------------------------
        
-            p.setEstadopromocion(jRadioButtonActivo.isSelected());
-        
-            if(jRadioButtonVentaMinutos.isSelected()){
-                p.setTipopromocion("Venta Minutos");
-            }else{
-                p.setTipopromocion("Alquiler Modem");
-            }
-            
-            if(lp.validarPromocion(p) && !p.equals(promo) && 
-               validarFechas(anioInicial, anioFinal, mesInicial, mesFinal, diaInicial, diaFinal)){
-                if(!promo.getDescripcion().equals("-+empty")){
-                    promo.setEstadopromocion(false);
-                    lp.modificarPromocion(promo);
-                }
-                
-                lp.registrar(p);
-                System.out.println("Creando Promoción_ " + p.getDescripcion());
-                this.setVisible(false);
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Por favor diligencie bien los campos");
-            }
+             p.setEstadopromocion(jRadioButtonActivo.isSelected());
+       
+           if(jRadioButtonVentaMinutos.isSelected()){
+               p.setTipopromocion("Venta Minutos");
+           }else{
+               p.setTipopromocion("Alquiler Modem");
+           }
+           
+           if(lp.validarPromocion(p) && validarFechas(anioInicial, anioFinal, mesInicial, mesFinal, diaInicial, diaFinal)){
+               lp.registrar(p);
+               JOptionPane.showMessageDialog(rootPane, "Promoción creada con éxito:\n" + p.getDescripcion());
+               this.setVisible(false);
+           }else{
+               JOptionPane.showMessageDialog(rootPane, "Por favor diligencie bien los campos");
+           }
         } catch (Exception ex) {
             
             JOptionPane.showMessageDialog(rootPane, "Error al Diligenciar los campos");

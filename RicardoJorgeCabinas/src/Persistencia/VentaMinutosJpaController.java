@@ -261,37 +261,35 @@ public class VentaMinutosJpaController implements Serializable {
         }
     }
     
-    
-    //Trae las ventas que cumplen los requisitos para ganar una promoción 
-    public List<VentaMinutos> ventasGanadoras(int condicionPromo, String cedulaCliente, String fechaInicioPromo){
-        EntityManager em = getEntityManager();
-        String consulta = "select * from ventaminutos where\n" +
-"		(select sum(minutosfacturados) from \n" +
-"		(select * from ventaminutos where cedulacliente = '"+cedulaCliente+"' \n" +
-"		and fechaventa > '"+fechaInicioPromo+"') as A) >= '"+condicionPromo+"' \n" +
-"		limit 1";
-        Query query = em.createNativeQuery(consulta,VentaMinutos.class);
-        return query.getResultList();
-    }
-    
-    //trae una lista de ventas en las que se ha aplicado una promoción por última vez
-    //para saber si un cliente ya ha gastado esa promoción recientemente.
-    public List<VentaMinutos> ventasPromo(String cedulaCliente, String fechaInicioPromo, int codigoPromo){
-        EntityManager em = getEntityManager();
-        String consulta = "select * from ventaminutos where codigoventa = ("
-                + "select max(codigoventa) FROM promocionventaminutos natural join "
-                + "(select * from ventaminutos where cedulacliente = '"+cedulaCliente+"' " 
-                + "and fechaventa > '"+ fechaInicioPromo +"') as A "
-                + "where codigopromocion = "+codigoPromo+")";
-        Query query = em.createNativeQuery(consulta,VentaMinutos.class);
-        return query.getResultList();
-    }
-    
-    public List<VentaMinutos> findVentasCliente(String cedulaCliente){
-        EntityManager em = getEntityManager();
-        String consulta = "select * from ventaminutos where cedulacliente = '"+cedulaCliente+"'";
-        Query query = em.createNativeQuery(consulta,VentaMinutos.class);
-        return query.getResultList();
-    }
-    
+//Trae las ventas que cumplen los requisitos para ganar una promoción 
+   public List<VentaMinutos> ventasGanadoras(int condicionPromo, String cedulaCliente, String fechaInicioPromo){
+       EntityManager em = getEntityManager();
+       String consulta = "select * from ventaminutos where\n" +
+"	(select sum(minutosfacturados) from \n" +
+"	(select * from ventaminutos where cedulacliente = '"+cedulaCliente+"' \n" +
+"	and fechaventa > '"+fechaInicioPromo+"') as A) >= '"+condicionPromo+"' \n" +
+"	limit 1";
+       Query query = em.createNativeQuery(consulta,VentaMinutos.class);
+       return query.getResultList();
+   }
+   
+   //trae una lista de ventas en las que se ha aplicado una promoción por última vez
+   //para saber si un cliente ya ha gastado esa promoción recientemente.
+   public List<VentaMinutos> ventasPromo(String cedulaCliente, String fechaInicioPromo, int codigoPromo){
+       EntityManager em = getEntityManager();
+       String consulta = "select * from ventaminutos where codigoventa = ("
+               + "select max(codigoventa) FROM promocionventaminutos natural join "
+               + "(select * from ventaminutos where cedulacliente = '"+cedulaCliente+"' " 
+               + "and fechaventa > '"+ fechaInicioPromo +"') as A "
+               + "where codigopromocion = "+codigoPromo+")";
+       Query query = em.createNativeQuery(consulta,VentaMinutos.class);
+       return query.getResultList();
+   }
+   
+   public List<VentaMinutos> findVentasCliente(String cedulaCliente){
+       EntityManager em = getEntityManager();
+       String consulta = "select * from ventaminutos where cedulacliente = '"+cedulaCliente+"'";
+       Query query = em.createNativeQuery(consulta,VentaMinutos.class);
+       return query.getResultList();
+   }
 }

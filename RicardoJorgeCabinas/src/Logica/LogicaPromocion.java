@@ -55,6 +55,6 @@ public class LogicaPromocion {
     }
     
     public List<Promocion> consultarPromocionesActivas(){
-        return promocionDAO.findPromocionesActivas();
-    }
+       return promocionDAO.findPromocionesActivas();
+   }
 }

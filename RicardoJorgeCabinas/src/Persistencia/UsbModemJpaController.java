@@ -192,7 +192,7 @@ public class UsbModemJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             Query modemsNombres = em.createNamedQuery("UsbModem.findByNombremodem");
-            modemsNombres.setParameter("nombremodem", nom+"%");
+            modemsNombres.setParameter("nombremodem", "%"+nom+"%");
             List<UsbModem> modems = modemsNombres.getResultList();
             return modems;
         }finally{

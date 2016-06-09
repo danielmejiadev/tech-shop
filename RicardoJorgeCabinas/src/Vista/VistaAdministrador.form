@@ -124,14 +124,14 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="250" y="40" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="320" y="60" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="campoConsultaClienteVenta">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="260" y="110" width="180" height="25"/>
+                  <AbsoluteConstraints x="430" y="160" width="180" height="25"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -147,7 +147,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="190" y="110" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="240" y="160" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -163,14 +163,14 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="220" y="150" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="240" y="220" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboPlanesVenta">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="260" y="150" width="180" height="-1"/>
+                  <AbsoluteConstraints x="430" y="220" width="180" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -182,7 +182,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="260" y="190" width="90" height="25"/>
+                  <AbsoluteConstraints x="430" y="270" width="90" height="25"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -198,7 +198,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="120" y="190" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="240" y="270" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -211,7 +211,7 @@
                   <Color blue="92" green="92" red="a2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imgs/registro.png"/>
+                  <Image iconType="3" name="/imgs/ventas.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Registrar"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
@@ -224,7 +224,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="310" y="240" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="350" y="340" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -330,12 +330,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                               <Component id="labeltituloCliente2" min="-2" pref="40" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="botonAlquilerModem" max="32767" attributes="0"/>
                                   <Component id="botonDevolucionModem" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="152" max="32767" attributes="0"/>
+                              <EmptySpace pref="171" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -504,7 +504,7 @@
                                   <Component id="botonRegistrarAlquilerModem" min="-2" max="-2" attributes="0"/>
                                   <Component id="botonAtrasAlquiler1" min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="14" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1067,7 +1067,6 @@
                 <Property name="text" type="java.lang.String" value="Cambiar Estado"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
@@ -1097,9 +1096,6 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizarTablaClientesActionPerformed"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="590" y="350" width="-1" height="-1"/>
@@ -1823,9 +1819,6 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizarTablaPromoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="campoConsultaPromociones">
             </Component>
@@ -2084,7 +2077,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="83" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
