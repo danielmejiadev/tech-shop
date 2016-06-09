@@ -2360,8 +2360,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         Reporte rep = new Reporte();
         if(jTextFieldReporteCedulaMinutos.isEnabled()){
             String cedula = jTextFieldReporteCedulaMinutos.getText();
-            String ruta = "C:\\reporteClienteMinutos.jasper";
-//            String ruta = "C:\\Users\\Stefania\\Dropbox\\Univalle\\3743-VII\\DSII\\Proyecto DSII\\RepositorioRicardoJorge\\RicardoJorgeCabinas\\src\\Reportes\\reporteClienteMinutos.jasper";
+            String ruta = System.getProperty("user.dir") + "/src/Reportes/reporteClienteMinutos.jasper";
             Map param = new HashMap();
             param.put("cedulaC", cedula);
 
@@ -2375,8 +2374,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
             path.deleteOnExit();
         }else if(jTextFieldReporteCedulaAlquiler.isEnabled()){
             String cedula = jTextFieldReporteCedulaAlquiler.getText();
-            String ruta = "C:\\reporteClienteAlquiler.jasper";
-//            String ruta = "C:\\Users\\Stefania\\Dropbox\\Univalle\\3743-VII\\DSII\\Proyecto DSII\\RepositorioRicardoJorge\\RicardoJorgeCabinas\\src\\Reportes\\reporteClienteAlquiler.jasper";
+            String ruta = System.getProperty("user.dir") + "/src/Reportes/reporteClienteAlquiler.jasper";
             Map param = new HashMap();
             param.put("cedulaC", cedula);
             Reporte.exportarReporte(ruta, param, "Reporte de Alquiler Usb-Modem Cliente");
@@ -2387,6 +2385,22 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             }
             path.deleteOnExit();
+        }else if(fechaInicioMinutosReporte.isEnabled() && fechaFinMinutosReporte.isEnabled())
+        {
+            Date fechaInicio = (Date)fechaInicioMinutosReporte.getValue();
+            Date fechaFin = (Date)fechaFinMinutosReporte.getValue();
+            String ruta = System.getProperty("user.dir") + "/src/Reportes/ReporteVentas.jasper";
+            Map param = new HashMap();
+            param.put("fechaInicio", fechaInicio);
+            param.put("fechaFin", fechaFin);
+            Reporte.exportarReporte(ruta, param, "Reporte Ventas");
+            File path = new File ("Reporte Ventas.pdf");
+            try {
+                Desktop.getDesktop().open(path);
+            } catch (IOException ex) {
+                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            path.deleteOnExit();       
         }
         
         
@@ -2423,7 +2437,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
         fechaFinAlquilerReportes.setEnabled(false);
-        fechaFinMinutosReporte.setEnabled(false);
         fechaInicioAlquilerReportes.setEnabled(false);
         fechaInicioMinutosReporte.setEnabled(true);
     }//GEN-LAST:event_fechaInicioMinutosReporteMouseClicked
@@ -2434,7 +2447,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaFinAlquilerReportes.setEnabled(false);
         fechaFinMinutosReporte.setEnabled(true);
         fechaInicioAlquilerReportes.setEnabled(false);
-        fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_fechaFinMinutosReporteMouseClicked
 
     private void fechaInicioAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioAlquilerReportesMouseClicked
