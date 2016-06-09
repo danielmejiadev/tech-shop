@@ -1153,17 +1153,28 @@ public class VistaVendedor extends javax.swing.JFrame{
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
-        String texto = campoConsultaPlanes.getText();
+        PlanMinutos planMinutos = null;
+        List<PlanMinutos> planes = new ArrayList<>();
         LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-        List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
-        if(texto.isEmpty()){
-            planMinuto = logicaPlanMinutos.consultarPlanMinutos();
+        String texto = campoConsultaPlanes.getText();
+        if(isNumeric(texto)){
+            try {
+                planMinutos = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
+                planes.add(planMinutos);
+                llenarTablaPlanMinutos(planes);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+            campoConsultaPlanes.setText("");
         }else{
-            PlanMinutos planID = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
-        if(planID != null)
-            planMinuto.add(planID);
+            try {
+                planes = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
+                llenarTablaPlanMinutos(planes);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            }
+            campoConsultaPlanes.setText("");
         }
-        llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
@@ -1220,7 +1231,11 @@ public class VistaVendedor extends javax.swing.JFrame{
             campoMinutosVendidos.setBackground(Color.LIGHT_GRAY);
             Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
+            try {
+                planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
             //Aqui deberia ir el codigo para calcular si cumple una promocion
             precioMinuto=planVenta.getPreciominuto();
             minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "UsbModem.findAll", query = "SELECT u FROM UsbModem u"),
     @NamedQuery(name = "UsbModem.findByCodigomodem", query = "SELECT u FROM UsbModem u WHERE u.codigomodem = :codigomodem"),
-    @NamedQuery(name = "UsbModem.findByNombremodem", query = "SELECT u FROM UsbModem u WHERE u.nombremodem = :nombremodem"),
+    @NamedQuery(name = "UsbModem.findByNombremodem", query = "SELECT u FROM UsbModem u WHERE u.nombremodem LIKE :nombremodem"),
     @NamedQuery(name = "UsbModem.findByProveedor", query = "SELECT u FROM UsbModem u WHERE u.proveedor = :proveedor"),
     @NamedQuery(name = "UsbModem.findByDisponibilidad", query = "SELECT u FROM UsbModem u WHERE u.disponibilidad = :disponibilidad"),
     @NamedQuery(name = "UsbModem.findByCostodia", query = "SELECT u FROM UsbModem u WHERE u.costodia = :costodia"),

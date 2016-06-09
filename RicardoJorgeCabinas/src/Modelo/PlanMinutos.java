@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "PlanMinutos.findAll", query = "SELECT p FROM PlanMinutos p"),
     @NamedQuery(name = "PlanMinutos.findByCodigoplan", query = "SELECT p FROM PlanMinutos p WHERE p.codigoplan = :codigoplan"),
-    @NamedQuery(name = "PlanMinutos.findByNombreplan", query = "SELECT p FROM PlanMinutos p WHERE p.nombreplan = :nombreplan"),
+    @NamedQuery(name = "PlanMinutos.findByNombreplan", query = "SELECT p FROM PlanMinutos p WHERE p.nombreplan LIKE :nombreplan"),
     @NamedQuery(name = "PlanMinutos.findByCantidadminutos", query = "SELECT p FROM PlanMinutos p WHERE p.cantidadminutos = :cantidadminutos"),
     @NamedQuery(name = "PlanMinutos.findByCostominuto", query = "SELECT p FROM PlanMinutos p WHERE p.costominuto = :costominuto"),
     @NamedQuery(name = "PlanMinutos.findByPreciominuto", query = "SELECT p FROM PlanMinutos p WHERE p.preciominuto = :preciominuto"),

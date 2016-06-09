@@ -96,7 +96,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         campoDisponibildadModem = new javax.swing.JTextField();
         labeltituloPlanes3 = new javax.swing.JLabel();
         jLabelMulta = new javax.swing.JLabel();
-        jComboBoxModem = new javax.swing.JComboBox<String>();
+        jComboBoxModem = new javax.swing.JComboBox<>();
         jLabelFechaEntrega = new javax.swing.JLabel();
         campoConsultaClienteAlquiler = new javax.swing.JTextField();
         jLabelDisponibilidad = new javax.swing.JLabel();
@@ -333,11 +333,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
             .addGroup(panelSeleccionModemLayout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(labeltituloCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115)
+                .addGap(100, 100, 100)
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -537,7 +537,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -667,6 +667,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -688,9 +692,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                     .addComponent(panelDevolucionModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
-        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelMovimientosModemLayout = new javax.swing.GroupLayout(panelMovimientosModem);
         panelMovimientosModem.setLayout(panelMovimientosModemLayout);
@@ -1842,11 +1843,16 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void botonModificarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPlanActionPerformed
 
        int filaSeleccionada = tablaPlanes.getSelectedRow();
-        if(filaSeleccionada != -1)
+       if(filaSeleccionada != -1)
         {
             String codigoPlan = tablaPlanes.getValueAt(filaSeleccionada, 0).toString();
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            PlanMinutos planMinutos =  logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(codigoPlan));
+            PlanMinutos planMinutos = null;
+           try {
+               planMinutos = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(codigoPlan));
+           } catch (Exception ex) {
+               JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+           }
             ModificarPlan modificarPlan = new ModificarPlan(planMinutos);
             modificarPlan.setVisible(true);
         } 
@@ -1877,17 +1883,28 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
-        String texto = campoConsultaPlanes.getText();
+        PlanMinutos planMinutos = null;
+        List<PlanMinutos> planes = new ArrayList<>();
         LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-        List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
-        if(texto.isEmpty()){
-            planMinuto = logicaPlanMinutos.consultarPlanMinutos();
+        String texto = campoConsultaPlanes.getText();
+        if(isNumeric(texto)){
+            try {
+                planMinutos = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
+                planes.add(planMinutos);
+                llenarTablaPlanMinutos(planes);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
+            campoConsultaPlanes.setText("");
         }else{
-            PlanMinutos planID = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
-        if(planID != null)
-            planMinuto.add(planID);
+            try {
+                planes = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
+                llenarTablaPlanMinutos(planes);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            }
+            campoConsultaPlanes.setText("");
         }
-        llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
     /* Metodo para actualizar la tabla de modems consultando todos los registros de la BD
@@ -1943,7 +1960,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         
             Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
+            try {
+                planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            }
             
             precioMinuto=planVenta.getPreciominuto();
             minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());
@@ -2074,7 +2095,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }else{
             Long cod = Long.parseLong(tablaPlanes.getValueAt(tablaPlanes.getSelectedRow(),0).toString());
             LogicaPlanMinutos lpm = new LogicaPlanMinutos();
-            PlanMinutos pm = lpm.consultarPlanMinutosID(cod);
+            PlanMinutos pm = null;
+            try {
+                pm = lpm.consultarPlanMinutosID(cod);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage());;
+            }
             if(pm.getEstadoplanminutos()){
                 RecargarPlan recargar = new RecargarPlan(cod, usuarioActivo);
                 recargar.setVisible(true);
