@@ -7,8 +7,6 @@ package Vista;
 
 import Logica.LogicaUsbModem;
 import Modelo.UsbModem;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -232,6 +230,7 @@ public class AgregarModem extends javax.swing.JFrame {
         if(NombreModem.getText().equals("")){
             JOptionPane.showMessageDialog(null, "El nombre es obligatorio");
         }else{
+            um.setCodigomodem(null);
             um.setNombremodem(NombreModem.getText());
             
             um.setProveedor(ProveedorModem.getSelectedItem().toString());
@@ -248,8 +247,7 @@ public class AgregarModem extends javax.swing.JFrame {
             }else{
                 um.setPreciodia(Integer.parseInt(PrecioModem.getText()));
             }
-
-
+            
             if(activoModem.isSelected()){
                 um.setEstadousbmodem(true);
             }else if(inactivoModem.isSelected()){

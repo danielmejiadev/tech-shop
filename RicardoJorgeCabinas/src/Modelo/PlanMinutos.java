@@ -1,7 +1,9 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PlanMinutos.findByCantidadminimaminutos", query = "SELECT p FROM PlanMinutos p WHERE p.cantidadminimaminutos = :cantidadminimaminutos"),
     @NamedQuery(name = "PlanMinutos.findByEstadoplanminutos", query = "SELECT p FROM PlanMinutos p WHERE p.estadoplanminutos = :estadoplanminutos")})
 public class PlanMinutos implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -49,6 +54,15 @@ public class PlanMinutos implements Serializable {
     @Basic(optional = false)
     @Column(name = "cantidadminutos")
     private int cantidadminutos;
+    
+    @Basic(optional = false)
+    @Column(name = "cantidadminutosfijos")
+    private int cantidadminutosfijos;
+    
+    @Basic(optional = false)
+    @Column(name = "fechaproximarecarga")
+    @Temporal(TemporalType.DATE)
+    private Date fechaproximarecarga;
     
     @Basic(optional = false)
     @Column(name = "costominuto")
@@ -175,4 +189,44 @@ public class PlanMinutos implements Serializable {
     public void setRecargaList(List<Recarga> recargaList) {
         this.recargaList = recargaList;
     }  
+
+    public int getCantidadminutosfijos() {
+        return cantidadminutosfijos;
+    }
+
+    public void setCantidadminutosfijos(int cantidadminutosfijos) {
+        this.cantidadminutosfijos = cantidadminutosfijos;
+    }
+
+    public Date getFechaproximarecarga() {
+        return fechaproximarecarga;
+    }
+
+    public void setFechaproximarecarga(Date fechaproximarecarga) {
+        this.fechaproximarecarga = fechaproximarecarga;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.codigoplan);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PlanMinutos other = (PlanMinutos) obj;
+        if (!Objects.equals(this.codigoplan, other.codigoplan)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

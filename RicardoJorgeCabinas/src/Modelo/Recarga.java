@@ -2,6 +2,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -120,5 +121,29 @@ public class Recarga implements Serializable {
 
     public void setCedulausuario(Usuario cedulausuario) {
         this.cedulausuario = cedulausuario;
-    }  
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.codigorecarga);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Recarga other = (Recarga) obj;
+        if (!Objects.equals(this.codigorecarga, other.codigorecarga)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

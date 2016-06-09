@@ -107,6 +107,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
+
     public void edit(Usuario usuario) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {

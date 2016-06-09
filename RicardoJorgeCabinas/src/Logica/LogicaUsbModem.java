@@ -2,7 +2,6 @@ package Logica;
 
 import Modelo.UsbModem;
 import Persistencia.UsbModemJpaController;
-import Persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

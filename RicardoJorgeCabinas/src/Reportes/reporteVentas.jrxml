@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteVentas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24e0f43b-04fa-486b-a396-e7bf19eacd6a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select codigoventa,fechaventa,minutosvendidos,minutosfacturados,nombrecliente,nombreplan,nombreusuario,(ventaminutos.preciominuto*minutosfacturados) as total
+from ventaminutos 
+inner join cliente on ventaminutos.cedulacliente=cliente.cedulacliente 
+inner join usuario on  ventaminutos.cedulausuario=usuario.cedulausuario
+inner join planminutos on  ventaminutos.codigoplan=planminutos.codigoplan
+
+
+where fechaventa >= $P{fechaInicio} and fechaventa <= $P{fechaFin}]]>
+	</queryString>
+	<field name="codigoventa" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaventa" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="minutosvendidos" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="minutosfacturados" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombrecliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreplan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreusuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Long"/>
+	<variable name="totalventa" class="java.lang.String"/>
+	<variable name="total_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="42" y="20" width="484" height="50" uuid="55beb853-52e4-4c3e-8336-01b982ca2034"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Ventas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="42" height="20" uuid="d060e17a-1fbb-4800-9903-8ae5dee8cd43"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Venta ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="41" width="67" height="20" uuid="41cff919-773c-4061-8190-bd4fd6062d10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[fechaventa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="41" width="66" height="20" uuid="61c18bf2-a0f9-4751-b82f-70d377bef384"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="41" width="70" height="20" uuid="3bea8284-024a-40a8-8e12-68615135b992"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facturados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="41" width="77" height="20" uuid="394440cb-524f-411b-9267-2e8da3a46760"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="41" width="74" height="20" uuid="434a48a0-f718-40e4-9acb-38aa43707d48"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="41" width="84" height="20" uuid="07a198da-8b34-4f8f-be37-91076fc63004"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="41" width="75" height="20" uuid="c693c037-fddc-4949-926d-819776025541"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="42" height="20" uuid="bd7537a9-d05d-4c2d-bb50-462229daf32c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codigoventa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="0" width="67" height="20" uuid="e5ce832c-0c57-446f-a2fe-d03547cfdc6a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fechaventa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="0" width="66" height="20" uuid="63045acd-28e9-4a9e-9d1c-4853a1d2c3ad"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{minutosvendidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="70" height="20" uuid="d5d21d61-b591-47da-9c61-27bdc3f69ab8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{minutosfacturados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="0" width="77" height="20" uuid="1d6f54c9-0cef-4c73-9e31-7f520f72d1ac"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="0" width="74" height="20" uuid="be0ca0fe-21bd-4f17-a886-7caad85a08ec"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombreplan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="84" height="20" uuid="78a39d44-6998-4a7e-be4e-83c08f744571"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombreusuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="75" height="20" uuid="871f2ca5-1ce0-4826-a309-10b8c25d96db"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="356" y="15" width="102" height="20" uuid="5d456678-b9f5-4828-9b9f-5bbadcedb861"/>
+				<textElement>
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Ventas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="458" y="15" width="97" height="20" uuid="db42a620-da2b-4dff-af65-3491e24970a5"/>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

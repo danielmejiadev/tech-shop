@@ -2,6 +2,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -149,4 +150,28 @@ public class UsbModem implements Serializable {
     public void setAlquilerModemList(List<AlquilerModem> alquilerModemList) {
         this.alquilerModemList = alquilerModemList;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.codigomodem);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UsbModem other = (UsbModem) obj;
+        if (!Objects.equals(this.codigomodem, other.codigomodem)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

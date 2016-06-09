@@ -3,6 +3,7 @@ package Modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AlquilerModem.findByFechafinalquiler", query = "SELECT a FROM AlquilerModem a WHERE a.fechafinalquiler = :fechafinalquiler"),
     @NamedQuery(name = "AlquilerModem.findByFechadevolucion", query = "SELECT a FROM AlquilerModem a WHERE a.fechadevolucion = :fechadevolucion"),
     @NamedQuery(name = "AlquilerModem.findByPreciodia", query = "SELECT a FROM AlquilerModem a WHERE a.preciodia = :preciodia"),
-    @NamedQuery(name = "AlquilerModem.findByMulta", query = "SELECT a FROM AlquilerModem a WHERE a.multa = :multa")})
+    @NamedQuery(name = "AlquilerModem.findByMulta", query = "SELECT a FROM AlquilerModem a WHERE a.multa = :multa"),
+    @NamedQuery(name = "AlquilerModem.findByCliente", query = "SELECT a FROM AlquilerModem a WHERE a.cedulacliente = :cedulacliente")})
 public class AlquilerModem implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -179,4 +181,28 @@ public class AlquilerModem implements Serializable {
     public void setCedulausuario(Usuario cedulausuario) {
         this.cedulausuario = cedulausuario;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.codigoalquiler);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AlquilerModem other = (AlquilerModem) obj;
+        if (!Objects.equals(this.codigoalquiler, other.codigoalquiler)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

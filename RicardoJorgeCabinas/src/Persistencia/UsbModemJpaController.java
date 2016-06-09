@@ -77,12 +77,10 @@ public class UsbModemJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain AlquilerModem " + alquilerModemListOldAlquilerModem + " since its codigomodem field is not nullable.");
+                    illegalOrphanMessages.add("You must retain AlquilerModem " + alquilerModemListOldAlquilerModem + " since its cedulausuario field is not nullable.");
                 }
             }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
+           
             List<AlquilerModem> attachedAlquilerModemListNew = new ArrayList<AlquilerModem>();
             for (AlquilerModem alquilerModemListNewAlquilerModemToAttach : alquilerModemListNew) {
                 alquilerModemListNewAlquilerModemToAttach = em.getReference(alquilerModemListNewAlquilerModemToAttach.getClass(), alquilerModemListNewAlquilerModemToAttach.getCodigoalquiler());
