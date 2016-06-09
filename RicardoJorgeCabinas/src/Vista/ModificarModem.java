@@ -97,6 +97,7 @@ public class ModificarModem extends javax.swing.JFrame {
         ProveedorModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo", "Uff", "Virgin" }));
 
         DisponibilidadModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Alquilado", "Reservado", "Alquilado-Reservado" }));
+        DisponibilidadModem.setEnabled(false);
 
         GuardarModem.setBackground(new java.awt.Color(162, 146, 146));
         GuardarModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -304,11 +305,17 @@ public class ModificarModem extends javax.swing.JFrame {
         CostoModem.setText(um.getCostodia()+"");
         PrecioModem.setText(um.getPreciodia()+"");
         
-        if(um.getEstadousbmodem()){
-            activoModem.setSelected(true);
+        if(um.getDisponibilidad().equals("Disponible")){
+            if(um.getEstadousbmodem()){
+                activoModem.setSelected(true);
+            }else{
+                inactivoModem.setSelected(true);
+            }
         }else{
-            inactivoModem.setSelected(true);
+            activoModem.setEnabled(false);
+            inactivoModem.setEnabled(false);
         }
+        
                 
     }
 

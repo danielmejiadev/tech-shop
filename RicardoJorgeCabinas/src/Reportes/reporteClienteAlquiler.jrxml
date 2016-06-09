@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteClienteAlquiler" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="64f14c54-d799-4a80-9de8-8c671eb2b4a7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cedulaC" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT alquilermodem.codigoalquiler,fechainicioalquiler,alquilermodem.codigomodem,nombremodem,
+alquilermodem.cedulacliente,nombrecliente,direccioncliente,telefonocliente,correocliente,
+multa,(alquilermodem.preciodia*(fechafinalquiler-fechainicioalquiler)) as dias 
+FROM alquilermodem inner join cliente on alquilermodem.cedulacliente=cliente.cedulacliente 
+inner join usbmodem on alquilermodem.codigomodem=usbmodem.codigomodem
+where alquilermodem.cedulacliente=$P{cedulaC} and fechadevolucion!='1899-12-31'
+order by codigomodem]]>
+	</queryString>
+	<field name="codigoalquiler" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechainicioalquiler" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigomodem" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombremodem" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedulacliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombrecliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccioncliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefonocliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correocliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="multa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dias" class="java.lang.Long"/>
+	<variable name="dias_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{dias}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="203" splitType="Stretch">
+			<textField>
+				<reportElement x="204" y="79" width="86" height="20" uuid="05952661-29be-463c-878c-4b33871be8d6"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedulacliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="79" width="100" height="20" uuid="aaec11c1-4965-4a24-a4d3-91b3f7662113"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="204" y="110" width="86" height="20" uuid="8550f9e9-8f59-41e5-9cbf-7e417be0a8a3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccioncliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="110" width="100" height="20" uuid="15e4279d-3079-4c98-b78a-c1ef1755d2e3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonocliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="142" width="100" height="20" uuid="16e97c53-8002-4a7e-844b-3bdbba864d1c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{correocliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="32" y="11" width="484" height="50" uuid="80d1f986-6d9d-4a52-a60d-1d8be6b015cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Alquiler Usb-Modem CLiente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="79" width="58" height="20" uuid="24cac6a8-d7da-48eb-aabf-705074ec7072"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="79" width="62" height="20" uuid="d8c85095-32ac-4e76-83c9-70c133e0f8f2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="110" width="58" height="20" uuid="4f1f960e-2de1-4f1a-b104-35536e746179"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="142" width="55" height="20" uuid="87060d69-f37a-4e2a-902b-29501408f260"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="110" width="62" height="20" uuid="3603a6a8-4e26-4c5a-90b9-c92028d9059d"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="20" uuid="8a97e725-b1f6-4f3e-979e-69d2967f7647"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.5" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.5" lineStyle="Dashed"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="0" y="0" width="44" height="20" uuid="0428eb87-45c2-49c4-8966-feba9747dd07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="0" width="92" height="20" uuid="dc8b888a-4992-486f-9757-8db9d5f1d50b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Alquiler]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="0" width="46" height="20" uuid="8e31a488-5dc9-4fd3-8e23-194e2e9cc382"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. M.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="0" width="98" height="20" uuid="83df5885-9930-451b-8c71-5a703ca1ae00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="0" width="62" height="20" uuid="4a84dbd7-f53b-4601-9fa5-dd47dfe5df09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Multa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="0" width="80" height="20" uuid="ecd88e69-5901-4ce2-a622-c4b193e214e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Alquiler]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="20" uuid="4195f8d8-38f4-441d-b3af-dc07485cb2e8"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.5" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.5" lineStyle="Dotted"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="0" y="0" width="44" height="20" uuid="b8b41158-372a-4372-9f8a-c178f4a8063f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoalquiler}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="0" width="60" height="20" uuid="5dea9bd8-875d-42a5-8255-ec0b9b80a36d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechainicioalquiler}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="0" width="46" height="20" uuid="af25c2b4-8189-486d-92c1-82aac71b7497"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigomodem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="0" width="98" height="20" uuid="2bcaa39a-5cc7-49c1-ba23-ad1c91849500"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombremodem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="0" width="62" height="20" uuid="8b8818af-b2e5-4c8d-b873-16127d8a2a7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{multa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="80" height="20" uuid="3d3f85a0-9cb5-4710-9003-7df3c6e69977"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="67" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="493" y="5" width="43" height="20" uuid="c3e5c342-5040-4377-b31f-ff266e95fcc2"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{dias_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="5" width="125" height="20" uuid="5e435233-5133-44ee-aa03-1d097f57902a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Alquileres:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
