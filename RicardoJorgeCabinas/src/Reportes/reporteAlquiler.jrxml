@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteAlquileres" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24e0f43b-04fa-486b-a396-e7bf19eacd6a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+codigoalquiler,fechainicioalquiler,fechafinalquiler,multa,nombreusuario,nombrecliente,nombremodem,(alquilermodem.preciodia*(fechafinalquiler-fechainicioalquiler)) as total
+
+from alquilermodem
+inner join cliente on alquilermodem.cedulacliente=cliente.cedulacliente 
+inner join usuario on  alquilermodem.cedulausuario=usuario.cedulausuario
+inner join usbmodem on  alquilermodem.codigomodem=usbmodem.codigomodem
+
+
+where fechainicioalquiler >= $P{fechaInicio} and fechainicioalquiler <= $P{fechaFin}]]>
+	</queryString>
+	<field name="codigoalquiler" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechainicioalquiler" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechafinalquiler" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="multa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreusuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombrecliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombremodem" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Long"/>
+	<variable name="totalventa" class="java.lang.String"/>
+	<variable name="total_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="42" y="20" width="484" height="50" uuid="55beb853-52e4-4c3e-8336-01b982ca2034"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Alquileres]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="480" y="41" width="75" height="20" uuid="c693c037-fddc-4949-926d-819776025541"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="41" width="57" height="20" uuid="dfff36b1-6f39-4cca-b6e8-ace37830c34b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alquiler]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="41" width="67" height="20" uuid="49378462-96cb-424c-bf3a-13636f3f3141"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicio Alquiler]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="41" width="67" height="20" uuid="ecd7b257-aaaa-4d14-8adc-ee434be36bdc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fin Alquiler]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="41" width="69" height="20" uuid="d663d035-efe1-4d12-a204-1f8612413468"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Multa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="41" width="65" height="20" uuid="77acb40d-7b42-41d7-b485-1947a2176ceb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="41" width="87" height="20" uuid="f749c8b1-4b2f-4506-99dc-c64471761e4e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="41" width="68" height="20" uuid="cb46338b-08da-4ff1-8c6b-106e69bd1e02"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modem]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="57" height="20" uuid="90953249-5670-4df2-82f8-e18f1f553b45"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codigoalquiler}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="67" height="20" uuid="ea9e711c-f321-4bb2-bde4-aa32db18997c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fechainicioalquiler}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="0" width="67" height="20" uuid="f42dc902-057e-45b5-993f-6f4747bc2f34"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fechafinalquiler}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="0" width="69" height="20" uuid="1f62d6b0-35b6-4c31-b2bb-7588ebf89922"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{multa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="65" height="20" uuid="4c25634b-d0ec-4ea9-9625-c64841bec2d8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="0" width="87" height="20" uuid="cbee49ad-1916-46ef-b2c8-eaeeea067a2b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombreusuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="0" width="68" height="20" uuid="25c84cfb-274b-4110-a029-f60ed9a71e05"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombremodem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="75" height="20" uuid="53e53282-d892-4a28-87b1-dd3524a097a1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="356" y="15" width="102" height="20" uuid="5d456678-b9f5-4828-9b9f-5bbadcedb861"/>
+				<textElement>
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Alquileres]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="458" y="15" width="97" height="20" uuid="507716a7-19b3-45f9-9178-53c0d40688f8"/>
+				<textFieldExpression><![CDATA[$V{total_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

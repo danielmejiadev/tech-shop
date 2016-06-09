@@ -2402,6 +2402,23 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
             path.deleteOnExit();       
         }
+        else if(fechaInicioAlquilerReportes.isEnabled() && fechaFinAlquilerReportes.isEditable())
+        {
+            Date fechaInicio = (Date)fechaInicioAlquilerReportes.getValue();
+            Date fechaFin = (Date)fechaFinAlquilerReportes.getValue();
+            String ruta = System.getProperty("user.dir") + "/src/Reportes/ReporteAlquiler.jasper";
+            Map param = new HashMap();
+            param.put("fechaInicio", fechaInicio);
+            param.put("fechaFin", fechaFin);
+            Reporte.exportarReporte(ruta, param, "Reporte Alquileres");
+            File path = new File ("Reporte Alquileres.pdf");
+            try {
+                Desktop.getDesktop().open(path);
+            } catch (IOException ex) {
+                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            path.deleteOnExit();    
+        }
         
         
         jTextFieldReporteCedulaAlquiler.setText("");
@@ -2452,7 +2469,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void fechaInicioAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioAlquilerReportesMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
-        fechaFinAlquilerReportes.setEnabled(false);
         fechaFinMinutosReporte.setEnabled(false);
         fechaInicioAlquilerReportes.setEnabled(true);
         fechaInicioMinutosReporte.setEnabled(false);
@@ -2463,7 +2479,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
         fechaFinAlquilerReportes.setEnabled(true);
         fechaFinMinutosReporte.setEnabled(false);
-        fechaInicioAlquilerReportes.setEnabled(false);
         fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_fechaFinAlquilerReportesMouseClicked
     private void botonActualizarTablaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaUsuariosActionPerformed
