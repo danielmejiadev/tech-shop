@@ -22,10 +22,7 @@ public class LogicaPlanMinutos {
        Entrada: ID del plan de minutos
        Salida: Objeto plan de minutos consultado o null si no existe con el ID
     */
-    public PlanMinutos consultarPlanMinutosID(Long id) throws Exception{
-        if(planMinutosDAO.findPlanMinutos(id)==null){
-            throw new Exception("El plan no existe");
-        }
+    public PlanMinutos consultarPlanMinutosID(Long id){
         return planMinutosDAO.findPlanMinutos(id);
     }
     
@@ -34,10 +31,7 @@ public class LogicaPlanMinutos {
        Salida: Lista de objetos de tipo PlanMinutos 
                Lista vacía si no se encuentra registros que coincidan con el parámetro
     */
-    public List<PlanMinutos> consultarPlanMinutosNombre(String nombrePlan) throws  Exception{
-        if(planMinutosDAO.findPlanMinutosName(nombrePlan)==null){
-            throw new Exception("El plan no existe");
-        }
+    public List<PlanMinutos> consultarPlanMinutosNombre(String nombrePlan){
         return planMinutosDAO.findPlanMinutosName(nombrePlan);
     }
     

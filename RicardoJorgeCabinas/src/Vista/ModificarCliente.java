@@ -348,7 +348,11 @@ public class ModificarCliente extends javax.swing.JDialog {
                 jComboBoxMes.addItem((i-1900)+"");
             }
         }
-        fechaActual.setTimeInMillis(cliente.getFechanacimientocliente().getTime());
+        try {
+            fechaActual.setTimeInMillis(cliente.getFechanacimientocliente().getTime());
+        } catch (java.lang.NullPointerException e) {
+        }
+        
         jComboBoxAnio.setSelectedItem(fechaActual.get(Calendar.YEAR)+"");
         jComboBoxMes.setSelectedItem(fechaActual.get(Calendar.MONTH)+1+"");
         jComboBoxDia.setSelectedItem(fechaActual.get(Calendar.DAY_OF_MONTH)+"");

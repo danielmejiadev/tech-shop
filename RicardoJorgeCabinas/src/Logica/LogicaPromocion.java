@@ -53,4 +53,8 @@ public class LogicaPromocion {
     public void modificarPromocion(Promocion promocion) throws Exception{
         promocionDAO.edit(promocion);
     }
+    
+    public List<Promocion> consultarPromocionesActivas(){
+        return promocionDAO.findPromocionesActivas();
+    }
 }

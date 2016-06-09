@@ -27,8 +27,6 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class VistaVendedor extends javax.swing.JFrame{
-    LogicaCliente lc = new LogicaCliente();
-    LogicaPromocion lp = new LogicaPromocion();
     LogicaUsbModem lum = new LogicaUsbModem();
     List<UsbModem> modems = lum.consultarModems();
     Usuario usuarioActivo;
@@ -40,6 +38,7 @@ public class VistaVendedor extends javax.swing.JFrame{
     int minutosVendidos;
     int minutosFacturados;
     int totalVenta;
+    static List<Promocion> promocionesGanadas = new ArrayList<>();
     
     public VistaVendedor(Usuario usuarioActivo)  
     {
@@ -333,7 +332,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -533,7 +532,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem1)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -1092,6 +1091,7 @@ public class VistaVendedor extends javax.swing.JFrame{
         Salida: --
     */ 
     private void botonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarClienteActionPerformed
+        LogicaCliente lc = new LogicaCliente();
         AgregarCliente ac = new AgregarCliente(new VistaAdministrador(), true);
         ac.setVisible(true);
         llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
@@ -1148,36 +1148,27 @@ public class VistaVendedor extends javax.swing.JFrame{
         Salida: --
     */ 
     private void botonConsultarPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPromocionesActionPerformed
+        LogicaPromocion lp = new LogicaPromocion();
         llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
-        PlanMinutos planMinutos = null;
-        List<PlanMinutos> planes = new ArrayList<>();
-        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
         String texto = campoConsultaPlanes.getText();
-        if(isNumeric(texto)){
-            try {
-                planMinutos = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
-                planes.add(planMinutos);
-                llenarTablaPlanMinutos(planes);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
-            campoConsultaPlanes.setText("");
+        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+        List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
+        if(texto.isEmpty()){
+            planMinuto = logicaPlanMinutos.consultarPlanMinutos();
         }else{
-            try {
-                planes = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
-                llenarTablaPlanMinutos(planes);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            }
-            campoConsultaPlanes.setText("");
+            PlanMinutos planID = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
+        if(planID != null)
+            planMinuto.add(planID);
         }
+        llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
+        LogicaCliente lc = new LogicaCliente();
         llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
     }//GEN-LAST:event_botonConsultarClienteActionPerformed
 
@@ -1185,6 +1176,12 @@ public class VistaVendedor extends javax.swing.JFrame{
         if(ventaLista)
         {   
           VentaMinutos venta = new VentaMinutos();
+          if(!promocionesGanadas.isEmpty()){
+                 venta.setPromocionList(promocionesGanadas);
+            }else{
+                //No hay promociones para esta venta
+          }
+          
           venta.setCedulacliente(clienteVenta);
           venta.setCedulausuario(usuarioActivo);
           venta.setCodigoplan(planVenta);
@@ -1200,9 +1197,14 @@ public class VistaVendedor extends javax.swing.JFrame{
           if(dialogButton == JOptionPane.YES_OPTION)
           { 
             LogicaVentaMinutos logicaVenta = new LogicaVentaMinutos();
-            logicaVenta.registrarVenta(venta);      
+            logicaVenta.registrarVenta(venta);  
+            alertaPlan();
+            promocionesGanadas.clear();
+            
             ventaLista=false;
-          } 
+          }else{
+              promocionesGanadas.clear();
+          }
         }
         else
         {
@@ -1231,26 +1233,49 @@ public class VistaVendedor extends javax.swing.JFrame{
             campoMinutosVendidos.setBackground(Color.LIGHT_GRAY);
             Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            try {
-                planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
-            //Aqui deberia ir el codigo para calcular si cumple una promocion
+            planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
+            
             precioMinuto=planVenta.getPreciominuto();
             minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());
+            
+             if (!clienteVenta.getCedulacliente().equals("default")) {
+                validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
+            } else {
+            }
+            if(!promocionesGanadas.isEmpty()){
+                if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
+                        + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
+                        
+                        int totalBeneficios=0;
+                        for (int i = 0; i < promocionesGanadas.size(); i++) {
+                            totalBeneficios += promocionesGanadas.get(i).getBeneficio();
+                        }
+                        
+                    if (minutosVendidos >= totalBeneficios) {
+                        minutosFacturados=minutosVendidos-totalBeneficios;
+                    } else {
+                        minutosVendidos = totalBeneficios;
+                        minutosFacturados=0;
+                    }
+                }else{
+                    minutosFacturados=minutosVendidos;
+                    promocionesGanadas.clear();
+                }
+            }else{
+               minutosFacturados=minutosVendidos; 
+            }
             minutosFacturados=minutosVendidos;
             totalVenta = minutosFacturados*precioMinuto;
             campoMinutosFacturados.setText(minutosFacturados+"");
             campoPrecioMinuto.setText(precioMinuto+"");
             campoTotalVenta.setText(totalVenta+"");
-            ventaLista=true;   
-    
+            ventaLista=true;
         }   
     }//GEN-LAST:event_botonCalcularActionPerformed
 
     private void botonActualizarTablaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaClientesActionPerformed
-        // TODO add your handling code here:
+        LogicaCliente lc = new LogicaCliente();
+        llenarTablaClientes(lc.consultarClientes());
     }//GEN-LAST:event_botonActualizarTablaClientesActionPerformed
 
     private void campoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMinutosVendidosFocusGained
@@ -1753,8 +1778,12 @@ public class VistaVendedor extends javax.swing.JFrame{
            fila[2]=listaClientes.get(i).getDireccioncliente();
            fila[3]=listaClientes.get(i).getCorreocliente();
            fila[4]=listaClientes.get(i).getCedulacliente();
-           fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
-           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           try {
+                fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
+                s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+            } catch (java.lang.NullPointerException e) {
+                s="";
+            }
            fila[5]=s;
            if(listaClientes.get(i).getEstadocliente()){
                estado = "Activo";
@@ -2019,6 +2048,127 @@ public class VistaVendedor extends javax.swing.JFrame{
                 }
             }
         }
+    }
+    
+    public void validarPromocion(String cedulaCliente, int minutosVendidos){
+        LogicaPromocion lp = new LogicaPromocion();
+        LogicaVentaMinutos lvm = new LogicaVentaMinutos();
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas(); //Lista de promociones activas
+        
+        
+        for (int i = 0; i < promocionesActivas.size(); i++) {
+            int condicion = promocionesActivas.get(i).getCondicion() - minutosVendidos;
+            int codigoPromo = Integer.parseInt(promocionesActivas.get(i).getCodigopromocion()+"");
+            String fechaInicioPromo = calcularFechaPromo(promocionesActivas.get(i)); //Fecha inicial de la promoción i
+            
+            //Lista que trae la última venta en la que se ha ganado la promoción i
+            List<VentaMinutos> ventaConPromoGanada = lvm.consultaVentaConPromo(cedulaCliente, fechaInicioPromo, codigoPromo);
+           
+           
+            
+            //Si se encuentra una promoción que ya ha sido ganada, se cuentan los minutos a partir de la última venta que tuvo la promoción
+            if(!ventaConPromoGanada.isEmpty()){
+                promocionesActivas.get(i).setFechainiciopromocion(ventaConPromoGanada.get(0).getFechaventa());
+                fechaInicioPromo = calcularFechaPromoPost(promocionesActivas.get(i));//Recalculando la fecha a partir de la cual se empiezan a contar los minutos para ganar promoción
+//                System.out.println("Ya se ganó esa promoción, nueva fecha = "+ fechaInicioPromo);
+            }else{
+//                System.out.println("No se ha ganado la promoción anteriormente");
+            }
+            //Lista que trae la venta que cumpla con la condición de la promoción i
+            List<VentaMinutos> estaVenta = lvm.consultarVentasGanadoras(condicion, cedulaCliente, fechaInicioPromo);
+            if(!estaVenta.isEmpty()){
+                if(!promocionesGanadas.contains(promocionesActivas.get(i))){
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                }else{
+                    //La promoción ya está contenida en la lista de promocionesGanadas
+                }
+            }else{
+                List<VentaMinutos> comprasCliente = lvm.consultaVentasCliente(cedulaCliente);
+                if (comprasCliente.isEmpty() && minutosVendidos >= promocionesActivas.get(i).getCondicion()) {
+//                    System.out.println("El cliente cumple la condición en su primera venta");
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                } else {
+//                    System.out.println("No cumple la condición para ganar la promoción I");
+                }
+//                System.out.println("No cumple la condición para ganar la promoción II");
+                //No cumple la condición para ganar la promoción
+            }
+        }
+        
+    }
+    
+    public String mostrarPromocionesGanadas(List<Promocion> listaPromo){
+        String s ="PROMOCIONES GANADAS!!\n";
+        int totalBeneficios =0;
+        for (int i = 0; i < listaPromo.size(); i++) {
+            s += listaPromo.get(i).getDescripcion()+" Beneficio: "+listaPromo.get(i).getBeneficio()+" minutos GRATIS!\n";
+            totalBeneficios += listaPromo.get(i).getBeneficio();
+        }
+        s+="Total Minutos de Promociones = "+ totalBeneficios;
+        return s;
+    }
+    
+    public void alertaPlan(){
+        LogicaVentaMinutos lvm = new LogicaVentaMinutos();
+        LogicaPlanMinutos lp = new LogicaPlanMinutos();
+        List<VentaMinutos> listaVentas = lvm.consultarVentas();
+        VentaMinutos v = listaVentas.get(listaVentas.size()-1);
+        PlanMinutos plan = lp.consultarPlanMinutosID(v.getCodigoplan().getCodigoplan());
+        if(plan.getCantidadminutos()<plan.getCantidadminimaminutos()){
+            JOptionPane.showMessageDialog(panelModems, "Su plan de "+plan.getNombreplan()+" está próximo a agotarse.");
+        }else{
+            //El plan no está próximo a vencer
+        }
+    }
+    
+    //Actualiza el estado de las promociones a inactivas cuando han caducado.
+    public void actualizarPromociones(){
+        LogicaPromocion lp = new LogicaPromocion();
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas();
+        Calendar fechaHoy = Calendar.getInstance();
+        Date date = fechaHoy.getTime();
+        for (int i = 0; i < promocionesActivas.size(); i++) {
+            if(promocionesActivas.get(i).getFechafinpromocion().before(date)){
+                promocionesActivas.get(i).setEstadopromocion(false);
+                try {
+                    lp.modificarPromocion(promocionesActivas.get(i));
+                } catch (Exception ex) {
+                    Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                //La promoción no ha caducado
+            }
+        }
+    }
+    
+    public String calcularFechaPromo(Promocion promocion){
+        int dia,mes,anio;
+        String fechaPromocion="";
+        Calendar calendario = Calendar.getInstance();
+        
+        calendario.setTime(promocion.getFechainiciopromocion());
+        dia=calendario.get(Calendar.DAY_OF_MONTH);
+        mes=calendario.get(Calendar.MONTH);
+        anio=calendario.get(Calendar.YEAR);
+        fechaPromocion = anio+"-"+mes+"-"+dia;
+        
+//        System.out.print(fechaPromocion+"\n");
+        return fechaPromocion;
+    }
+    
+    public String calcularFechaPromoPost(Promocion promocion){
+        int dia,mes,anio;
+        String fechaPromocion="";
+        Calendar calendario = Calendar.getInstance();
+        
+        calendario.setTime(promocion.getFechainiciopromocion());
+        dia=calendario.get((Calendar.DAY_OF_MONTH+1));
+        mes=calendario.get(Calendar.MONTH);
+        anio=calendario.get(Calendar.YEAR);
+        fechaPromocion = anio+"-"+mes+"-"+dia;
+        
+//        System.out.print("Fecha modificada pal otro día: "+fechaPromocion+"\n");
+        return fechaPromocion;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarTablaModems;

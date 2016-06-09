@@ -11,6 +11,7 @@ import Modelo.PlanMinutos;
 import Modelo.Promocion;
 import Modelo.Usuario;
 import Logica.LogicaUsbModem;
+import Logica.LogicaVentaMinutos;
 import Modelo.AlquilerModem;
 import Modelo.Recarga;
 import Modelo.UsbModem;
@@ -44,6 +45,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
     int precioMinuto;
     int minutosVendidos;
     int minutosFacturados;
+    static List<Promocion> promocionesGanadas = new ArrayList<>();
     
     public VistaAdministrador(Usuario usuarioActivo)  
     {
@@ -63,7 +65,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelSeleccionModem.setVisible(true);
         alertaDevolucion();
         recargaAutomaticaPlan();
-        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());                  
+        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());
+        actualizarPromociones();
     }
     public VistaAdministrador(){
         
@@ -333,11 +336,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
             .addGroup(panelSeleccionModemLayout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(labeltituloCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
+                .addGap(115, 115, 115)
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -537,7 +540,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -780,8 +783,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonEstadoCliente.setText("Cambiar Estado");
         botonEstadoCliente.setBorderPainted(false);
         botonEstadoCliente.setContentAreaFilled(false);
+        botonEstadoCliente.setEnabled(false);
         botonEstadoCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonEstadoCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonEstadoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEstadoClienteActionPerformed(evt);
+            }
+        });
         panelClientesVendedor.add(botonEstadoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, -1, -1));
 
         botonActualizarTablaClientes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -792,6 +801,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonActualizarTablaClientes.setContentAreaFilled(false);
         botonActualizarTablaClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonActualizarTablaClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaClientesActionPerformed(evt);
+            }
+        });
         panelClientesVendedor.add(botonActualizarTablaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, -1));
 
         jLabelBusqueda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -1175,6 +1189,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonActualizarTablaPromo.setContentAreaFilled(false);
         botonActualizarTablaPromo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonActualizarTablaPromo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaPromoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPromocionesLayout = new javax.swing.GroupLayout(panelPromociones);
         panelPromociones.setLayout(panelPromocionesLayout);
@@ -1666,6 +1685,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         Salida: --
     */
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
+        LogicaCliente lc = new LogicaCliente();
         llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
         botonModificarCliente.setEnabled(false);
     }//GEN-LAST:event_botonConsultarClienteActionPerformed
@@ -1676,9 +1696,16 @@ public class VistaAdministrador extends javax.swing.JFrame{
         Salida: --
     */
     private void botonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarClienteActionPerformed
+        LogicaCliente lc = new LogicaCliente();
         String cedulaCliente = tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 4).toString();
-        ventanaModificarCliente(lc.consultarCliente(cedulaCliente));
-        llenarTablaClientes(lc.consultarClientes());
+        if (!cedulaCliente.equals("default")) {
+            ventanaModificarCliente(lc.consultarCliente(cedulaCliente));
+            llenarTablaClientes(lc.consultarClientes());
+            botonModificarCliente.setEnabled(false);
+            botonEstadoCliente.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(panelModems, "No se puede modificar el cliente default");
+        }
     }//GEN-LAST:event_botonModificarClienteActionPerformed
 
     private void botonConsultarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarUsuarioActionPerformed
@@ -1843,16 +1870,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void botonModificarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPlanActionPerformed
 
        int filaSeleccionada = tablaPlanes.getSelectedRow();
-       if(filaSeleccionada != -1)
+        if(filaSeleccionada != -1)
         {
             String codigoPlan = tablaPlanes.getValueAt(filaSeleccionada, 0).toString();
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            PlanMinutos planMinutos = null;
-           try {
-               planMinutos = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(codigoPlan));
-           } catch (Exception ex) {
-               JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-           }
+            PlanMinutos planMinutos =  logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(codigoPlan));
             ModificarPlan modificarPlan = new ModificarPlan(planMinutos);
             modificarPlan.setVisible(true);
         } 
@@ -1883,28 +1905,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
-        PlanMinutos planMinutos = null;
-        List<PlanMinutos> planes = new ArrayList<>();
-        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
         String texto = campoConsultaPlanes.getText();
-        if(isNumeric(texto)){
-            try {
-                planMinutos = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
-                planes.add(planMinutos);
-                llenarTablaPlanMinutos(planes);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
-            campoConsultaPlanes.setText("");
+        LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+        List<PlanMinutos> planMinuto = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
+        if(texto.isEmpty()){
+            planMinuto = logicaPlanMinutos.consultarPlanMinutos();
         }else{
-            try {
-                planes = logicaPlanMinutos.consultarPlanMinutosNombre(texto);
-                llenarTablaPlanMinutos(planes);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            }
-            campoConsultaPlanes.setText("");
+            PlanMinutos planID = logicaPlanMinutos.consultarPlanMinutosID(Long.parseLong(texto));
+        if(planID != null)
+            planMinuto.add(planID);
         }
+        llenarTablaPlanMinutos(planMinuto);
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
     /* Metodo para actualizar la tabla de modems consultando todos los registros de la BD
@@ -1924,6 +1935,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
     private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
         botonModificarCliente.setEnabled(true);
+        botonEstadoCliente.setEnabled(true);
     }//GEN-LAST:event_tablaClientesMouseClicked
 
     private void tablaPromocionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPromocionesMouseClicked
@@ -1960,17 +1972,44 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         
             Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            try {
-                planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-            }
+            planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
             
             precioMinuto=planVenta.getPreciominuto();
             minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());
-            minutosFacturados=minutosVendidos;
+            
+            if (!clienteVenta.getCedulacliente().equals("default")) {
+                validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
+            } else {
+            }
+            
+            if(!promocionesGanadas.isEmpty()){
+                if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
+                        + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
+                        
+                        int totalBeneficios=0;
+                        for (int i = 0; i < promocionesGanadas.size(); i++) {
+                            totalBeneficios += promocionesGanadas.get(i).getBeneficio();
+                        }
+                        
+                    if (minutosVendidos >= totalBeneficios) {
+                        minutosFacturados=minutosVendidos-totalBeneficios;
+                    } else {
+                        minutosVendidos = totalBeneficios;
+                        minutosFacturados=0;
+                    }
+                }else{
+                    minutosFacturados=minutosVendidos;
+                }
+            }else{
+               minutosFacturados=minutosVendidos; 
+            }
             
             VentaMinutos venta = new VentaMinutos();
+            if(!promocionesGanadas.isEmpty()){
+                 venta.setPromocionList(promocionesGanadas);
+            }else{
+                //No hay promociones para esta venta
+            }
             venta.setCedulacliente(clienteVenta);
             venta.setCedulausuario(usuarioActivo);
             venta.setCodigoplan(planVenta);
@@ -2095,12 +2134,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }else{
             Long cod = Long.parseLong(tablaPlanes.getValueAt(tablaPlanes.getSelectedRow(),0).toString());
             LogicaPlanMinutos lpm = new LogicaPlanMinutos();
-            PlanMinutos pm = null;
-            try {
-                pm = lpm.consultarPlanMinutosID(cod);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(rootPane, ex.getMessage());;
-            }
+            PlanMinutos pm = lpm.consultarPlanMinutosID(cod);
             if(pm.getEstadoplanminutos()){
                 RecargarPlan recargar = new RecargarPlan(cod, usuarioActivo);
                 recargar.setVisible(true);
@@ -2386,7 +2420,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
         Reporte rep = new Reporte();
         if(jTextFieldReporteCedulaMinutos.isEnabled()){
             String cedula = jTextFieldReporteCedulaMinutos.getText();
-            String ruta = System.getProperty("user.dir") + "/src/Reportes/reporteClienteMinutos.jasper";
+            String ruta = "C:\\reporteClienteMinutos.jasper";
+//            String ruta = "C:\\Users\\Stefania\\Dropbox\\Univalle\\3743-VII\\DSII\\Proyecto DSII\\RepositorioRicardoJorge\\RicardoJorgeCabinas\\src\\Reportes\\reporteClienteMinutos.jasper";
             Map param = new HashMap();
             param.put("cedulaC", cedula);
 
@@ -2400,7 +2435,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
             path.deleteOnExit();
         }else if(jTextFieldReporteCedulaAlquiler.isEnabled()){
             String cedula = jTextFieldReporteCedulaAlquiler.getText();
-            String ruta = System.getProperty("user.dir") + "/src/Reportes/reporteClienteAlquiler.jasper";
+            String ruta = "C:\\reporteClienteAlquiler.jasper";
+//            String ruta = "C:\\Users\\Stefania\\Dropbox\\Univalle\\3743-VII\\DSII\\Proyecto DSII\\RepositorioRicardoJorge\\RicardoJorgeCabinas\\src\\Reportes\\reporteClienteAlquiler.jasper";
             Map param = new HashMap();
             param.put("cedulaC", cedula);
             Reporte.exportarReporte(ruta, param, "Reporte de Alquiler Usb-Modem Cliente");
@@ -2411,39 +2447,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             }
             path.deleteOnExit();
-        }else if(fechaInicioMinutosReporte.isEnabled() && fechaFinMinutosReporte.isEnabled())
-        {
-            Date fechaInicio = (Date)fechaInicioMinutosReporte.getValue();
-            Date fechaFin = (Date)fechaFinMinutosReporte.getValue();
-            String ruta = System.getProperty("user.dir") + "/src/Reportes/ReporteVentas.jasper";
-            Map param = new HashMap();
-            param.put("fechaInicio", fechaInicio);
-            param.put("fechaFin", fechaFin);
-            Reporte.exportarReporte(ruta, param, "Reporte Ventas");
-            File path = new File ("Reporte Ventas.pdf");
-            try {
-                Desktop.getDesktop().open(path);
-            } catch (IOException ex) {
-                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            path.deleteOnExit();       
-        }
-        else if(fechaInicioAlquilerReportes.isEnabled() && fechaFinAlquilerReportes.isEditable())
-        {
-            Date fechaInicio = (Date)fechaInicioAlquilerReportes.getValue();
-            Date fechaFin = (Date)fechaFinAlquilerReportes.getValue();
-            String ruta = System.getProperty("user.dir") + "/src/Reportes/ReporteAlquiler.jasper";
-            Map param = new HashMap();
-            param.put("fechaInicio", fechaInicio);
-            param.put("fechaFin", fechaFin);
-            Reporte.exportarReporte(ruta, param, "Reporte Alquileres");
-            File path = new File ("Reporte Alquileres.pdf");
-            try {
-                Desktop.getDesktop().open(path);
-            } catch (IOException ex) {
-                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            path.deleteOnExit();    
         }
         
         
@@ -2480,6 +2483,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
         fechaFinAlquilerReportes.setEnabled(false);
+        fechaFinMinutosReporte.setEnabled(false);
         fechaInicioAlquilerReportes.setEnabled(false);
         fechaInicioMinutosReporte.setEnabled(true);
     }//GEN-LAST:event_fechaInicioMinutosReporteMouseClicked
@@ -2490,11 +2494,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaFinAlquilerReportes.setEnabled(false);
         fechaFinMinutosReporte.setEnabled(true);
         fechaInicioAlquilerReportes.setEnabled(false);
+        fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_fechaFinMinutosReporteMouseClicked
 
     private void fechaInicioAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioAlquilerReportesMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
+        fechaFinAlquilerReportes.setEnabled(false);
         fechaFinMinutosReporte.setEnabled(false);
         fechaInicioAlquilerReportes.setEnabled(true);
         fechaInicioMinutosReporte.setEnabled(false);
@@ -2505,6 +2511,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
         fechaFinAlquilerReportes.setEnabled(true);
         fechaFinMinutosReporte.setEnabled(false);
+        fechaInicioAlquilerReportes.setEnabled(false);
         fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_fechaFinAlquilerReportesMouseClicked
     private void botonActualizarTablaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaUsuariosActionPerformed
@@ -2512,6 +2519,35 @@ public class VistaAdministrador extends javax.swing.JFrame{
         List<Usuario> usuarios = logicaUsuario.consultarUsuarios();
         llenarTablaUsuarios(usuarios);
     }//GEN-LAST:event_botonActualizarTablaUsuariosActionPerformed
+
+    private void botonActualizarTablaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaClientesActionPerformed
+        LogicaCliente lc = new LogicaCliente();
+        llenarTablaClientes(lc.consultarClientes());
+    }//GEN-LAST:event_botonActualizarTablaClientesActionPerformed
+
+    private void botonEstadoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoClienteActionPerformed
+        LogicaCliente lc = new LogicaCliente();
+        String cedulaCliente = tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 4).toString();
+        Cliente cliente = lc.consultarCliente(cedulaCliente);
+        if(cliente.getEstadocliente() && !cliente.getNombrecliente().equals("default")){
+            cliente.setEstadocliente(false);
+        }else{
+            cliente.setEstadocliente(true);
+        }
+        try {
+            lc.modificarCliente(cliente);
+        } catch (Exception ex) {
+            Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        llenarTablaClientes(lc.consultarClientes());
+        botonModificarCliente.setEnabled(false);
+        botonEstadoCliente.setEnabled(false);
+    }//GEN-LAST:event_botonEstadoClienteActionPerformed
+
+    private void botonActualizarTablaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPromoActionPerformed
+        LogicaPromocion lp = new LogicaPromocion();
+        llenarTablaPromociones(lp.consultarPromociones());
+    }//GEN-LAST:event_botonActualizarTablaPromoActionPerformed
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -2556,22 +2592,26 @@ public class VistaAdministrador extends javax.swing.JFrame{
         String estado, s = "";
         DefaultTableModel dtm = new DefaultTableModel();
         tablaClientes.setModel(dtm);
-        dtm.addColumn("NOMBRE");
-        dtm.addColumn("TELEFONO");
-        dtm.addColumn("DIRECCION");
-        dtm.addColumn("CORREO");
-        dtm.addColumn("IDENTIFICACION");
-        dtm.addColumn("FECHA_NAC");
-        dtm.addColumn("ESTADO");
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Teléfono");
+        dtm.addColumn("Dirección");
+        dtm.addColumn("Correo");
+        dtm.addColumn("Identificación");
+        dtm.addColumn("Fecha_nac");
+        dtm.addColumn("Estado");
         String[] fila = new String[7];
-        for (int i = 0; i < listaClientes.size()-1; i++) {
+        for (int i = 0; i < listaClientes.size(); i++) {
            fila[0]=listaClientes.get(i).getNombrecliente();
            fila[1]=listaClientes.get(i).getTelefonocliente();
            fila[2]=listaClientes.get(i).getDireccioncliente();
            fila[3]=listaClientes.get(i).getCorreocliente();
            fila[4]=listaClientes.get(i).getCedulacliente();
-           fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
-           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           try {
+                fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
+                s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+            } catch (java.lang.NullPointerException e) {
+                s="";
+            }
            fila[5]=s;
            if(listaClientes.get(i).getEstadocliente()){
                estado = "Activo";
@@ -2593,14 +2633,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
         String estado, s = "";
         DefaultTableModel dtm = new DefaultTableModel();
         tablaPromociones.setModel(dtm);
-        dtm.addColumn("CÓDIGO");
-        dtm.addColumn("TIPO");
-        dtm.addColumn("CONDICIÓN");
-        dtm.addColumn("BENEFICIO");
-        dtm.addColumn("DESCRIPCIÓN");
-        dtm.addColumn("INICIA");
-        dtm.addColumn("TERMINA");
-        dtm.addColumn("ESTADO");
+        dtm.addColumn("Código");
+        dtm.addColumn("Tipo");
+        dtm.addColumn("Condición");
+        dtm.addColumn("Beneficio");
+        dtm.addColumn("Descripción");
+        dtm.addColumn("Inicia");
+        dtm.addColumn("Termina");
+        dtm.addColumn("Estado");
         String[] fila = new String[8];
         for (int i = 0; i < listaPromociones.size(); i++) {
            fila[0]=listaPromociones.get(i).getCodigopromocion()+"";
@@ -2939,6 +2979,115 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
         }
     }
+    
+     public void validarPromocion(String cedulaCliente, int minutosVendidos){
+        LogicaPromocion lp = new LogicaPromocion();
+        LogicaVentaMinutos lvm = new LogicaVentaMinutos();
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas(); //Lista de promociones activas
+        
+        
+        for (int i = 0; i < promocionesActivas.size(); i++) {
+            int condicion = promocionesActivas.get(i).getCondicion() - minutosVendidos;
+            int codigoPromo = Integer.parseInt(promocionesActivas.get(i).getCodigopromocion()+"");
+            String fechaInicioPromo = calcularFechaPromo(promocionesActivas.get(i)); //Fecha inicial de la promoción i
+            
+            //Lista que trae la última venta en la que se ha ganado la promoción i
+            List<VentaMinutos> ventaConPromoGanada = lvm.consultaVentaConPromo(cedulaCliente, fechaInicioPromo, codigoPromo);
+           
+           
+            
+            //Si se encuentra una promoción que ya ha sido ganada, se cuentan los minutos a partir de la última venta que tuvo la promoción
+            if(!ventaConPromoGanada.isEmpty()){
+                promocionesActivas.get(i).setFechainiciopromocion(ventaConPromoGanada.get(0).getFechaventa());
+                fechaInicioPromo = calcularFechaPromoPost(promocionesActivas.get(i));//Recalculando la fecha a partir de la cual se empiezan a contar los minutos para ganar promoción
+//                System.out.println("Ya se ganó esa promoción, nueva fecha = "+ fechaInicioPromo);
+            }else{
+//                System.out.println("No se ha ganado la promoción anteriormente");
+            }
+            //Lista que trae la venta que cumpla con la condición de la promoción i
+            List<VentaMinutos> estaVenta = lvm.consultarVentasGanadoras(condicion, cedulaCliente, fechaInicioPromo);
+            if(!estaVenta.isEmpty()){
+                if(!promocionesGanadas.contains(promocionesActivas.get(i))){
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                }else{
+                    //La promoción ya está contenida en la lista de promocionesGanadas
+                }
+            }else{
+                List<VentaMinutos> comprasCliente = lvm.consultaVentasCliente(cedulaCliente);
+                if (comprasCliente.isEmpty() && minutosVendidos >= promocionesActivas.get(i).getCondicion()) {
+//                    System.out.println("El cliente cumple la condición en su primera venta");
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                } else {
+//                    System.out.println("No cumple la condición para ganar la promoción I");
+                }
+//                System.out.println("No cumple la condición para ganar la promoción II");
+                //No cumple la condición para ganar la promoción
+            }
+        }
+        
+    }
+    
+    public String mostrarPromocionesGanadas(List<Promocion> listaPromo){
+        String s ="PROMOCIONES GANADAS!!\n";
+        int totalBeneficios =0;
+        for (int i = 0; i < listaPromo.size(); i++) {
+            s += listaPromo.get(i).getDescripcion()+" Beneficio: "+listaPromo.get(i).getBeneficio()+" minutos GRATIS!\n";
+            totalBeneficios += listaPromo.get(i).getBeneficio();
+        }
+        s+="Total Minutos de Promociones = "+ totalBeneficios;
+        return s;
+    }
+    
+    //Actualiza el estado de las promociones a inactivas cuando han caducado.
+    public void actualizarPromociones(){
+        LogicaPromocion lp = new LogicaPromocion();
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas();
+        Calendar fechaHoy = Calendar.getInstance();
+        Date date = fechaHoy.getTime();
+        for (int i = 0; i < promocionesActivas.size(); i++) {
+            if(promocionesActivas.get(i).getFechafinpromocion().before(date)){
+                promocionesActivas.get(i).setEstadopromocion(false);
+                try {
+                    lp.modificarPromocion(promocionesActivas.get(i));
+                } catch (Exception ex) {
+                    Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                //La promoción no ha caducado
+            }
+        }
+    }
+    
+    public String calcularFechaPromo(Promocion promocion){
+        int dia,mes,anio;
+        String fechaPromocion="";
+        Calendar calendario = Calendar.getInstance();
+        
+        calendario.setTime(promocion.getFechainiciopromocion());
+        dia=calendario.get(Calendar.DAY_OF_MONTH);
+        mes=calendario.get(Calendar.MONTH);
+        anio=calendario.get(Calendar.YEAR);
+        fechaPromocion = anio+"-"+mes+"-"+dia;
+        
+//        System.out.print(fechaPromocion+"\n");
+        return fechaPromocion;
+    }
+    
+    public String calcularFechaPromoPost(Promocion promocion){
+        int dia,mes,anio;
+        String fechaPromocion="";
+        Calendar calendario = Calendar.getInstance();
+        
+        calendario.setTime(promocion.getFechainiciopromocion());
+        dia=calendario.get((Calendar.DAY_OF_MONTH+1));
+        mes=calendario.get(Calendar.MONTH);
+        anio=calendario.get(Calendar.YEAR);
+        fechaPromocion = anio+"-"+mes+"-"+dia;
+        
+//        System.out.print("Fecha modificada pal otro día: "+fechaPromocion+"\n");
+        return fechaPromocion;
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuscarClienteAlquiler;

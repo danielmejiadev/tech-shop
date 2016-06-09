@@ -223,4 +223,12 @@ public class PromocionJpaController implements Serializable {
         }
     }
     
+     public List<Promocion> findPromocionesActivas(){
+        String consulta = "SELECT * FROM promocion WHERE estadopromocion = 1";
+        EntityManager em = getEntityManager(); 
+        Query query = em.createNativeQuery(consulta,Promocion.class);
+        return query.getResultList();
+    }
+    
+    
 }
