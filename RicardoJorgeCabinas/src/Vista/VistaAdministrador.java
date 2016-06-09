@@ -11,7 +11,6 @@ import Modelo.PlanMinutos;
 import Modelo.Promocion;
 import Modelo.Usuario;
 import Logica.LogicaUsbModem;
-import Logica.LogicaVentaMinutos;
 import Modelo.AlquilerModem;
 import Modelo.Recarga;
 import Modelo.UsbModem;
@@ -36,11 +35,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
     Cliente clienteVenta;
     Cliente clienteAlquiler;
     PlanMinutos planVenta;
-    boolean ventaLista;
     int precioMinuto;
     int minutosVendidos;
     int minutosFacturados;
-    int totalVenta;
     
     public VistaAdministrador(Usuario usuarioActivo)  
     {
@@ -81,13 +78,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         comboPlanesVenta = new javax.swing.JComboBox();
         campoMinutosVendidos = new javax.swing.JFormattedTextField();
         jLabelBusqueda7 = new javax.swing.JLabel();
-        jLabelBusqueda8 = new javax.swing.JLabel();
-        campoMinutosFacturados = new javax.swing.JFormattedTextField();
-        campoPrecioMinuto = new javax.swing.JFormattedTextField();
-        jLabelBusqueda9 = new javax.swing.JLabel();
-        jLabelBusqueda10 = new javax.swing.JLabel();
-        campoTotalVenta = new javax.swing.JFormattedTextField();
-        botonCalcular = new javax.swing.JButton();
         botonRegistrarVenta = new javax.swing.JButton();
         panelMovimientosModem = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -100,7 +90,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         campoDisponibildadModem = new javax.swing.JTextField();
         labeltituloPlanes3 = new javax.swing.JLabel();
         jLabelMulta = new javax.swing.JLabel();
-        jComboBoxModem = new javax.swing.JComboBox<>();
+        jComboBoxModem = new javax.swing.JComboBox<String>();
         jLabelFechaEntrega = new javax.swing.JLabel();
         campoConsultaClienteAlquiler = new javax.swing.JTextField();
         jLabelDisponibilidad = new javax.swing.JLabel();
@@ -216,12 +206,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         labeltituloPlanes1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labeltituloPlanes1.setText("Venta Minutos");
         panelRegistrarVenta.add(labeltituloPlanes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
-
-        campoConsultaClienteVenta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoMinutosVendidosFocusGained(evt);
-            }
-        });
         panelRegistrarVenta.add(campoConsultaClienteVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 180, 25));
 
         jLabelBusqueda5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -233,61 +217,15 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelBusqueda6.setForeground(new java.awt.Color(162, 146, 146));
         jLabelBusqueda6.setText("Plan");
         panelRegistrarVenta.add(jLabelBusqueda6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, -1, -1));
-
-        comboPlanesVenta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoMinutosVendidosFocusGained(evt);
-            }
-        });
         panelRegistrarVenta.add(comboPlanesVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 180, -1));
 
         campoMinutosVendidos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        campoMinutosVendidos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoMinutosVendidosFocusGained(evt);
-            }
-        });
         panelRegistrarVenta.add(campoMinutosVendidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 90, 25));
 
         jLabelBusqueda7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelBusqueda7.setForeground(new java.awt.Color(162, 146, 146));
         jLabelBusqueda7.setText("Minutos Vendidos * ");
         panelRegistrarVenta.add(jLabelBusqueda7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
-
-        jLabelBusqueda8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabelBusqueda8.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelBusqueda8.setText("Minutos Facturados");
-        panelRegistrarVenta.add(jLabelBusqueda8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
-
-        campoMinutosFacturados.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        campoMinutosFacturados.setFocusable(false);
-        panelRegistrarVenta.add(campoMinutosFacturados, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 90, 25));
-
-        campoPrecioMinuto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        campoPrecioMinuto.setFocusable(false);
-        panelRegistrarVenta.add(campoPrecioMinuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 90, 25));
-
-        jLabelBusqueda9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabelBusqueda9.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelBusqueda9.setText("Precio Minuto $");
-        panelRegistrarVenta.add(jLabelBusqueda9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, -1, -1));
-
-        jLabelBusqueda10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabelBusqueda10.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelBusqueda10.setText("Total  Venta $");
-        panelRegistrarVenta.add(jLabelBusqueda10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, -1, -1));
-
-        campoTotalVenta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        campoTotalVenta.setFocusable(false);
-        panelRegistrarVenta.add(campoTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 90, 25));
-
-        botonCalcular.setText("Verificar");
-        botonCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCalcularActionPerformed(evt);
-            }
-        });
-        panelRegistrarVenta.add(botonCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
 
         botonRegistrarVenta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         botonRegistrarVenta.setForeground(new java.awt.Color(162, 146, 146));
@@ -302,7 +240,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 botonRegistrarVentaActionPerformed(evt);
             }
         });
-        panelRegistrarVenta.add(botonRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+        panelRegistrarVenta.add(botonRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, -1, -1));
 
         jTabbedPaneVistaVendedor.addTab("", new javax.swing.ImageIcon(getClass().getResource("/imgs/ventas.png")), panelRegistrarVenta); // NOI18N
 
@@ -373,7 +311,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -573,7 +511,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -703,10 +641,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -728,6 +662,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
                     .addComponent(panelDevolucionModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
+        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelMovimientosModemLayout = new javax.swing.GroupLayout(panelMovimientosModem);
         panelMovimientosModem.setLayout(panelMovimientosModemLayout);
@@ -973,7 +910,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         .addComponent(campoConsultaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonConsultarPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPlanesLayout.setVerticalGroup(
             panelPlanesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1236,7 +1173,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                                 .addComponent(botonConsultarPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labeltituloPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPromocionesLayout.setVerticalGroup(
             panelPromocionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1359,6 +1296,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonActualizarTablaUsuarios.setContentAreaFilled(false);
         botonActualizarTablaUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonActualizarTablaUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaUsuariosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelUsuriosLayout = new javax.swing.GroupLayout(panelUsurios);
         panelUsurios.setLayout(panelUsuriosLayout);
@@ -1749,7 +1691,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonModificarCliente.setEnabled(false);
     }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
-    private void botonCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularActionPerformed
+    private void botonRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVentaActionPerformed
         if(campoMinutosVendidos.getText().isEmpty() || campoConsultaClienteVenta.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(null,"Por favor ingrese los campos obligatorios");
@@ -1758,35 +1700,21 @@ public class VistaAdministrador extends javax.swing.JFrame{
         {
             LogicaCliente logicaCliente = new LogicaCliente();
             clienteVenta=logicaCliente.consultarCliente(campoConsultaClienteVenta.getText());
-
             if(clienteVenta==null)
             {
                 JOptionPane.showMessageDialog(null,"El cliente no existe, se coloco el cliente por defecto");
                 clienteVenta=logicaCliente.consultarCliente("default");
                 campoConsultaClienteVenta.setText(clienteVenta.getCedulacliente());
             }
-
-            campoConsultaClienteVenta.setBackground(Color.LIGHT_GRAY);
-            campoMinutosVendidos.setBackground(Color.LIGHT_GRAY);
+                        
             Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
             planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
-            //Aqui deberia ir el codigo para calcular si cumple una promocion
+            
             precioMinuto=planVenta.getPreciominuto();
             minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());
             minutosFacturados=minutosVendidos;
-            totalVenta = minutosFacturados*precioMinuto;
-            campoMinutosFacturados.setText(minutosFacturados+"");
-            campoPrecioMinuto.setText(precioMinuto+"");
-            campoTotalVenta.setText(totalVenta+"");
-            ventaLista=true;
-
-        }
-    }//GEN-LAST:event_botonCalcularActionPerformed
-
-    private void botonRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVentaActionPerformed
-        if(ventaLista)
-        {
+            
             VentaMinutos venta = new VentaMinutos();
             venta.setCedulacliente(clienteVenta);
             venta.setCedulausuario(usuarioActivo);
@@ -1794,31 +1722,15 @@ public class VistaAdministrador extends javax.swing.JFrame{
             venta.setPreciominuto(precioMinuto);
             venta.setMinutosfacturados(minutosFacturados);
             venta.setMinutosvendidos(minutosVendidos);
-            Date fechaActual = new Date();
-            venta.setFechaventa(fechaActual);
-
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            JOptionPane.showConfirmDialog (null, "¿Seguro desea guardar la venta?","Advertencia",dialogButton);
-
-            if(dialogButton == JOptionPane.YES_OPTION)
-            {
-                LogicaVentaMinutos logicaVenta = new LogicaVentaMinutos();
-                logicaVenta.registrarVenta(venta);
-                ventaLista=false;
-            }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null,"Por favor verificar para poder realizar la venta");
-        }
+            venta.setFechaventa(new Date());
+            
+            RegistrarVenta registroVenta = new RegistrarVenta(this,false, venta);
+            registroVenta.setVisible(true);
+            
+            campoConsultaClienteVenta.setText("");
+            campoMinutosVendidos.setText("");
+        }  
     }//GEN-LAST:event_botonRegistrarVentaActionPerformed
-
-    private void campoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoMinutosVendidosFocusGained
-        campoConsultaClienteVenta.setBackground(Color.white);
-        campoMinutosVendidos.setBackground(Color.white);
-        clienteVenta=null;
-        ventaLista=false;
-    }//GEN-LAST:event_campoMinutosVendidosFocusGained
 
     private void campoDisponibildadModemcampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDisponibildadModemcampoMinutosVendidosFocusGained
         // TODO add your handling code here:
@@ -2203,6 +2115,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void actualizarTablaModemsAlquiladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarTablaModemsAlquiladosActionPerformed
         llenarTablaModemsAlquilados();
     }//GEN-LAST:event_actualizarTablaModemsAlquiladosActionPerformed
+
+    private void botonActualizarTablaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaUsuariosActionPerformed
+        LogicaUsuario logicaUsuario = new LogicaUsuario();
+        List<Usuario> usuarios = logicaUsuario.consultarUsuarios();
+        llenarTablaUsuarios(usuarios);
+    }//GEN-LAST:event_botonActualizarTablaUsuariosActionPerformed
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -2630,7 +2548,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JButton botonAtras;
     private javax.swing.JButton botonAtrasAlquiler;
     private javax.swing.JButton botonAtrasAlquiler1;
-    private javax.swing.JButton botonCalcular;
     private javax.swing.JButton botonCambiarEstadoModem;
     private javax.swing.JButton botonConsultarCliente;
     private javax.swing.JButton botonConsultarModem;
@@ -2658,27 +2575,21 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JTextField campoConsultaPromociones;
     private javax.swing.JTextField campoConsultaUsuario;
     private javax.swing.JTextField campoDisponibildadModem;
-    private javax.swing.JFormattedTextField campoMinutosFacturados;
     private javax.swing.JFormattedTextField campoMinutosVendidos;
     private javax.swing.JTextField campoPrecioAlquiler1;
-    private javax.swing.JFormattedTextField campoPrecioMinuto;
     private javax.swing.JTextField campoPrecioMulta1;
-    private javax.swing.JFormattedTextField campoTotalVenta;
     private javax.swing.JComboBox comboPlanesVenta;
     private javax.swing.JButton jButtonRecargar;
     private javax.swing.JComboBox<String> jComboBoxModem;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelBusqueda;
     private javax.swing.JLabel jLabelBusqueda1;
-    private javax.swing.JLabel jLabelBusqueda10;
     private javax.swing.JLabel jLabelBusqueda2;
     private javax.swing.JLabel jLabelBusqueda3;
     private javax.swing.JLabel jLabelBusqueda4;
     private javax.swing.JLabel jLabelBusqueda5;
     private javax.swing.JLabel jLabelBusqueda6;
     private javax.swing.JLabel jLabelBusqueda7;
-    private javax.swing.JLabel jLabelBusqueda8;
-    private javax.swing.JLabel jLabelBusqueda9;
     private javax.swing.JLabel jLabelClienteAlquiler1;
     private javax.swing.JLabel jLabelDisponibilidad;
     private javax.swing.JLabel jLabelEntregaAlquiler;
