@@ -335,7 +335,7 @@
                                   <Component id="botonAlquilerModem" max="32767" attributes="0"/>
                                   <Component id="botonDevolucionModem" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="171" max="32767" attributes="0"/>
+                              <EmptySpace pref="174" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -504,7 +504,7 @@
                                   <Component id="botonRegistrarAlquilerModem" min="-2" max="-2" attributes="0"/>
                                   <Component id="botonAtrasAlquiler1" min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="40" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

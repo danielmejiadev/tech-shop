@@ -47,13 +47,13 @@ public class ModificarModem extends javax.swing.JFrame {
         inactivoModem = new javax.swing.JRadioButton();
         ProveedorModem = new javax.swing.JComboBox<>();
         NombreModem = new javax.swing.JTextField();
-        DisponibilidadModem = new javax.swing.JComboBox<>();
         GuardarModem = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
         CostoModem = new javax.swing.JFormattedTextField();
         PrecioModem = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         CodigoModem = new javax.swing.JTextField();
+        DisponibilidadModem = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,9 +96,6 @@ public class ModificarModem extends javax.swing.JFrame {
 
         ProveedorModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo", "Uff", "Virgin" }));
 
-        DisponibilidadModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Alquilado", "Reservado", "Alquilado-Reservado" }));
-        DisponibilidadModem.setEnabled(false);
-
         GuardarModem.setBackground(new java.awt.Color(162, 146, 146));
         GuardarModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         GuardarModem.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,6 +132,8 @@ public class ModificarModem extends javax.swing.JFrame {
 
         CodigoModem.setEnabled(false);
 
+        DisponibilidadModem.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,18 +156,17 @@ public class ModificarModem extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CodigoModem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(activoModem)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(inactivoModem))
-                                .addComponent(ProveedorModem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(DisponibilidadModem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(CostoModem)
-                                .addComponent(PrecioModem)
-                                .addComponent(NombreModem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(CodigoModem, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(activoModem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inactivoModem))
+                            .addComponent(ProveedorModem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CostoModem)
+                            .addComponent(PrecioModem)
+                            .addComponent(NombreModem, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(DisponibilidadModem))))
                 .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -245,7 +243,7 @@ public class ModificarModem extends javax.swing.JFrame {
             um.setNombremodem(NombreModem.getText());
             
             um.setProveedor(ProveedorModem.getSelectedItem().toString());
-            um.setDisponibilidad(DisponibilidadModem.getSelectedItem().toString());
+            um.setDisponibilidad("Disponible");
 
             if(CostoModem.getText().equals("")){
                 um.setCostodia(0);
@@ -264,11 +262,10 @@ public class ModificarModem extends javax.swing.JFrame {
                 um.setEstadousbmodem(true);
             }else if(inactivoModem.isSelected()){
                 um.setEstadousbmodem(false);
-            }else{
-                JOptionPane.showMessageDialog(null, "Por favor seleccione un estado");
             }
 
             lum.modificarModem(um);
+            JOptionPane.showMessageDialog(null, "El modem fue modificado exitosamente.");
             
             dispose();          
         }
@@ -296,12 +293,8 @@ public class ModificarModem extends javax.swing.JFrame {
             }
         }
         
-        for (int i = 0; i < DisponibilidadModem.getItemCount(); i++) {
-            if(DisponibilidadModem.getItemAt(i).toString().equals(um.getDisponibilidad())){
-                DisponibilidadModem.setSelectedIndex(i);
-            }
-        }
-       
+        DisponibilidadModem.setText(um.getDisponibilidad());
+        
         CostoModem.setText(um.getCostodia()+"");
         PrecioModem.setText(um.getPreciodia()+"");
         
@@ -323,7 +316,7 @@ public class ModificarModem extends javax.swing.JFrame {
     private javax.swing.JButton Cancelar;
     private javax.swing.JTextField CodigoModem;
     private javax.swing.JFormattedTextField CostoModem;
-    private javax.swing.JComboBox<String> DisponibilidadModem;
+    private javax.swing.JTextField DisponibilidadModem;
     private javax.swing.JButton GuardarModem;
     private javax.swing.JTextField NombreModem;
     private javax.swing.JFormattedTextField PrecioModem;

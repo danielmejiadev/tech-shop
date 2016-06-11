@@ -44,11 +44,11 @@ public class AgregarModem extends javax.swing.JFrame {
         inactivoModem = new javax.swing.JRadioButton();
         ProveedorModem = new javax.swing.JComboBox<>();
         NombreModem = new javax.swing.JTextField();
-        DisponibilidadModem = new javax.swing.JComboBox<>();
         GuardarModem = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
         CostoModem = new javax.swing.JFormattedTextField();
         PrecioModem = new javax.swing.JFormattedTextField();
+        DisponibilidadModem = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,8 +91,6 @@ public class AgregarModem extends javax.swing.JFrame {
 
         ProveedorModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo", "Uff", "Virgin" }));
 
-        DisponibilidadModem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Alquilado", "Reservado", "Alquilado-Reservado" }));
-
         GuardarModem.setBackground(new java.awt.Color(162, 146, 146));
         GuardarModem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         GuardarModem.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,6 +121,8 @@ public class AgregarModem extends javax.swing.JFrame {
 
         PrecioModem.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+        DisponibilidadModem.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,19 +150,16 @@ public class AgregarModem extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(activoModem)
-                                        .addGap(74, 74, 74)
-                                        .addComponent(inactivoModem))
-                                    .addComponent(PrecioModem)
-                                    .addComponent(CostoModem, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ProveedorModem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(NombreModem, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(DisponibilidadModem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(activoModem)
+                                .addGap(74, 74, 74)
+                                .addComponent(inactivoModem))
+                            .addComponent(PrecioModem)
+                            .addComponent(CostoModem, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ProveedorModem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NombreModem)
+                            .addComponent(DisponibilidadModem))))
                 .addGap(78, 78, 78))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(152, 152, 152)
@@ -234,7 +231,7 @@ public class AgregarModem extends javax.swing.JFrame {
             um.setNombremodem(NombreModem.getText());
             
             um.setProveedor(ProveedorModem.getSelectedItem().toString());
-            um.setDisponibilidad(DisponibilidadModem.getSelectedItem().toString());
+            um.setDisponibilidad("Disponible");
 
             if(CostoModem.getText().equals("")){
                 um.setCostodia(0);
@@ -248,15 +245,11 @@ public class AgregarModem extends javax.swing.JFrame {
                 um.setPreciodia(Integer.parseInt(PrecioModem.getText()));
             }
             
-            if(activoModem.isSelected()){
-                um.setEstadousbmodem(true);
-            }else if(inactivoModem.isSelected()){
-                um.setEstadousbmodem(false);
-            }else{
-                JOptionPane.showMessageDialog(null, "Por favor seleccione un estado");
-            }
+            activoModem.setSelected(true);
+            um.setEstadousbmodem(true);
 
             lum.registrarModem(um);
+            JOptionPane.showMessageDialog(null, "El modem fue registrado exitosamente.");
             
             dispose();
         }
@@ -270,7 +263,7 @@ public class AgregarModem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JFormattedTextField CostoModem;
-    private javax.swing.JComboBox<String> DisponibilidadModem;
+    private javax.swing.JTextField DisponibilidadModem;
     private javax.swing.JButton GuardarModem;
     private javax.swing.JTextField NombreModem;
     private javax.swing.JFormattedTextField PrecioModem;

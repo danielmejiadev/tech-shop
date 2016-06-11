@@ -70,20 +70,18 @@
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="CodigoModem" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="activoModem" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="inactivoModem" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="ProveedorModem" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="DisponibilidadModem" max="32767" attributes="0"/>
-                                  <Component id="CostoModem" max="32767" attributes="0"/>
-                                  <Component id="PrecioModem" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="NombreModem" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="CodigoModem" pref="150" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="activoModem" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="inactivoModem" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="ProveedorModem" alignment="0" max="32767" attributes="0"/>
+                              <Component id="CostoModem" max="32767" attributes="0"/>
+                              <Component id="PrecioModem" alignment="0" max="32767" attributes="0"/>
+                              <Component id="NombreModem" pref="150" max="32767" attributes="0"/>
+                              <Component id="DisponibilidadModem" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -259,22 +257,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="NombreModem">
         </Component>
-        <Component class="javax.swing.JComboBox" name="DisponibilidadModem">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Disponible"/>
-                <StringItem index="1" value="Alquilado"/>
-                <StringItem index="2" value="Reservado"/>
-                <StringItem index="3" value="Alquilado-Reservado"/>
-              </StringArray>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="GuardarModem">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -351,6 +333,11 @@
         <Component class="javax.swing.JTextField" name="CodigoModem">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="DisponibilidadModem">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

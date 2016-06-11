@@ -54,8 +54,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         this.setTitle("Ricardo Jorge Cabinas - Administrador");
         this.setResizable(false);
         this.usuarioActivo=usuarioActivo;
-        //Parce genera un error cuando llena la tabla, verifica que pasa ahi
-        //llenarTablaClientes(lc.consultarClientes());
         lp.consultarPromociones();
         llenarTablaModems(modems);
         llenarComboPlanesVenta();
@@ -1847,7 +1845,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 campoConsultaModems.setText("");
             }
         }else{
-            JOptionPane.showMessageDialog(panelModems, "Ingrese un cliente en el campo");
+            JOptionPane.showMessageDialog(panelModems, "Ingrese un modem en el campo");
         }
         
     }//GEN-LAST:event_botonConsultarModemActionPerformed
@@ -2140,6 +2138,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 jLabelEntregaAlquiler.setText(laFecha);
     }//GEN-LAST:event_campoCantidadDiasFocusLost
 
+    /* Método para recargar un plan, es decir, agregar minutos al 'inventario' desde el módulo de planes de minutos
+       Entrada: evento del botón de recarga
+       Salida: ---
+    */
     private void jButtonRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecargarActionPerformed
         if(tablaPlanes.getSelectedRow()<0){
             JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un plan de la tabla");
@@ -2169,6 +2171,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_campoPrecioAlquiler1ActionPerformed
 
+    /* Método de alquiler (o reserva) de modems
+    
+    */
     private void botonRegistrarAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModemActionPerformed
         if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler1.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "No hay campos vacíos");
@@ -2306,12 +2311,20 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_botonRegistrarAlquilerModemActionPerformed
 
+    /*Método para manejar la visibilidad de los paneles en el módulo de alquiler de modems
+      Entrada: evento del botón
+      Salida: ---
+    */
     private void botonAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlquilerModemActionPerformed
         panelDevolucionModem.setVisible(false);
         panelAlquilarModem.setVisible(true);
         panelSeleccionModem.setVisible(false);
     }//GEN-LAST:event_botonAlquilerModemActionPerformed
 
+    /*Método para manejar la visibilidad de los paneles en el módulo de alquiler de modems
+      Entrada: evento del botón
+      Salida: ---
+    */
     private void botonDevolucionModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionModemActionPerformed
         panelDevolucionModem.setVisible(true);
         panelAlquilarModem.setVisible(false);
@@ -2319,6 +2332,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarTablaModemsAlquilados();
     }//GEN-LAST:event_botonDevolucionModemActionPerformed
 
+    /* Método para realizar una devolución de modem en el módulo de alquiler
+       Entrada: evento del botón
+       Salida: Tabla de modems alquilado modificada, disponibilidad del modem seleccionado modificada
+    */
     private void botonDevolverModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolverModemActionPerformed
         if(tablaModemsAlquilados.getSelectedRow()<0){
             JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un modem de la tabla");
@@ -2358,12 +2375,20 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_botonDevolverModemActionPerformed
 
+    /*Método para manejar la visibilidad de los paneles en el módulo de alquiler de modems
+      Entrada: evento del botón
+      Salida: ---
+    */
     private void botonAtrasAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasAlquilerActionPerformed
         panelDevolucionModem.setVisible(false);
         panelAlquilarModem.setVisible(false);
         panelSeleccionModem.setVisible(true);
     }//GEN-LAST:event_botonAtrasAlquilerActionPerformed
 
+    /*Método para manejar la visibilidad de los paneles en el módulo de alquiler de modems
+      Entrada: evento del botón
+      Salida: ---
+    */
     private void botonAtrasAlquiler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasAlquiler1ActionPerformed
         panelDevolucionModem.setVisible(false);
         panelAlquilarModem.setVisible(false);
@@ -2374,14 +2399,24 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarJComboBoxModemAlquiler();
     }//GEN-LAST:event_jTabbedPaneVistaVendedorMouseClicked
 
+    /*Método para consultar si un cliente tiene un modem alquilado
+      Entrada: evento del botón
+      Salida: ---
+    */
     private void BuscarClienteAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarClienteAlquilerActionPerformed
-        String cedula = jTextFieldClienteAlquiler.getText();
+        String cliente = jTextFieldClienteAlquiler.getText();
         
         LogicaAlquilerModem lam = new LogicaAlquilerModem();
         LogicaCliente lc = new LogicaCliente();
-        Cliente clienteAlquila = lc.consultarCliente(cedula);
-        AlquilerModem alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
-        
+        AlquilerModem alquiler = null;
+        if(isNumeric(cliente)){
+            Cliente clienteAlquila = lc.consultarCliente(cliente);
+            alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
+        }else{
+            //Cliente clienteAlquila = lc.consultarCliente(cliente);
+            //AlquilerModem alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
+        }
+               
         DefaultTableModel dtm = new DefaultTableModel();
         tablaModemsAlquilados.setModel(dtm);
          
@@ -2429,10 +2464,18 @@ public class VistaAdministrador extends javax.swing.JFrame{
         
     }//GEN-LAST:event_BuscarClienteAlquilerActionPerformed
 
+    /* Método para llenar la tabla en el módulo de devolución con los modems que se encuentra alquilados
+       Entrada: evento del botón
+       Salida: tabla de modems alquilados actualizada
+    */
     private void actualizarTablaModemsAlquiladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarTablaModemsAlquiladosActionPerformed
         llenarTablaModemsAlquilados();
     }//GEN-LAST:event_actualizarTablaModemsAlquiladosActionPerformed
 
+    /*Método para generar un reporte dependiendo de la información ingresada en el módulo de reportes
+      Entrada: evento del botón
+      Salida: reporte generado y exportado en pdf
+    */
     private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
         Reporte rep = new Reporte();
         if(jTextFieldReporteCedulaMinutos.isEnabled()){
@@ -2509,6 +2552,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         
     }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
+    /*Método para manejar (habilitar o deshabilitar) los campos de texto en el módulo de reportes
+      Entrada: evento del botón
+      Salida: campo clickeado habilitado
+    */
     private void jTextFieldReporteCedulaMinutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldReporteCedulaMinutosMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(true);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
@@ -2518,6 +2565,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_jTextFieldReporteCedulaMinutosMouseClicked
 
+    /*Método para manejar (habilitar o deshabilitar) los campos de texto en el módulo de reportes
+      Entrada: evento del botón
+      Salida: campo clickeado habilitado
+    */
     private void jTextFieldReporteCedulaAlquilerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldReporteCedulaAlquilerMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(true);
@@ -2527,6 +2578,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_jTextFieldReporteCedulaAlquilerMouseClicked
 
+    /*Método para manejar (habilitar o deshabilitar) los campos de texto en el módulo de reportes
+      Entrada: evento del botón
+      Salida: campo clickeado habilitado
+    */
     private void fechaInicioMinutosReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioMinutosReporteMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
@@ -2535,6 +2590,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaInicioMinutosReporte.setEnabled(true);
     }//GEN-LAST:event_fechaInicioMinutosReporteMouseClicked
 
+    /*Método para manejar (habilitar o deshabilitar) los campos de texto en el módulo de reportes
+      Entrada: evento del botón
+      Salida: campo clickeado habilitado
+    */
     private void fechaFinMinutosReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaFinMinutosReporteMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
@@ -2543,6 +2602,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaInicioAlquilerReportes.setEnabled(false);
     }//GEN-LAST:event_fechaFinMinutosReporteMouseClicked
 
+    /*Método para manejar (habilitar o deshabilitar) los campos de texto en el módulo de reportes
+      Entrada: evento del botón
+      Salida: campo clickeado habilitado
+    */
     private void fechaInicioAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaInicioAlquilerReportesMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
@@ -2551,6 +2614,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_fechaInicioAlquilerReportesMouseClicked
 
+    /*Método para manejar (habilitar o deshabilitar) los campos de texto en el módulo de reportes
+      Entrada: evento del botón
+      Salida: campo clickeado habilitado
+    */
     private void fechaFinAlquilerReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaFinAlquilerReportesMouseClicked
         jTextFieldReporteCedulaMinutos.setEnabled(false);
         jTextFieldReporteCedulaAlquiler.setEnabled(false);
@@ -2558,6 +2625,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         fechaFinMinutosReporte.setEnabled(false);
         fechaInicioMinutosReporte.setEnabled(false);
     }//GEN-LAST:event_fechaFinAlquilerReportesMouseClicked
+    
     private void botonActualizarTablaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaUsuariosActionPerformed
         LogicaUsuario logicaUsuario = new LogicaUsuario();
         List<Usuario> usuarios = logicaUsuario.consultarUsuarios();
@@ -2868,8 +2936,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         String laFecha = dia+"/"+elMes+"/"+(anio+1900);
         jLabelEntregaAlquiler.setText(laFecha);
     }
-        
- 
+     
+    /* Método para llenar la tabla con los modems que se encuentran alquilados en el módulo de devolución de modems
+       Entrada: ---
+       Salida: tabla actualizada
+     */
     public void llenarTablaModemsAlquilados(){
         LogicaAlquilerModem lam = new LogicaAlquilerModem();
         List<AlquilerModem> modemsAlquiler = lam.consultarAlquilerModem();
@@ -2924,11 +2995,15 @@ public class VistaAdministrador extends javax.swing.JFrame{
             
             if(fechaN.equals(fechaDevo)){
                 dtm.addRow(fila);
-            }
-           
+            }  
         }
      }
     
+    /* Método que alerta al usuario al ingresar al sistema si un cliente se encuentra retrasado
+       en la devolución de un modem
+       Entrada: ---
+       Salida: mensaje de advertencia en la pantalla con información relevante del cliente
+    */
     public void alertaDevolucion(){
         Date hoy = new Date();
         String fechaHoy= hoy.getDate()+"/"+(hoy.getMonth()+1)+"/"+(hoy.getYear()+1900);
@@ -2951,6 +3026,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }
     
+    /*Método para realizar la recarga automática mensual de los planes activos en el sistema
+      Entrada:---
+      Salida: planes modificados (minutos para consumir) cuya fecha de recarga sea el día actual
+    */
     public void recargaAutomaticaPlan(){
         LogicaPlanMinutos lp = new LogicaPlanMinutos();
         List<PlanMinutos> planes = lp.consultarPlanMinutos();
