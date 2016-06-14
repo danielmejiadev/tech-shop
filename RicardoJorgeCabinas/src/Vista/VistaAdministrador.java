@@ -1818,6 +1818,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
                     }
                     List<UsbModem> modems = lum.consultarModems();
                     llenarTablaModems(modems);
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "No puede cambiar el estado a un modem no disponible");
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -3054,10 +3056,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         {
             Date fechaF = alquilados.get(i).getFechafinalquiler();
             String fechaFinal= fechaF.getDate()+"/"+(fechaF.getMonth()+1)+"/"+(fechaF.getYear()+1900);
+            Date fechaD = alquilados.get(i).getFechadevolucion();
+            String fechaDevol = fechaD.getDate()+"/"+(fechaD.getMonth()+1)+"/"+(fechaD.getYear()+1900);
             
             long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
             long diferencia = ( hoy.getTime() - fechaF.getTime())/MILLSECS_PER_DAY;
-            if(diferencia>0){
+            if(diferencia>0 && (!fechaDevol.equals("31/12/1899"))){
                 JOptionPane.showMessageDialog(panelModems, "El cliente "+alquilados.get(i).getCedulacliente().getNombrecliente()
                     +" no ha retornado el modem "+alquilados.get(i).getCodigomodem().getNombremodem()+".\n"+
                     "Puede contactarlo al número "+alquilados.get(i).getCedulacliente().getTelefonocliente());

@@ -305,6 +305,11 @@ public class ModificarModem extends javax.swing.JFrame {
                 inactivoModem.setSelected(true);
             }
         }else{
+            if(um.getEstadousbmodem()){
+                activoModem.setSelected(true);
+            }else{
+                inactivoModem.setSelected(true);
+            }
             activoModem.setEnabled(false);
             inactivoModem.setEnabled(false);
         }       
