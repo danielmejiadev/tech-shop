@@ -307,9 +307,7 @@ public class ModificarModem extends javax.swing.JFrame {
         }else{
             activoModem.setEnabled(false);
             inactivoModem.setEnabled(false);
-        }
-        
-                
+        }       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
