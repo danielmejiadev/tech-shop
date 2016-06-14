@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2016 a las 20:02:43
+-- Tiempo de generación: 09-06-2016 a las 14:28:23
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 7.0.4
 
@@ -79,14 +79,6 @@ CREATE TABLE `planminutos` (
   `cantidadminimaminutos` int(11) NOT NULL,
   `estadoplanminutos` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `planminutos`
---
-
-INSERT INTO `planminutos` (`codigoplan`, `nombreplan`, `cantidadminutos`, `cantidadminutosfijos`, `fechaproximarecarga`, `costominuto`, `preciominuto`, `minutosacumulables`, `cantidadminimaminutos`, `estadoplanminutos`) VALUES
-(1, 'Movistar', 300, 100, '2016-06-02', 200, 300, 1, 50, 1),
-(2, 'Claro', 200, 200, '2016-05-31', 100, 50, 1, 40, 1);
 
 -- --------------------------------------------------------
 
@@ -201,16 +193,6 @@ CREATE TABLE `ventaminutos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `ventaminutos`
---
-
-INSERT INTO `ventaminutos` (`codigoventa`, `fechaventa`, `minutosvendidos`, `minutosfacturados`, `preciominuto`, `codigoplan`, `cedulacliente`, `cedulausuario`) VALUES
-(1, '2016-05-26 04:35:58', 4, 4, 50, 2, 'default', '123456'),
-(2, '2016-05-26 04:40:37', 10, 10, 300, 1, 'default', '123456'),
-(3, '2016-05-26 05:00:48', 9, 9, 300, 1, 'default', '123456'),
-(5, '2016-05-29 21:37:31', 1, 1, 50, 2, 'default', '12345');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -304,7 +286,7 @@ ALTER TABLE `alquilermodem`
 -- AUTO_INCREMENT de la tabla `planminutos`
 --
 ALTER TABLE `planminutos`
-  MODIFY `codigoplan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigoplan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `promocion`
 --
@@ -324,7 +306,7 @@ ALTER TABLE `usbmodem`
 -- AUTO_INCREMENT de la tabla `ventaminutos`
 --
 ALTER TABLE `ventaminutos`
-  MODIFY `codigoventa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `codigoventa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
