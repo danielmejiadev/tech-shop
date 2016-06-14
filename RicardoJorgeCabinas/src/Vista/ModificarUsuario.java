@@ -32,20 +32,20 @@ public class ModificarUsuario extends javax.swing.JDialog {
         labeltitulo = new javax.swing.JLabel();
         botonCancelar = new javax.swing.JButton();
         botonGuardarUsuario = new javax.swing.JButton();
-        comboBoxTipoUsuario = new javax.swing.JComboBox<>();
+        comboBoxTipoUsuario = new javax.swing.JComboBox<String>();
         labelTipo = new javax.swing.JLabel();
         campoCorreo = new javax.swing.JTextField();
         campoTelefono = new javax.swing.JTextField();
         campoContraseña = new javax.swing.JTextField();
         campoDireccion = new javax.swing.JTextField();
         campoNombre = new javax.swing.JTextField();
-        campoCedulaUsuario = new javax.swing.JTextField();
         labelCorreo = new javax.swing.JLabel();
         labelContraseña = new javax.swing.JLabel();
         labelTelefono = new javax.swing.JLabel();
         labelDireccion = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
         labelCedula = new javax.swing.JLabel();
+        campoCedulaUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 530));
@@ -85,7 +85,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
             }
         });
 
-        comboBoxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Administrador" }));
+        comboBoxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "vendedor", "administrador" }));
 
         labelTipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelTipo.setForeground(new java.awt.Color(162, 146, 146));
@@ -96,9 +96,6 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 onPerformed(evt);
             }
         });
-
-        campoCedulaUsuario.setEditable(false);
-        campoCedulaUsuario.setForeground(new java.awt.Color(255, 255, 255));
 
         labelCorreo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelCorreo.setForeground(new java.awt.Color(162, 146, 146));
@@ -123,6 +120,13 @@ public class ModificarUsuario extends javax.swing.JDialog {
         labelCedula.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelCedula.setForeground(new java.awt.Color(162, 146, 146));
         labelCedula.setText("Cedula * ");
+
+        campoCedulaUsuario.setFocusable(false);
+        campoCedulaUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCedulaUsuarioonPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,8 +173,8 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 .addComponent(labeltitulo)
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoCedulaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelCedula))
+                    .addComponent(labelCedula)
+                    .addComponent(campoCedulaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,7 +199,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTipo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -238,12 +242,14 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 }
                 finally
                 {
+                    JOptionPane.showMessageDialog(null,"Usuario modificado exitosamente");
                     this.dispose();
                 }
         }   
     }//GEN-LAST:event_botonGuardarUsuarioActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        JOptionPane.showMessageDialog(null,"No se ha modificado el usuario");
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
@@ -251,7 +257,11 @@ public class ModificarUsuario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_onPerformed
 
-    public void llenarCampos(Usuario usuario)
+    private void campoCedulaUsuarioonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCedulaUsuarioonPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCedulaUsuarioonPerformed
+
+    private void llenarCampos(Usuario usuario)
     {
         campoCedulaUsuario.setText(usuario.getCedulausuario());
         campoNombre.setText(usuario.getNombreusuario());

@@ -7,8 +7,6 @@ package Vista;
 
 import Logica.LogicaPlanMinutos;
 import Modelo.PlanMinutos;
-import java.sql.Date;
-import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,13 +16,15 @@ import javax.swing.JOptionPane;
 public class ModificarPlan extends javax.swing.JFrame {
 
      private PlanMinutos elPlan;
+     VistaAdministrador administrador;
     
-    public ModificarPlan(PlanMinutos elPlan) {
+    public ModificarPlan(PlanMinutos elPlan, VistaAdministrador administrador) {
         initComponents();
         this.setTitle("Modificar Plan Minutos");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.elPlan = elPlan;
+        this.administrador=administrador;
         cargarDatos(elPlan);
         llenarFecha(elPlan);
     }
@@ -325,6 +325,7 @@ public class ModificarPlan extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
 //                JOptionPane.showMessageDialog(null, "Error, no se pudo modificar");
             } finally{
+                administrador.llenarComboPlanesVenta();
                 this.dispose();
             }
         }

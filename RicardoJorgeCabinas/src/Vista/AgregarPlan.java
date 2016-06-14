@@ -20,11 +20,13 @@ public class AgregarPlan extends javax.swing.JFrame {
     /**
      * Creates new form AgregarPlan
      */
-    public AgregarPlan() {
+    private VistaAdministrador administrador;
+    public AgregarPlan(VistaAdministrador administrador) {
         initComponents();
         this.setTitle("Agregar Plan Minutos");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.administrador=administrador;
         llenarFecha();
     }
 
@@ -55,7 +57,7 @@ public class AgregarPlan extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jRadioButtonNO = new javax.swing.JRadioButton();
         jRadioButtonSI = new javax.swing.JRadioButton();
-        jComboBoxNombrePlan = new javax.swing.JComboBox<>();
+        jComboBoxNombrePlan = new javax.swing.JComboBox<String>();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -139,7 +141,7 @@ public class AgregarPlan extends javax.swing.JFrame {
         jRadioButtonSI.setText("Sí");
 
         jComboBoxNombrePlan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
+        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
         jComboBoxNombrePlan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxNombrePlanActionPerformed(evt);
@@ -242,7 +244,7 @@ public class AgregarPlan extends javax.swing.JFrame {
                         .addComponent(jRadioButtonSI)
                         .addComponent(jLabel4)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabelProximaRecarga))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
@@ -327,6 +329,7 @@ public class AgregarPlan extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error, no se pudo registrar");
             } finally{
+                administrador.llenarComboPlanesVenta();
                 this.dispose();
             }
         }

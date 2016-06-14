@@ -6,8 +6,7 @@ import Modelo.PlanMinutos;
 import Modelo.VentaMinutos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -223,6 +222,7 @@ public class RegistrarVenta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        JOptionPane.showMessageDialog(null,"La venta no se registro");
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -256,6 +256,7 @@ public class RegistrarVenta extends javax.swing.JDialog {
             Logger.getLogger(RegistrarVenta.class.getName()).log(Level.SEVERE, null, ex);
         }finally
         {
+            JOptionPane.showMessageDialog(null,"La venta se registro correctamente");
             this.dispose();
         }
     }

@@ -87,7 +87,7 @@
                               <Component id="campoContraseña" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
                               <Component id="campoDireccion" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
                               <Component id="campoNombre" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
-                              <Component id="campoCedulaUsuario" alignment="0" min="-2" pref="205" max="-2" attributes="0"/>
+                              <Component id="campoCedulaUsuario" min="-2" pref="205" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -107,8 +107,8 @@
                   <Component id="labeltitulo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoCedulaUsuario" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="labelCedula" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoCedulaUsuario" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -140,7 +140,7 @@
                       <Component id="comboBoxTipoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="58" max="32767" attributes="0"/>
+                  <EmptySpace pref="52" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botonGuardarUsuario" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="botonCancelar" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
@@ -215,8 +215,8 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="Vendedor"/>
-                <StringItem index="1" value="Administrador"/>
+                <StringItem index="0" value="vendedor"/>
+                <StringItem index="1" value="administrador"/>
               </StringArray>
             </Property>
           </Properties>
@@ -247,14 +247,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="onPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="campoCedulaUsuario">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelCorreo">
           <Properties>
@@ -321,6 +313,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Cedula * "/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="campoCedulaUsuario">
+          <Properties>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCedulaUsuarioonPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

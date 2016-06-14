@@ -54,8 +54,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         this.setTitle("Ricardo Jorge Cabinas - Administrador");
         this.setResizable(false);
         this.usuarioActivo=usuarioActivo;
-        //Parce genera un error cuando llena la tabla, verifica que pasa ahi
-        //llenarTablaClientes(lc.consultarClientes());
         lp.consultarPromociones();
         llenarTablaModems(modems);
         llenarComboPlanesVenta();
@@ -65,7 +63,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelSeleccionModem.setVisible(true);
         alertaDevolucion();
         recargaAutomaticaPlan();
-        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());                  
+        jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());  
+        
+        LogicaCliente logicaCliente = new LogicaCliente();
+        clienteVenta=logicaCliente.consultarCliente("default");
+        campoConsultaClienteVenta.setText(clienteVenta.getCedulacliente());
     }
     public VistaAdministrador(){
         
@@ -1267,7 +1269,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonInactivarUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         botonInactivarUsuario.setForeground(new java.awt.Color(162, 146, 146));
         botonInactivarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/inactivar.png"))); // NOI18N
-        botonInactivarUsuario.setText("Inactivar");
+        botonInactivarUsuario.setText("Cambiar Estado");
         botonInactivarUsuario.setBorderPainted(false);
         botonInactivarUsuario.setContentAreaFilled(false);
         botonInactivarUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1729,19 +1731,22 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 if(!usuario.getCedulausuario().equals(usuarioActivo.getCedulausuario()))
                 {
                     logicaUsuario.modificarUsuario(usuario);
-                    List<Usuario> usuarios = new ArrayList<>();
-                    usuarios.add(usuario);
+                    List<Usuario> usuarios = logicaUsuario.consultarUsuarios();
                     llenarTablaUsuarios(usuarios);
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"Error, no se puede inactivar el usuario activo");
+                    JOptionPane.showMessageDialog(null,"Error, no se puede inactivar el usuario que esta actualmente en el sistema");
                 }
                 
             } catch (Exception ex) 
             {
                 JOptionPane.showMessageDialog(null,"Error, no se pudo modificar el usuario");
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Ningun usuario ha sido seleccionado");
         }
     }//GEN-LAST:event_botonInactivarUsuarioActionPerformed
 
@@ -1754,14 +1759,16 @@ public class VistaAdministrador extends javax.swing.JFrame{
             Usuario usuario =  logicaUsuario.consultarUsuarioCedula(cedulaUsuario);
             ModificarUsuario modificarUsuario = new ModificarUsuario(this,false,usuario);
             modificarUsuario.setVisible(true);
-            llenarTablaUsuarios(null);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Ningun usuario ha sido seleccionado");
         }
     }//GEN-LAST:event_botonModificarUsuarioActionPerformed
 
     private void botonAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarUsuarioActionPerformed
-         RegistrarUsuario registro = new RegistrarUsuario(this,false);
+        AgregarUsuario registro = new AgregarUsuario(this,false);
         registro.setVisible(true);
-        llenarTablaUsuarios(null);
     }//GEN-LAST:event_botonAgregarUsuarioActionPerformed
 
     /*Metodo para abrir la ventana de registro de modems
@@ -1853,16 +1860,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
     }//GEN-LAST:event_botonConsultarModemActionPerformed
 
     private void botonAgregarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPlanActionPerformed
-
-        AgregarPlan agregarPlan = new AgregarPlan();
+        AgregarPlan agregarPlan = new AgregarPlan(this);
         agregarPlan.setVisible(true);
         llenarTablaPlanMinutos(null);
     }//GEN-LAST:event_botonAgregarPlanActionPerformed
 
     private void botonModificarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPlanActionPerformed
-
-       int filaSeleccionada = tablaPlanes.getSelectedRow();
-       if(filaSeleccionada != -1)
+        int filaSeleccionada = tablaPlanes.getSelectedRow();
+        if(filaSeleccionada != -1)
         {
             String codigoPlan = tablaPlanes.getValueAt(filaSeleccionada, 0).toString();
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
@@ -1872,9 +1877,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
            } catch (Exception ex) {
                JOptionPane.showMessageDialog(rootPane, ex.getMessage());
            }
-            ModificarPlan modificarPlan = new ModificarPlan(planMinutos);
+            ModificarPlan modificarPlan = new ModificarPlan(planMinutos,this);
             modificarPlan.setVisible(true);
         } 
+        
     }//GEN-LAST:event_botonModificarPlanActionPerformed
 
     private void botonInactivarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarPlanActionPerformed
@@ -1898,6 +1904,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(null,"Error, no se pudo modificar el plan");
             }
         }
+        llenarComboPlanesVenta();
     }//GEN-LAST:event_botonInactivarPlanActionPerformed
 
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
@@ -1963,79 +1970,105 @@ public class VistaAdministrador extends javax.swing.JFrame{
     }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
     private void botonRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVentaActionPerformed
-        if(campoMinutosVendidos.getText().isEmpty() || campoConsultaClienteVenta.getText().isEmpty())
+        if(campoMinutosVendidos.getText().isEmpty())
         {
-            JOptionPane.showMessageDialog(null,"Por favor ingrese los campos obligatorios");
+            JOptionPane.showMessageDialog(null,"Por favor ingrese la cantidad de minutos");
         }
         else
         {
             LogicaCliente logicaCliente = new LogicaCliente();
-            clienteVenta=logicaCliente.consultarCliente(campoConsultaClienteVenta.getText());
-            if(clienteVenta==null)
+            Cliente clienteVentaAuxiliar=logicaCliente.consultarCliente(campoConsultaClienteVenta.getText());
+            int seleccion=JOptionPane.YES_OPTION;
+            if(clienteVentaAuxiliar==null)
             {
-                JOptionPane.showMessageDialog(null,"El cliente no existe, se coloco el cliente por defecto");
-                clienteVenta=logicaCliente.consultarCliente("default");
-                campoConsultaClienteVenta.setText(clienteVenta.getCedulacliente());
+                seleccion = JOptionPane.showOptionDialog(
+                                null,
+                                "El cliente no existe, ¿Desea elegir el cliente default?", 
+                                "Cliente Invalido",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                null,
+                                null);
             }
-                        
-            Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
-            LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
-            try {
-                planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
-            } catch (Exception ex) {
-                Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            else
+            { 
+                clienteVenta=clienteVentaAuxiliar;
+                campoConsultaClienteVenta.setText(clienteVentaAuxiliar.getCedulacliente());
             }
-            
-            precioMinuto=planVenta.getPreciominuto();
-            minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());
-            
-            if (!clienteVenta.getCedulacliente().equals("default")) {
-                validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
-            } else {
-            }
-            
-            if(!promocionesGanadas.isEmpty()){
-                if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
-                        + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
-                        
-                        int totalBeneficios=0;
-                        for (int i = 0; i < promocionesGanadas.size(); i++) {
-                            totalBeneficios += promocionesGanadas.get(i).getBeneficio();
-                        }
-                        
-                    if (minutosVendidos >= totalBeneficios) {
-                        minutosFacturados=minutosVendidos-totalBeneficios;
-                    } else {
-                        minutosVendidos = totalBeneficios;
-                        minutosFacturados=0;
-                    }
-                }else{
-                    minutosFacturados=minutosVendidos;
+           
+            if(seleccion==JOptionPane.YES_OPTION)
+            {
+                minutosVendidos=Integer.parseInt(campoMinutosVendidos.getText());
+                if(minutosVendidos<=0)
+                {
+                    JOptionPane.showMessageDialog(null,"La cantidad de minutos es invalida");
                 }
-            }else{
-               minutosFacturados=minutosVendidos; 
+                else
+                {
+                    Long codigoPlan = Long.parseLong(comboPlanesVenta.getSelectedItem().toString().split(" ")[0]);
+                    LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
+                    try {
+                        planVenta = logicaPlanMinutos.consultarPlanMinutosID(codigoPlan);
+                    } catch (Exception ex) {
+                        Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if(planVenta.getCantidadminutos()-minutosVendidos<0)
+                    {
+                        JOptionPane.showMessageDialog(null,"El plan no tiene minutos suficientes para la venta");
+                    }
+                    else
+                    {
+                        precioMinuto=planVenta.getPreciominuto();
+                 
+                        if (!clienteVenta.getCedulacliente().equals("default")) {
+                            validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
+                        } else {
+                        }
+
+                        if(!promocionesGanadas.isEmpty()){
+                            if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
+                                    + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
+
+                                    int totalBeneficios=0;
+                                    for (int i = 0; i < promocionesGanadas.size(); i++) {
+                                        totalBeneficios += promocionesGanadas.get(i).getBeneficio();
+                                    }
+
+                                if (minutosVendidos >= totalBeneficios) {
+                                    minutosFacturados=minutosVendidos-totalBeneficios;
+                                } else {
+                                    minutosVendidos = totalBeneficios;
+                                    minutosFacturados=0;
+                                }
+                            }else{
+                                minutosFacturados=minutosVendidos;
+                            }
+                        }else{
+                           minutosFacturados=minutosVendidos; 
+                        }
+
+                        VentaMinutos venta = new VentaMinutos();
+                        if(!promocionesGanadas.isEmpty()){
+                             venta.setPromocionList(promocionesGanadas);
+                        }else{
+                            //No hay promociones para esta venta
+                        }
+                        venta.setCedulacliente(clienteVenta);
+                        venta.setCedulausuario(usuarioActivo);
+                        venta.setCodigoplan(planVenta);
+                        venta.setPreciominuto(precioMinuto);
+                        venta.setMinutosfacturados(minutosFacturados);
+                        venta.setMinutosvendidos(minutosVendidos);
+                        venta.setFechaventa(new Date());
+
+                        RegistrarVenta registroVenta = new RegistrarVenta(this,false, venta);
+                        registroVenta.setVisible(true);
+                    }
+                }
             }
-            
-            VentaMinutos venta = new VentaMinutos();
-            if(!promocionesGanadas.isEmpty()){
-                 venta.setPromocionList(promocionesGanadas);
-            }else{
-                //No hay promociones para esta venta
-            }
-            venta.setCedulacliente(clienteVenta);
-            venta.setCedulausuario(usuarioActivo);
-            venta.setCodigoplan(planVenta);
-            venta.setPreciominuto(precioMinuto);
-            venta.setMinutosfacturados(minutosFacturados);
-            venta.setMinutosvendidos(minutosVendidos);
-            venta.setFechaventa(new Date());
-            
-            RegistrarVenta registroVenta = new RegistrarVenta(this,false, venta);
-            registroVenta.setVisible(true);
-            
-            campoConsultaClienteVenta.setText("");
-            campoMinutosVendidos.setText("");
-        }  
+        }       
     }//GEN-LAST:event_botonRegistrarVentaActionPerformed
 
     private void campoDisponibildadModemcampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDisponibildadModemcampoMinutosVendidosFocusGained
@@ -2799,13 +2832,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
         return true;  
     }
     
-     private void llenarComboPlanesVenta()
+    public void llenarComboPlanesVenta()
     { 
         LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
         List<PlanMinutos> planes = logicaPlanMinutos.consultarPlanMinutos();
+        comboPlanesVenta.removeAllItems();
         for(PlanMinutos plan : planes)
         {
-            comboPlanesVenta.addItem(plan.getCodigoplan()+" "+plan.getNombreplan());
+            if(plan.getEstadoplanminutos())
+            {
+                comboPlanesVenta.addItem(plan.getCodigoplan()+" "+plan.getNombreplan());
+            }
         }  
     }
      
@@ -3014,7 +3051,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }
     
-    public void validarPromocion(String cedulaCliente, int minutosVendidos){
+    public  void validarPromocion(String cedulaCliente, int minutosVendidos){
         LogicaPromocion lp = new LogicaPromocion();
         LogicaVentaMinutos lvm = new LogicaVentaMinutos();
         List<Promocion> promocionesActivas = lp.consultarPromocionesActivas(); //Lista de promociones activas
