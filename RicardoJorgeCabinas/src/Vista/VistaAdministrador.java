@@ -1818,6 +1818,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
                     }
                     List<UsbModem> modems = lum.consultarModems();
                     llenarTablaModems(modems);
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "No puede cambiar el estado a un modem no disponible");
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -1859,12 +1861,21 @@ public class VistaAdministrador extends javax.swing.JFrame{
         
     }//GEN-LAST:event_botonConsultarModemActionPerformed
 
+    /*Metodo para abrir la ventana de registro de Planes de minutos
+      Entrada: evento del boton
+      Salida: ninguna
+    */
     private void botonAgregarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPlanActionPerformed
         AgregarPlan agregarPlan = new AgregarPlan(this);
         agregarPlan.setVisible(true);
         llenarTablaPlanMinutos(null);
     }//GEN-LAST:event_botonAgregarPlanActionPerformed
 
+    /*Metodo para abrir la ventana de modificar Planes de minutos
+    Este metodo lee previamente el plan que ha seleccionado el usuario en la tabla de planes. 
+      Entrada: evento del boton
+      Salida: ninguna
+    */
     private void botonModificarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarPlanActionPerformed
         int filaSeleccionada = tablaPlanes.getSelectedRow();
         if(filaSeleccionada != -1)
@@ -1883,6 +1894,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         
     }//GEN-LAST:event_botonModificarPlanActionPerformed
 
+    /* Metodo para modificar el estado (activo o inactivo) de un plan de minutos en la BD
+       siendo seleccionado de la tabla y mostrando el cambio de inmediato en la tabla y en la BD.
+       Entrada: Evento del boton
+       Salida: Ninguna
+    */
     private void botonInactivarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInactivarPlanActionPerformed
 
         int filaSeleccionada= tablaPlanes.getSelectedRow();
@@ -1907,6 +1923,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         llenarComboPlanesVenta();
     }//GEN-LAST:event_botonInactivarPlanActionPerformed
 
+    /* Metodo para consultar un Plan de minutos de la BD y mostrar el resultado en la tabla de
+       Planes de minutos. La consulta se realiza con el codigo del Plan de minutos, todo o una parte del nombre.
+       Entrada: Evento del boton
+       Salida: Ninguna
+    */
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
 
         PlanMinutos planMinutos = null;
@@ -1942,6 +1963,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
        llenarTablaModems(modems);
     }//GEN-LAST:event_botonActualizarTablaModemsActionPerformed
 
+    /*
+    Metodo para actualizar la tabla de planes de minutos
+    Entrada: Evento del boton actualizar
+    Salida: Ninguna
+    */
     private void botonActualizarTablaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPlanActionPerformed
         LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
         List<PlanMinutos> losPlanes = logicaPlanMinutos.consultarPlanMinutos();
@@ -2083,6 +2109,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCantidadDiascampoMinutosVendidosFocusGained
 
+    /*
+    Metodo para llenar el JComboBox de modem para el modulo de alquiler de modems
+    Entrasa: Evento del boton
+    Salida: Ninguna    
+    */
     private void jComboBoxModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModemActionPerformed
         LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
         UsbModem usbModem = new UsbModem();
@@ -2113,7 +2144,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 Color verde = new Color(170, 255, 170);
             campoConsultaClienteAlquiler.setBackground(verde);
             //JOptionPane.showMessageDialog(null, "Cliente verificado");
-            campoConsultaClienteAlquiler.setEditable(false);
+            //campoConsultaClienteAlquiler.setEditable(false);
             }
     }//GEN-LAST:event_campoConsultaClienteAlquilerFocusLost
 
@@ -2121,6 +2152,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_campoPrecioMulta1campoMinutosVendidosFocusGained
 
+     /*
+    Metodo para actualizar la cantidad de dias del alquiler de modem sumando la cantidad que ha digitado el usuario
+    y actualizarlo en el JLabel
+    Entrada: Terminó de digitar el texto
+    Salida: Ninguna
+    */
     private void campoCantidadDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCantidadDiasFocusLost
         // TODO add your handling code here:
         int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
@@ -2206,15 +2243,23 @@ public class VistaAdministrador extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_campoPrecioAlquiler1ActionPerformed
 
-    /* Método de alquiler (o reserva) de modems
-    
+    /*
+    Metodo para registrar (o reservar) en la BD los datos del alquiler en el modem, validando datos correctos
+    Entrada: Evento del Botón
+    Salida: Ninguna
     */
     private void botonRegistrarAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModemActionPerformed
+        String textoCantidadDias = campoCantidadDias.getText();
+        String textoPrecioMulta = campoPrecioMulta1.getText();
+        if(isNumeric(textoCantidadDias) || isNumeric(textoPrecioMulta)){
+           int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
         if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler1.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "No hay campos vacíos");
+            JOptionPane.showMessageDialog(null, "Hay campos vacíos");
+        }else if(cantidadDias == 0){
+            JOptionPane.showMessageDialog(null, "Cantidad días no puede ser cero");
         }else{
             try {
-                int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+                //int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
                 int preciodia = Integer.parseInt(campoPrecioAlquiler1.getText());
                 int totalPagar = preciodia*cantidadDias;
                 AlquilerModem alquilerModem = new AlquilerModem();
@@ -2291,7 +2336,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
                         + "Modem: "+usbModem.getNombremodem()+"\n"
                         + "Días alquiler: "+cantidadDias+"\n"
-                        + "Fecha Entrega: "+fechaEntrega.getDate()+" "+(fechaEntrega.getMonth()+1)+" "+(fechaEntrega.getYear()+1900)+"\n"
+                        + "Fecha Entrega: "+fechaEntrega.getDate()+"/"+(fechaEntrega.getMonth()+1)+"/"+(fechaEntrega.getYear()+1900)+"\n"
                         + "Precio por día: "+preciodia+"\n"
                         + "Multa: "+multa+"\n"
                         + "Total a pagar: "+totalPagar+"\n"
@@ -2343,7 +2388,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 System.out.println(e.getMessage());
                 //JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
             }
+        } 
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos cantidad días y multa deben ser numéricos");
         }
+        
     }//GEN-LAST:event_botonRegistrarAlquilerModemActionPerformed
 
     /*Método para manejar la visibilidad de los paneles en el módulo de alquiler de modems
@@ -2430,6 +2479,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelSeleccionModem.setVisible(true);
     }//GEN-LAST:event_botonAtrasAlquiler1ActionPerformed
 
+    /*
+    Metodo para actualizar el ComboBox de lista de modems disponibles para alquiler, actualiza cada vez que inserta
+    click en el panel
+    Entrada: Evento clic pestañas del panel
+    Salida: Ninguna
+    */
     private void jTabbedPaneVistaVendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneVistaVendedorMouseClicked
         llenarJComboBoxModemAlquiler();
     }//GEN-LAST:event_jTabbedPaneVistaVendedorMouseClicked
@@ -2810,9 +2865,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
         ModificarCliente mc = new ModificarCliente(this, true, cliente);
         mc.setVisible(true);
     }
+    
     /* Método para llenar la tabla con los registros de la consulta que se haga a la BD.
        Entrada: lista de objetos de tipo planes minutos 
-       Salida: vacía
+       Salida: Ninguna
     */
     private void llenarTablaPlanMinutos(List<PlanMinutos> listaPlanMinutos){
         DefaultTableModel dtm = new DefaultTableModel();
@@ -2820,13 +2876,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
         Calendar fecha = Calendar.getInstance();
         String laFecha;
         dtm.addColumn("Codigo");
-        dtm.addColumn("Nombre");
+        dtm.addColumn("Proveedor");
         dtm.addColumn("Min. fijos");
         dtm.addColumn("Cant. Actual");
         dtm.addColumn("Próxima Recarga");
         dtm.addColumn("Valor compra");
         dtm.addColumn("Valor venta");
-        dtm.addColumn("Acumulable");
+        dtm.addColumn("Acomulable");
         dtm.addColumn("Minuto alerta");
         dtm.addColumn("Estado");
         
@@ -2842,9 +2898,20 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 fila[4] = laFecha;
                 fila[5] = String.valueOf(listaPlanMinuto.getCostominuto());
                 fila[6] = String.valueOf(listaPlanMinuto.getPreciominuto());
-                fila[7] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
+                boolean minutosAcomulables = listaPlanMinuto.getMinutosacumulables();
+                if(minutosAcomulables == true){
+                    fila[7] = "Si";
+                }else{
+                    fila[7] = "No";
+                }    
+                //fila[7] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
                 fila[8] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
-                fila[9] = String.valueOf(listaPlanMinuto.getEstadoplanminutos());
+                boolean estado = listaPlanMinuto.getEstadoplanminutos();
+                if(estado == true){
+                    fila[9] = "Activo";
+                }else{
+                    fila[9] = "Inactivo";
+                }
                 dtm.addRow(fila);
             }
         }
@@ -2902,6 +2969,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         return true;  
     }
     
+    
     public void llenarComboPlanesVenta()
     { 
         LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
@@ -2915,8 +2983,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
         }  
     }
-     
-    private void llenarJComboBoxModemAlquiler(){
+    
+      /*
+     Metodo para llenar la lista de modems disponibles para alquiler en el JComboBox
+     Entrada: Ninguna
+     Salida: Ninguna
+     */
+    public void llenarJComboBoxModemAlquiler(){
         LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
          List<UsbModem> usbModems = logicaUsbModem.consultarModems();
          jComboBoxModem.removeAllItems();
@@ -2927,6 +3000,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
          }
     }
      
+    /*
+    Metodo para actualizar fecha de alquiler tomando el valor de días que ha ingresado el usuario y sumarlo 
+    a la fecha actual
+    Entrada: Ninguna
+    Salida: Ninguna
+    */
      private void ActualizarFechaAlquiler(){
         //Calendar fechaHoy = Calendar.getInstance();
         Date fechaActual = new Date();
@@ -3054,10 +3133,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         {
             Date fechaF = alquilados.get(i).getFechafinalquiler();
             String fechaFinal= fechaF.getDate()+"/"+(fechaF.getMonth()+1)+"/"+(fechaF.getYear()+1900);
+            Date fechaD = alquilados.get(i).getFechadevolucion();
+            String fechaDevol = fechaD.getDate()+"/"+(fechaD.getMonth()+1)+"/"+(fechaD.getYear()+1900);
             
             long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
             long diferencia = ( hoy.getTime() - fechaF.getTime())/MILLSECS_PER_DAY;
-            if(diferencia>0){
+            if(diferencia>0 && (!fechaDevol.equals("31/12/1899"))){
                 JOptionPane.showMessageDialog(panelModems, "El cliente "+alquilados.get(i).getCedulacliente().getNombrecliente()
                     +" no ha retornado el modem "+alquilados.get(i).getCodigomodem().getNombremodem()+".\n"+
                     "Puede contactarlo al número "+alquilados.get(i).getCedulacliente().getTelefonocliente());

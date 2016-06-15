@@ -20,6 +20,8 @@ public class AgregarModem extends javax.swing.JFrame {
     public AgregarModem() {
         initComponents();
         this.setLocationRelativeTo(null);
+        activoModem.setSelected(true);
+        DisponibilidadModem.setText("Disponible");
     }
 
     /**
