@@ -1092,6 +1092,11 @@ public class VistaVendedor extends javax.swing.JFrame{
         llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
+    /* Metodo para consultar un Plan de minutos de la BD y mostrar el resultado en la tabla de
+       Planes de minutos. La consulta se realiza con el codigo del Plan de minutos, todo o una parte del nombre.
+       Entrada: Evento del boton
+       Salida: Ninguna
+    */
     private void botonConsultarPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPlanesActionPerformed
         PlanMinutos planMinutos = null;
         List<PlanMinutos> planes = new ArrayList<>();
@@ -1129,6 +1134,11 @@ public class VistaVendedor extends javax.swing.JFrame{
         // TODO add your handling code here:
     } 
     
+    /*
+    Metodo para actualizar la tabla de planes de minutos
+    Entrada: Evento del boton actualizar
+    Salida: Ninguna
+    */
     private void botonActualizarTablaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPlanActionPerformed
         LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
         List<PlanMinutos> losPlanes = logicaPlanMinutos.consultarPlanMinutos();
@@ -1139,6 +1149,11 @@ public class VistaVendedor extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_campoConsultaClienteAlquilercampoMinutosVendidosFocusGained
 
+    /*
+    Metodo para activar el panel de alquiler de modem
+    Entrada: Evento del Boton
+    Salida: Ninguna
+    */
     private void botonAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlquilerModemActionPerformed
         panelDevolucionModem.setVisible(false);
         panelAlquilarModem.setVisible(true);
@@ -1152,6 +1167,11 @@ public class VistaVendedor extends javax.swing.JFrame{
         llenarTablaModemsAlquilados();
     }//GEN-LAST:event_botonDevolucionModemActionPerformed
 
+    /*
+    Metodo para llenar el JComboBox de modem para el modulo de alquiler de modems
+    Entrasa: Evento del boton
+    Salida: Ninguna    
+    */
     private void jComboBoxModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxModemActionPerformed
         LogicaUsbModem logicaUsbModem = new LogicaUsbModem();
         UsbModem usbModem = new UsbModem();
@@ -1186,7 +1206,7 @@ public class VistaVendedor extends javax.swing.JFrame{
             Color verde = new Color(170, 255, 170);
             campoConsultaClienteAlquiler.setBackground(verde);
             //JOptionPane.showMessageDialog(null, "Cliente verificado");
-            campoConsultaClienteAlquiler.setEditable(false);
+            //campoConsultaClienteAlquiler.setEditable(false);
         }
     }//GEN-LAST:event_campoConsultaClienteAlquilerFocusLost
 
@@ -1259,11 +1279,17 @@ public class VistaVendedor extends javax.swing.JFrame{
     }//GEN-LAST:event_campoPrecioMulta1ActionPerformed
 
     private void botonRegistrarAlquilerModem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModem1ActionPerformed
+        String textoCantidadDias = campoCantidadDias.getText();
+        String textoPrecioMulta = campoPrecioMulta1.getText();
+        if(isNumeric(textoCantidadDias) || isNumeric(textoPrecioMulta)){
+           int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
         if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "No hay campos vacíos");
+            JOptionPane.showMessageDialog(null, "Hay campos vacíos");
+        }else if(cantidadDias == 0){
+            JOptionPane.showMessageDialog(null, "Cantidad días no puede ser cero");
         }else{
             try {
-                int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+                //int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
                 int preciodia = Integer.parseInt(campoPrecioAlquiler.getText());
                 int totalPagar = preciodia*cantidadDias;
                 AlquilerModem alquilerModem = new AlquilerModem();
@@ -1334,13 +1360,13 @@ public class VistaVendedor extends javax.swing.JFrame{
                 fechaDevolucion.setMonth(0);
                 fechaDevolucion.setYear(0);
                 alquilerModem.setFechadevolucion(fechaDevolucion);
-                
+
                 if(campoDisponibildadModem.getText().equals("Disponible") || campoDisponibildadModem.getText().equals("Reservado")){
                     int opcion = JOptionPane.showConfirmDialog(null, "Datos registro alquiler\n"
                         + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
                         + "Modem: "+usbModem.getNombremodem()+"\n"
                         + "Días alquiler: "+cantidadDias+"\n"
-                        + "Fecha Entrega: "+fechaEntrega.getDate()+" "+(fechaEntrega.getMonth()+1)+" "+(fechaEntrega.getYear()+1900)+"\n"
+                        + "Fecha Entrega: "+fechaEntrega.getDate()+"/"+(fechaEntrega.getMonth()+1)+"/"+(fechaEntrega.getYear()+1900)+"\n"
                         + "Precio por día: "+preciodia+"\n"
                         + "Multa: "+multa+"\n"
                         + "Total a pagar: "+totalPagar+"\n"
@@ -1389,12 +1415,20 @@ public class VistaVendedor extends javax.swing.JFrame{
                 }
                 llenarTablaModemsAlquilados();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
+                System.out.println(e.getMessage());
+                //JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
             }
-
+        } 
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos cantidad días y multa deben ser numéricos");
         }
     }//GEN-LAST:event_botonRegistrarAlquilerModem1ActionPerformed
 
+    /*
+    Metodo para regresar al panel principal de alquiler
+    Entrada: Evento del Botón
+    Salida: Ninguna
+    */
     private void botonAtrasAlquiler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasAlquiler1ActionPerformed
         panelDevolucionModem.setVisible(false);
         panelAlquilarModem.setVisible(false);
@@ -1492,6 +1526,11 @@ public class VistaVendedor extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_botonDevolverModemActionPerformed
 
+    /*
+    Metodo para regresar al panel principal de alquiler
+    Entrada: Evento del Botón
+    Salida: Ninguna
+    */
     private void botonAtrasAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasAlquilerActionPerformed
         panelDevolucionModem.setVisible(false);
         panelAlquilarModem.setVisible(false);
@@ -1608,13 +1647,17 @@ public class VistaVendedor extends javax.swing.JFrame{
         }       
     }//GEN-LAST:event_botonRegistrarVentaActionPerformed
     
+    /* Método para llenar la tabla con los registros de la consulta que se haga a la BD.
+       Entrada: lista de objetos de tipo planes minutos 
+       Salida: Ninguna
+    */
     public void llenarTablaPlanMinutos(List<PlanMinutos> listaPlanMinutos){
         DefaultTableModel dtm = new DefaultTableModel();
         tablaPlanes.setModel(dtm);
         Calendar fecha = Calendar.getInstance();
         String laFecha;
         dtm.addColumn("Codigo");
-        dtm.addColumn("Nombre");
+        dtm.addColumn("Proveedor");
         dtm.addColumn("Tiempo aire");
         dtm.addColumn("Saldo");
         dtm.addColumn("Próxima Recarga");
@@ -1635,10 +1678,20 @@ public class VistaVendedor extends javax.swing.JFrame{
                 laFecha = fecha.get(Calendar.DAY_OF_MONTH)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
                 fila[4] = laFecha;
                 fila[5] = String.valueOf(listaPlanMinuto.getCostominuto());
-                fila[6] = String.valueOf(listaPlanMinuto.getPreciominuto());
-                fila[7] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
+                boolean minutosAcomulables = listaPlanMinuto.getMinutosacumulables();
+                if(minutosAcomulables == true){
+                    fila[7] = "Si";
+                }else{
+                    fila[7] = "No";
+                }    
+                //fila[7] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
                 fila[8] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
-                fila[9] = String.valueOf(listaPlanMinuto.getEstadoplanminutos());
+                boolean estado = listaPlanMinuto.getEstadoplanminutos();
+                if(estado == true){
+                    fila[9] = "Activo";
+                }else{
+                    fila[9] = "Inactivo";
+                }
                 dtm.addRow(fila);
             }
         }

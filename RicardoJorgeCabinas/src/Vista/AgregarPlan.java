@@ -57,7 +57,7 @@ public class AgregarPlan extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jRadioButtonNO = new javax.swing.JRadioButton();
         jRadioButtonSI = new javax.swing.JRadioButton();
-        jComboBoxNombrePlan = new javax.swing.JComboBox<String>();
+        jComboBoxNombrePlan = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -102,6 +102,7 @@ public class AgregarPlan extends javax.swing.JFrame {
 
         buttonGroupEstado.add(jRadioButtonActivo);
         jRadioButtonActivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioButtonActivo.setSelected(true);
         jRadioButtonActivo.setText("Activo");
 
         cantidadMinAlerta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -138,10 +139,11 @@ public class AgregarPlan extends javax.swing.JFrame {
 
         buttonGroupAcomulable.add(jRadioButtonSI);
         jRadioButtonSI.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jRadioButtonSI.setSelected(true);
         jRadioButtonSI.setText("Sí");
 
         jComboBoxNombrePlan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
+        jComboBoxNombrePlan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Claro", "Movistar", "Tigo-Une", "Virgin Mobile", "Avantel", "Uff", "ETB", "Internacional" }));
         jComboBoxNombrePlan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxNombrePlanActionPerformed(evt);
@@ -150,11 +152,11 @@ public class AgregarPlan extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(162, 146, 146));
-        jLabel4.setText("Acumulable");
+        jLabel4.setText("Acomulable");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(162, 146, 146));
-        jLabel3.setText("Nombre Plan");
+        jLabel3.setText("Proveedor");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(162, 146, 146));
@@ -309,8 +311,8 @@ public class AgregarPlan extends javax.swing.JFrame {
         if(acomulable == true || estado == true || acomulable == false || estado == false){
           seleccion = true;  
         }
-        
-        if(nombrePlan.isEmpty() || tiempoAire.isEmpty() || precioCompra.isEmpty() || precioVenta.isEmpty() || minutoAlerta.isEmpty() || seleccion == false){
+        if (isNumeric(tiempoAire) && isNumeric(precioCompra) && isNumeric(precioVenta) && isNumeric(minutoAlerta)) {
+            if(nombrePlan.isEmpty() || tiempoAire.isEmpty() || precioCompra.isEmpty() || precioVenta.isEmpty() || minutoAlerta.isEmpty() || seleccion == false){
             JOptionPane.showMessageDialog(null, "No se puede registrar con campos vacíos");
         }else{
             LogicaPlanMinutos logicaPlanMinutos = new LogicaPlanMinutos();
@@ -326,6 +328,7 @@ public class AgregarPlan extends javax.swing.JFrame {
                 elPlan.setCantidadminimaminutos(Integer.parseInt(minutoAlerta));
                 elPlan.setEstadoplanminutos(estado);
                 logicaPlanMinutos.registrarPlanMinutos(elPlan);
+                JOptionPane.showMessageDialog(null, "El plan fue registrado exitosamente");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error, no se pudo registrar");
             } finally{
@@ -333,9 +336,15 @@ public class AgregarPlan extends javax.swing.JFrame {
                 this.dispose();
             }
         }
-     
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos Tiempo al Aire, Valor Compra, Valor Venta y Cantidad Minima Alerta deben ser numericos");
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    /* Método para llenar automaticamente la fecha de próxima recarga, suma un mes a la fecha actual
+       Entrada: vacía
+       Salida: vacia
+    */
     private void llenarFecha(){
         Calendar calendario = Calendar.getInstance();
         calendario.add(Calendar.MONTH, 1);
@@ -387,6 +396,21 @@ public class AgregarPlan extends javax.swing.JFrame {
     }
 
     
+    /*Método para verificar si un string empieza (o es) un numero que sera tomado como entero. El metodo se usa
+    para validar los campos de texto (tiempo al aire, valor compra, valor venta, cantidad minima alerta) 
+    sean numericos en el panel.
+      Entrada: String del campo de texto
+      Salida: True si es texto es un numero
+              False si es texto solamente
+    */
+    private boolean isNumeric(String s) {
+        try {
+            int numero = Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
     
     private void jComboBoxNombrePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNombrePlanActionPerformed
         // TODO add your handling code here:

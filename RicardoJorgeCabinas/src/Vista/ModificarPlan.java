@@ -291,6 +291,7 @@ public class ModificarPlan extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+    
     /* Metodo que me permite modificar los datos de un plan de minutos
        Entrada: evento del boton 
        Salida: vacia
@@ -307,8 +308,8 @@ public class ModificarPlan extends javax.swing.JFrame {
         if(acomulable == true || estado == true || acomulable == false || estado == false){
           seleccion = true;  
         }
-        
-        if(nombrePlan.isEmpty() || tiempoAire.isEmpty() || precioCompra.isEmpty() || precioVenta.isEmpty() || minutoAlerta.isEmpty() || seleccion == false){
+        if(isNumeric(tiempoAire) && isNumeric(precioCompra) && isNumeric(precioVenta) && isNumeric(minutoAlerta)){
+            if(nombrePlan.isEmpty() || tiempoAire.isEmpty() || precioCompra.isEmpty() || precioVenta.isEmpty() || minutoAlerta.isEmpty() || seleccion == false){
             JOptionPane.showMessageDialog(null, "No se puede modificar con campos vacíos");
         }else{
             try {
@@ -321,13 +322,16 @@ public class ModificarPlan extends javax.swing.JFrame {
                 elPlan.setCantidadminimaminutos(Integer.parseInt(minutoAlerta));
                 elPlan.setEstadoplanminutos(estado);
                 logicaPlanMinutos.modificarPlanMinutos(elPlan);
+                JOptionPane.showMessageDialog(null, "El plan fue modificado exitosamente");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-//                JOptionPane.showMessageDialog(null, "Error, no se pudo modificar");
+                JOptionPane.showMessageDialog(null, "Error, no se pudo modificar");
             } finally{
                 administrador.llenarComboPlanesVenta();
                 this.dispose();
             }
+        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos Tiempo al Aire, Valor Compra, Valor Venta y Cantidad Minima Alerta deben ser numericos");
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -352,7 +356,10 @@ public class ModificarPlan extends javax.swing.JFrame {
             jRadioButtonInactivo.setSelected(true);
     }
     
-    
+    /* Método para llenar automaticament la fecha de próxima recarga, suma un mes a la fecha actual
+       Entrada: Objeto Plan de Minutos seleccionado
+       Salida: String en formato de fecha DD/MM/AAAA
+    */
     public String llenarFecha(PlanMinutos elPlan){
          java.util.Date fechaRecarga = elPlan.getFechaproximarecarga();
         int dia = fechaRecarga.getDate();
@@ -399,6 +406,22 @@ public class ModificarPlan extends javax.swing.JFrame {
                 }
         String laFecha = dia+"/"+elMes+"/"+(anio+1900);
         return laFecha;
+    }
+    
+    /*Método para verificar si un string empieza (o es) un numero que sera tomado como entero. El metodo se usa
+    para validar los campos de texto (tiempo al aire, valor compra, valor venta, cantidad minima alerta) 
+    sean numericos en el panel.
+      Entrada: String del campo de texto
+      Salida: True si es texto es un numero
+              False si es texto solamente
+    */
+    private boolean isNumeric(String s) {
+        try {
+            int numero = Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
