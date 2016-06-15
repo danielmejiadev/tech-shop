@@ -45,6 +45,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
     int precioMinuto;
     int minutosVendidos;
     int minutosFacturados;
+    int cantidadDiasAlquilados;
     static List<Promocion> promocionesGanadas = new ArrayList<>();
     
     public VistaAdministrador(Usuario usuarioActivo)  
@@ -63,6 +64,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         panelSeleccionModem.setVisible(true);
         alertaDevolucion();
         recargaAutomaticaPlan();
+        actualizarPromociones();
         jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());  
         
         LogicaCliente logicaCliente = new LogicaCliente();
@@ -100,7 +102,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         campoDisponibildadModem = new javax.swing.JTextField();
         labeltituloPlanes3 = new javax.swing.JLabel();
         jLabelMulta = new javax.swing.JLabel();
-        jComboBoxModem = new javax.swing.JComboBox<String>();
+        jComboBoxModem = new javax.swing.JComboBox<>();
         jLabelFechaEntrega = new javax.swing.JLabel();
         campoConsultaClienteAlquiler = new javax.swing.JTextField();
         jLabelDisponibilidad = new javax.swing.JLabel();
@@ -341,7 +343,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -541,7 +543,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -671,6 +673,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -692,9 +698,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                     .addComponent(panelDevolucionModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
-        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelMovimientosModemLayout = new javax.swing.GroupLayout(panelMovimientosModem);
         panelMovimientosModem.setLayout(panelMovimientosModemLayout);
@@ -800,6 +803,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonActualizarTablaClientes.setContentAreaFilled(false);
         botonActualizarTablaClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonActualizarTablaClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaClientesActionPerformed(evt);
+            }
+        });
         panelClientesVendedor.add(botonActualizarTablaClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, -1));
 
         jLabelBusqueda.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -1183,6 +1191,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         botonActualizarTablaPromo.setContentAreaFilled(false);
         botonActualizarTablaPromo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonActualizarTablaPromo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaPromoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPromocionesLayout = new javax.swing.GroupLayout(panelPromociones);
         panelPromociones.setLayout(panelPromocionesLayout);
@@ -1664,7 +1677,16 @@ public class VistaAdministrador extends javax.swing.JFrame{
         Salida: --
     */
     private void botonConsultarPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPromocionesActionPerformed
-        llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
+        LogicaPromocion lp = new LogicaPromocion();
+        if(isNumeric(campoConsultaPromociones.getText())){
+            Promocion p = lp.consultarPromocion(Long.parseLong(campoConsultaPromociones.getText()));
+            List<Promocion> promociones = new ArrayList<>();
+            promociones.add(p);
+            llenarTablaPromociones(promociones);
+        }else{
+            llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
+        }
+        campoConsultaPromociones.setText("");
         botonInactivarPromocion.setEnabled(false);
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
@@ -1675,8 +1697,16 @@ public class VistaAdministrador extends javax.swing.JFrame{
     */
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
         LogicaCliente lc = new LogicaCliente();
-        llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
+        String campoCOnsultaCliente = campoConsultaCliente.getText();
+        
+        if(isNumeric(campoCOnsultaCliente)){
+            llenarTablaClientes(lc.consultarClientes("",campoConsultaCliente.getText()));
+
+        }else{
+            llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText(), ""));
+        }
         botonModificarCliente.setEnabled(false);
+        campoConsultaCliente.setText("");
     }//GEN-LAST:event_botonConsultarClienteActionPerformed
 
      /*
@@ -2049,10 +2079,10 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         precioMinuto=planVenta.getPreciominuto();
                  
                         if (!clienteVenta.getCedulacliente().equals("default")) {
-                            validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
+                            validarPromocionVenta(clienteVenta.getCedulacliente(), minutosVendidos);
                         } else {
                         }
-
+                        VentaMinutos venta = new VentaMinutos();
                         if(!promocionesGanadas.isEmpty()){
                             if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
                                     + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
@@ -2067,6 +2097,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
                                 } else {
                                     minutosVendidos = totalBeneficios;
                                     minutosFacturados=0;
+                                };
+                                if(!promocionesGanadas.isEmpty()){
+                                     venta.setPromocionList(promocionesGanadas);
+                                }else{
+                                    //No hay promociones para esta venta
                                 }
                             }else{
                                 minutosFacturados=minutosVendidos;
@@ -2075,12 +2110,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                            minutosFacturados=minutosVendidos; 
                         }
 
-                        VentaMinutos venta = new VentaMinutos();
-                        if(!promocionesGanadas.isEmpty()){
-                             venta.setPromocionList(promocionesGanadas);
-                        }else{
-                            //No hay promociones para esta venta
-                        }
                         venta.setCedulacliente(clienteVenta);
                         venta.setCedulausuario(usuarioActivo);
                         venta.setCodigoplan(planVenta);
@@ -2253,6 +2282,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         String textoPrecioMulta = campoPrecioMulta1.getText();
         if(isNumeric(textoCantidadDias) || isNumeric(textoPrecioMulta)){
            int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+           cantidadDiasAlquilados = cantidadDias;
         if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler1.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Hay campos vacíos");
         }else if(cantidadDias == 0){
@@ -2343,14 +2373,44 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         + "¿Son correctos los datos?");
 
                     if(opcion==0){
+                        
+                        validarPromocionAlquiler(clienteAlquiler.getCedulacliente());
+                        if(!promocionesGanadas.isEmpty()){
+                            if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadasAlquiler(promocionesGanadas)+""
+                                    + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
+
+                                    int totalBeneficios=0;
+                                    for (int i = 0; i < promocionesGanadas.size(); i++) {
+                                        totalBeneficios += promocionesGanadas.get(i).getBeneficio();
+                                    }
+
+                                if (cantidadDiasAlquilados >= totalBeneficios) {
+                                    totalPagar -= preciodia * totalBeneficios;
+                                } else {
+                                    totalPagar = 0;
+                                }
+                                if(!promocionesGanadas.isEmpty()){
+                                     alquilerModem.setPromocionList(promocionesGanadas);
+                                }else{
+                                    //No hay promociones para esta venta
+                                } 
+                            }else{
+                                //No gastó la promoción
+                            }
+                        }else{
+                           //No ha ganado promociones
+                        }
+                        
                         JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
                         LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
                         logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
+                        promocionesGanadas.clear();
                         codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
                         //UsbModem modemReserva = lum.consultarModemCodigo(codigoModem);
                         usbModem.setDisponibilidad("Alquilado");
                         lum.modificarModem(usbModem);
-
+                        cantidadDiasAlquilados =0;
+                        
                         campoConsultaClienteAlquiler.setText("");
                         campoConsultaClienteAlquiler.setEditable(true);
                         campoConsultaClienteAlquiler.setBackground(Color.white);
@@ -2740,6 +2800,17 @@ public class VistaAdministrador extends javax.swing.JFrame{
        botonModificarCliente.setEnabled(false);
        botonEstadoCliente.setEnabled(false);
     }//GEN-LAST:event_botonEstadoClienteActionPerformed
+
+    private void botonActualizarTablaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaClientesActionPerformed
+       LogicaCliente lc = new LogicaCliente();
+       llenarTablaClientes(lc.consultarClientes());
+    }//GEN-LAST:event_botonActualizarTablaClientesActionPerformed
+
+    private void botonActualizarTablaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPromoActionPerformed
+        LogicaPromocion lp = new LogicaPromocion();
+        llenarTablaPromociones(lp.consultarPromociones());
+        campoConsultaPromociones.setText("");
+    }//GEN-LAST:event_botonActualizarTablaPromoActionPerformed
  
     public void llenarTablaUsuarios(List<Usuario> listaUsuarios)
      {
@@ -2825,14 +2896,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
         String estado, s = "";
         DefaultTableModel dtm = new DefaultTableModel();
         tablaPromociones.setModel(dtm);
-        dtm.addColumn("CÓDIGO");
-        dtm.addColumn("TIPO");
-        dtm.addColumn("CONDICIÓN");
-        dtm.addColumn("BENEFICIO");
-        dtm.addColumn("DESCRIPCIÓN");
-        dtm.addColumn("INICIA");
-        dtm.addColumn("TERMINA");
-        dtm.addColumn("ESTADO");
+        dtm.addColumn("Código");
+        dtm.addColumn("Tipo");
+        dtm.addColumn("Condición");
+        dtm.addColumn("Beneficio");
+        dtm.addColumn("Descripción");
+        dtm.addColumn("Inicia");
+        dtm.addColumn("Termina");
+        dtm.addColumn("Estado");
         String[] fila = new String[8];
         for (int i = 0; i < listaPromociones.size(); i++) {
            fila[0]=listaPromociones.get(i).getCodigopromocion()+"";
@@ -3213,11 +3284,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }
     
-    public  void validarPromocion(String cedulaCliente, int minutosVendidos){
+    public  void validarPromocionVenta(String cedulaCliente, int minutosVendidos){
         LogicaPromocion lp = new LogicaPromocion();
         LogicaVentaMinutos lvm = new LogicaVentaMinutos();
-        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas(); //Lista de promociones activas
-        
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas("Venta Minutos"); //Lista de promociones activas
+        System.out.println("Promociones activas venta = "+ promocionesActivas.size());
         
         for (int i = 0; i < promocionesActivas.size(); i++) {
             int condicion = promocionesActivas.get(i).getCondicion() - minutosVendidos;
@@ -3261,13 +3332,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
     }
     
     public String mostrarPromocionesGanadas(List<Promocion> listaPromo){
-        String s ="PROMOCIONES GANADAS!!\n";
+        String s ="PROMOCIONES GANADAS \n\n";
         int totalBeneficios =0;
         for (int i = 0; i < listaPromo.size(); i++) {
-            s += listaPromo.get(i).getDescripcion()+" Beneficio: "+listaPromo.get(i).getBeneficio()+" minutos GRATIS!\n";
+            s +="->"+ listaPromo.get(i).getDescripcion()+" ("+listaPromo.get(i).getBeneficio()+")\n";
             totalBeneficios += listaPromo.get(i).getBeneficio();
         }
-        s+="Total Minutos de Promociones = "+ totalBeneficios;
+        s+="\nTotal minutos gratis = " + totalBeneficios+"\n";
         return s;
     }
     
@@ -3289,6 +3360,56 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 //La promoción no ha caducado
             }
         }
+    }
+    
+    public void validarPromocionAlquiler(String cedulaCliente){
+        LogicaPromocion lp = new LogicaPromocion();
+        LogicaAlquilerModem lam = new LogicaAlquilerModem();
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas("Alquiler Modem"); //Lista de promociones activas
+       
+        for (int i = 0; i < promocionesActivas.size(); i++) {
+            int condicion = promocionesActivas.get(i).getCondicion() - cantidadDiasAlquilados;
+            int codigoPromo = Integer.parseInt(promocionesActivas.get(i).getCodigopromocion()+"");
+            String fechaInicioPromo = calcularFechaPromo(promocionesActivas.get(i)); //Fecha inicial de la promoción i
+            
+            //Lista que trae el último alquiler en el que se ganó una promoción
+            List<AlquilerModem> alquilerConPromoGanada = lam.consultarAlquilerPromo(cedulaCliente, fechaInicioPromo, codigoPromo);
+
+            
+            List<AlquilerModem> alquileresDelCliente = lam.consultarAlquilerCliente(cedulaCliente);
+            //Si se encuentra una promoción que ya ha sido ganada, se cuentan los días a partir del último alquiler que tuvo la promoción
+           
+            if(!alquilerConPromoGanada.isEmpty()){
+                promocionesActivas.get(i).setFechainiciopromocion(alquilerConPromoGanada.get(0).getFechainicioalquiler());
+                fechaInicioPromo = calcularFechaPromoPost(promocionesActivas.get(i));//Recalculando la fecha a partir de la cual se empiezan a contar los minutos para ganar promoción
+//                System.out.println("Ya se ganó esa promoción, nueva fecha = "+ fechaInicioPromo);
+                alquileresDelCliente.clear();
+            }else{
+//                System.out.println("No se ha ganado la promoción anteriormente");
+            }
+            
+            //Se calcúla si las alquiladas de ese cliente cumplen con la condición de la promoción
+            if(alquilerGanador(alquileresDelCliente, condicion)){
+                if(!promocionesGanadas.contains(promocionesActivas.get(i))){
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                }else{
+//                    System.out.println("La promoción ya está contenida en la lista de promocionesGanadas");
+                    //La promoción ya está contenida en la lista de promocionesGanadas
+                }
+                
+            }else{
+                List<AlquilerModem> alquilerCliente = lam.consultarAlquilerCliente(cedulaCliente);
+                if (alquilerCliente.isEmpty() && cantidadDiasAlquilados >= promocionesActivas.get(i).getCondicion()) {
+//                    System.out.println("El cliente cumple la condición en su primera venta");
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                } else {
+//                    System.out.println("No cumple la condición para ganar la promoción I");
+                }
+//                System.out.println("No cumple la condición para ganar la promoción II");
+                //No cumple la condición para ganar la promoción
+            }
+        }
+        
     }
     
     public String calcularFechaPromo(Promocion promocion){
@@ -3320,6 +3441,41 @@ public class VistaAdministrador extends javax.swing.JFrame{
 //        System.out.print("Fecha modificada pal otro día: "+fechaPromocion+"\n");
         return fechaPromocion;
     }
+    
+     //true si la suma de alquileres cumple la condición de la promoción
+    public boolean alquilerGanador(List<AlquilerModem> listaAlquileres, int condicionPromo){
+        boolean b=false;
+        int acumulado=0;
+        Date fechaInicioALquiler, fechaFinAlquiler;
+
+        for (int i = 0; i < listaAlquileres.size(); i++) {
+            fechaInicioALquiler = listaAlquileres.get(i).getFechainicioalquiler();
+            fechaFinAlquiler = listaAlquileres.get(i).getFechadevolucion();
+            Date diferencia = new Date(fechaFinAlquiler.getTime()-fechaInicioALquiler.getTime());
+            acumulado += diferencia.getDay();
+
+            if(acumulado>=condicionPromo){
+                b = true;
+                i=listaAlquileres.size();
+            }else{
+                //No cumple con la condición.
+            }
+        }
+        return b;
+    }
+    
+    public String mostrarPromocionesGanadasAlquiler(List<Promocion> listaPromo){
+        String s ="PROMOCIONES GANADAS \n\n";
+        int totalBeneficios =0;
+        for (int i = 0; i < listaPromo.size(); i++) {
+            s +="->"+ listaPromo.get(i).getDescripcion()+" ("+listaPromo.get(i).getBeneficio()+")\n";
+            totalBeneficios += listaPromo.get(i).getBeneficio();
+        }
+        s+="\nTotal días gratis = " + totalBeneficios+"\n";
+        return s;
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuscarClienteAlquiler;

@@ -260,7 +260,21 @@ public class AlquilerModemJpaController implements Serializable {
             em.close();
         }
     }
-//    
+  
+   //trae el alquiler en el que se ha aplicado una promoción por última vez
+   //para saber si un cliente ya ha gastado esa promoción recientemente.
+    public List<AlquilerModem> AlquilerPromo(String cedulaCliente, String fechaInicioPromo, int codigoPromo){
+       EntityManager em = getEntityManager();
+       String consulta = "select * from alquilermodem where codigoalquiler = ("
+               + "select max(codigoalquiler) FROM (select * from promocionalquilermodem natural join "
+               + "(select * from alquilermodem where cedulacliente = '"+cedulaCliente+"' "
+               + "and fechainicioalquiler > '"+ fechaInicioPromo +"') as A "
+               + "where codigopromocion = "+codigoPromo+") as B)";
+       Query query = em.createNativeQuery(consulta,AlquilerModem.class);
+       return query.getResultList();
+   }
+   
+   
     public AlquilerModem findAlquilerModemCliente(Cliente cedula) {
         EntityManager em = getEntityManager();
         try {
@@ -272,5 +286,13 @@ public class AlquilerModemJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public List<AlquilerModem> alquiladasCliente(String cedulaCliente){
+       EntityManager em = getEntityManager();
+       String consulta = "select * from alquilermodem where\n" +
+"	 cedulacliente = '"+cedulaCliente+"'";
+       Query query = em.createNativeQuery(consulta,AlquilerModem.class);
+       return query.getResultList();
+   }
     
 }

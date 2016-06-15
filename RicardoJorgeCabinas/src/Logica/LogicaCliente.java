@@ -29,8 +29,8 @@ public class LogicaCliente {
         return clienteDAO.findClienteEntities();
     }
     
-    public List<Cliente> consultarClientes(String nombreCliente){
-        return clienteDAO.findClienteName(nombreCliente);
+     public List<Cliente> consultarClientes(String nombreCliente, String cedulaCliente){
+        return clienteDAO.findClienteName(nombreCliente, cedulaCliente);
     }
     
     /*

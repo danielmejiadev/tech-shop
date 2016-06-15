@@ -54,6 +54,10 @@ public class LogicaPromocion {
         promocionDAO.edit(promocion);
     }
     
+    public List<Promocion> consultarPromocionesActivas(String tipoPromo){
+       return promocionDAO.findPromocionesActivas(tipoPromo);
+   }
+    
     public List<Promocion> consultarPromocionesActivas(){
        return promocionDAO.findPromocionesActivas();
    }

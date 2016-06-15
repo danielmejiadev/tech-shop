@@ -335,7 +335,7 @@
                                   <Component id="botonAlquilerModem" max="32767" attributes="0"/>
                                   <Component id="botonDevolucionModem" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="174" max="32767" attributes="0"/>
+                              <EmptySpace pref="167" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -504,7 +504,7 @@
                                   <Component id="botonRegistrarAlquilerModem" min="-2" max="-2" attributes="0"/>
                                   <Component id="botonAtrasAlquiler1" min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                              <EmptySpace pref="14" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1096,6 +1096,9 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizarTablaClientesActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="590" y="350" width="-1" height="-1"/>
@@ -1819,6 +1822,9 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizarTablaPromoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="campoConsultaPromociones">
             </Component>
