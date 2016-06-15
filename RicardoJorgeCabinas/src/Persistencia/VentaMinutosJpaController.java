@@ -292,4 +292,11 @@ public class VentaMinutosJpaController implements Serializable {
        Query query = em.createNativeQuery(consulta,VentaMinutos.class);
        return query.getResultList();
    }
+   
+   public List<VentaMinutos> ultimaVenta(){
+       EntityManager em = getEntityManager();
+       String consulta = "select * from ventaminutos where codigoventa = (select max(codigoventa) from ventaminutos)";
+       Query query = em.createNativeQuery(consulta,VentaMinutos.class);
+       return query.getResultList();
+   }
 }

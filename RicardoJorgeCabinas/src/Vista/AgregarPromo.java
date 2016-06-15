@@ -372,11 +372,11 @@ public class AgregarPromo extends javax.swing.JDialog {
         
             //Creando fecha Inicial / Fecha Final---------------------
             int diaInicial = Integer.parseInt(jComboBoxDiaInicial.getSelectedItem().toString());
-            int mesInicial = Integer.parseInt(jComboBoxMesInicial.getSelectedItem().toString())-1;
+            int mesInicial = Integer.parseInt(jComboBoxMesInicial.getSelectedItem().toString());
             int anioInicial = Integer.parseInt(jComboBoxAnioInicial.getSelectedItem().toString());
         
             int diaFinal = Integer.parseInt(jComboBoxDiaFinal.getSelectedItem().toString());
-            int mesFinal = Integer.parseInt(jComboBoxMesFinal.getSelectedItem().toString())-1;
+            int mesFinal = Integer.parseInt(jComboBoxMesFinal.getSelectedItem().toString());
             int anioFinal = Integer.parseInt(jComboBoxAnioFinal.getSelectedItem().toString());
         
             Calendar calendario = Calendar.getInstance();

@@ -39,4 +39,9 @@ public class LogicaVentaMinutos {
    public List<VentaMinutos> consultaVentasCliente(String cedulaCliente){
        return controladorVenta.findVentasCliente(cedulaCliente);
    }
+   
+   //Retorna la última venta realizada
+   public List<VentaMinutos> ultimaVenta(){
+       return controladorVenta.ultimaVenta();
+   }
 }

@@ -30,4 +30,12 @@ public class LogicaAlquilerModem {
     public void modificarAlquilerModem(AlquilerModem alquilerM) throws Exception{
         alquilerModemDAO.edit(alquilerM);
     }
+    
+    public List<AlquilerModem> consultarAlquilerPromo(String cedulaCliente, String fechaInicioPromo, int codigoPromo){
+        return alquilerModemDAO.AlquilerPromo(cedulaCliente, fechaInicioPromo, codigoPromo);
+    }
+    
+    public List<AlquilerModem> consultarAlquilerCliente(String cedulaCliente){
+        return alquilerModemDAO.alquiladasCliente(cedulaCliente);
+    }
 }

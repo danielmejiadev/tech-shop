@@ -35,8 +35,9 @@ public class ClienteJpaController implements Serializable {
         Entrada: String con parámetros de búsqueda
         Salida: List<Cliente> lista de clientes que coincidan con el parámetro ingresado
     */
-    public List<Cliente> findClienteName(String nombreCliente){
-        String consulta = "SELECT * FROM cliente WHERE nombrecliente LIKE '%"+nombreCliente+"%'";
+    public List<Cliente> findClienteName(String nombreCliente, String cedulaCliente){
+        String consulta = "SELECT * FROM cliente WHERE nombrecliente LIKE '%"+nombreCliente+"%'"
+                + " and cedulacliente LIKE '%"+cedulaCliente+"%'";
         EntityManager em = getEntityManager(); 
         Query query = em.createNativeQuery(consulta,Cliente.class);
         return query.getResultList();

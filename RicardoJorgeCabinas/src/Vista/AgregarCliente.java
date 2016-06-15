@@ -235,7 +235,7 @@ public class AgregarCliente extends javax.swing.JDialog {
             c.setDireccioncliente(jTextFieldDireccionCliente.getText());
             c.setTelefonocliente(jFormattedTextFieldTelefonoCliente.getText());
             c.setCedulacliente(jFormattedTextFieldIdCliente.getText());
-        
+            c.setEstadocliente(true);
             int dia = Integer.parseInt(jComboBoxDia.getSelectedItem().toString());
             int mes = Integer.parseInt(jComboBoxMes.getSelectedItem().toString());
             int anio = Integer.parseInt(jComboBoxAnio.getSelectedItem().toString());

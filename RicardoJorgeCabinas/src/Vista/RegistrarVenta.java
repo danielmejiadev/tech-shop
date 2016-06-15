@@ -227,7 +227,11 @@ public class RegistrarVenta extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        registrarVenta();
+        try {
+            registrarVenta();
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void llenarCampos()
@@ -240,7 +244,7 @@ public class RegistrarVenta extends javax.swing.JDialog {
         campoTotalVenta.setText(venta.getCodigoplan().getPreciominuto()*venta.getMinutosfacturados()+"");
         
     }
-    public void registrarVenta()
+    public void registrarVenta() throws Exception
     {
         try {
             
@@ -257,8 +261,26 @@ public class RegistrarVenta extends javax.swing.JDialog {
         }finally
         {
             JOptionPane.showMessageDialog(null,"La venta se registro correctamente");
+            VistaAdministrador.promocionesGanadas.clear();
             this.dispose();
+            alertaPlan();
         }
+    }
+    
+    public void alertaPlan() throws Exception{
+        LogicaVentaMinutos lvm = new LogicaVentaMinutos();
+        LogicaPlanMinutos lpm = new LogicaPlanMinutos();
+        
+        VentaMinutos ultimaVenta = lvm.ultimaVenta().get(0);
+        PlanMinutos ultimoPlanUsado = lpm.consultarPlanMinutosID(ultimaVenta.getCodigoplan().getCodigoplan());
+        int minimoMinutos = ultimoPlanUsado.getCantidadminimaminutos();
+        int minutosDisponibles = ultimoPlanUsado.getCantidadminutos();
+        if(minutosDisponibles<=minimoMinutos){
+            JOptionPane.showMessageDialog(rootPane, "ADVERTENCIA!\nLos minutos de su plan: "+ultimoPlanUsado.getNombreplan()+","
+                    + " están próximos a agotarse, recuerde recargar a tiempo.");
+        }else{
+        }
+        
     }
 
 

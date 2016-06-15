@@ -38,6 +38,8 @@ public class VistaVendedor extends javax.swing.JFrame{
     int precioMinuto;
     int minutosVendidos;
     int minutosFacturados;
+    int cantidadDiasAlquilados;
+    
     static List<Promocion> promocionesGanadas = new ArrayList<>();
     
     public VistaVendedor(Usuario usuarioActivo)  
@@ -55,6 +57,7 @@ public class VistaVendedor extends javax.swing.JFrame{
         panelSeleccionModem.setVisible(true);
         alertaDevolucion();
         recargaAutomaticaPlan();
+        actualizarPromociones();
         jLabelSesion.setText("Sesión: "+usuarioActivo.getNombreusuario());
         
         LogicaCliente logicaCliente = new LogicaCliente();
@@ -90,7 +93,7 @@ public class VistaVendedor extends javax.swing.JFrame{
         campoDisponibildadModem = new javax.swing.JTextField();
         labeltituloPlanes4 = new javax.swing.JLabel();
         jLabelMulta1 = new javax.swing.JLabel();
-        jComboBoxModem = new javax.swing.JComboBox<String>();
+        jComboBoxModem = new javax.swing.JComboBox<>();
         jLabelFechaEntrega2 = new javax.swing.JLabel();
         campoConsultaClienteAlquiler = new javax.swing.JTextField();
         jLabelDisponibilidad = new javax.swing.JLabel();
@@ -275,7 +278,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -475,7 +478,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem1)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -605,6 +608,10 @@ public class VistaVendedor extends javax.swing.JFrame{
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -626,9 +633,6 @@ public class VistaVendedor extends javax.swing.JFrame{
                     .addComponent(panelDevolucionModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
-        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelMovimientosModemLayout = new javax.swing.GroupLayout(panelMovimientosModem);
         panelMovimientosModem.setLayout(panelMovimientosModemLayout);
@@ -931,6 +935,11 @@ public class VistaVendedor extends javax.swing.JFrame{
         botonActualizarTablaPromo.setContentAreaFilled(false);
         botonActualizarTablaPromo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonActualizarTablaPromo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonActualizarTablaPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarTablaPromoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPromocionesLayout = new javax.swing.GroupLayout(panelPromociones);
         panelPromociones.setLayout(panelPromocionesLayout);
@@ -1035,7 +1044,7 @@ public class VistaVendedor extends javax.swing.JFrame{
     private void botonAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarClienteActionPerformed
         AgregarCliente ac = new AgregarCliente(new VistaAdministrador(), true);
         ac.setVisible(true);
-        llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
+        llenarTablaClientes(lc.consultarClientes());
     }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
     
@@ -1089,7 +1098,16 @@ public class VistaVendedor extends javax.swing.JFrame{
         Salida: --
     */ 
     private void botonConsultarPromocionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPromocionesActionPerformed
-        llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
+        LogicaPromocion lp = new LogicaPromocion();
+        if(isNumeric(campoConsultaPromociones.getText())){
+            Promocion p = lp.consultarPromocion(Long.parseLong(campoConsultaPromociones.getText()));
+            List<Promocion> promociones = new ArrayList<>();
+            promociones.add(p);
+            llenarTablaPromociones(promociones);
+        }else{
+            llenarTablaPromociones(lp.consultarPromocion(campoConsultaPromociones.getText()));
+        }
+        campoConsultaPromociones.setText("");
     }//GEN-LAST:event_botonConsultarPromocionesActionPerformed
 
     /* Metodo para consultar un Plan de minutos de la BD y mostrar el resultado en la tabla de
@@ -1123,11 +1141,21 @@ public class VistaVendedor extends javax.swing.JFrame{
     }//GEN-LAST:event_botonConsultarPlanesActionPerformed
 
     private void botonConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarClienteActionPerformed
-        llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText()));
+        LogicaCliente lc = new LogicaCliente();
+        String campoCOnsultaCliente = campoConsultaCliente.getText();
+        
+        if(isNumeric(campoCOnsultaCliente)){
+            llenarTablaClientes(lc.consultarClientes("",campoConsultaCliente.getText()));
+
+        }else{
+            llenarTablaClientes(lc.consultarClientes(campoConsultaCliente.getText(), ""));
+        }
+        campoConsultaCliente.setText("");
     }//GEN-LAST:event_botonConsultarClienteActionPerformed
 
     private void botonActualizarTablaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaClientesActionPerformed
-        // TODO add your handling code here:
+       LogicaCliente lc = new LogicaCliente();
+       llenarTablaClientes(lc.consultarClientes());
     }//GEN-LAST:event_botonActualizarTablaClientesActionPerformed
 
     private void campoDisponibildadModemcampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {                                                                        
@@ -1292,6 +1320,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                 //int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
                 int preciodia = Integer.parseInt(campoPrecioAlquiler.getText());
                 int totalPagar = preciodia*cantidadDias;
+                cantidadDiasAlquilados = cantidadDias;
                 AlquilerModem alquilerModem = new AlquilerModem();
                 UsbModem usbModem = new UsbModem();
                 Cliente clienteAlquiler = new Cliente();
@@ -1373,9 +1402,38 @@ public class VistaVendedor extends javax.swing.JFrame{
                         + "¿Son correctos los datos?");
 
                     if(opcion==0){
+                        
+                        validarPromocionAlquiler(clienteAlquiler.getCedulacliente());
+                        if(!promocionesGanadas.isEmpty()){
+                            if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadasAlquiler(promocionesGanadas)+""
+                                    + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
+
+                                    int totalBeneficios=0;
+                                    for (int i = 0; i < promocionesGanadas.size(); i++) {
+                                        totalBeneficios += promocionesGanadas.get(i).getBeneficio();
+                                    }
+
+                                if (cantidadDiasAlquilados >= totalBeneficios) {
+                                    totalPagar -= preciodia * totalBeneficios;
+                                } else {
+                                    totalPagar = 0;
+                                }
+                                if(!promocionesGanadas.isEmpty()){
+                                     alquilerModem.setPromocionList(promocionesGanadas);
+                                }else{
+                                    //No hay promociones para esta venta
+                                } 
+                            }else{
+                                //No gastó la promoción
+                            }
+                        }else{
+                           //No ha ganado promociones
+                        }
+                        
                         JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
                         LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
                         logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
+                        promocionesGanadas.clear();
                         codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
                         //UsbModem modemReserva = lum.consultarModemCodigo(codigoModem);
                         usbModem.setDisponibilidad("Alquilado");
@@ -1602,7 +1660,7 @@ public class VistaVendedor extends javax.swing.JFrame{
                             validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
                         } else {
                         }
-
+                        VentaMinutos venta = new VentaMinutos();   
                         if(!promocionesGanadas.isEmpty()){
                             if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
                                     + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
@@ -1618,6 +1676,12 @@ public class VistaVendedor extends javax.swing.JFrame{
                                     minutosVendidos = totalBeneficios;
                                     minutosFacturados=0;
                                 }
+                                
+                                if(!promocionesGanadas.isEmpty()){
+                                     venta.setPromocionList(promocionesGanadas);
+                                }else{
+                                    //No hay promociones para esta venta
+                                }
                             }else{
                                 minutosFacturados=minutosVendidos;
                             }
@@ -1625,12 +1689,6 @@ public class VistaVendedor extends javax.swing.JFrame{
                            minutosFacturados=minutosVendidos; 
                         }
 
-                        VentaMinutos venta = new VentaMinutos();
-                        if(!promocionesGanadas.isEmpty()){
-                             venta.setPromocionList(promocionesGanadas);
-                        }else{
-                            //No hay promociones para esta venta
-                        }
                         venta.setCedulacliente(clienteVenta);
                         venta.setCedulausuario(usuarioActivo);
                         venta.setCodigoplan(planVenta);
@@ -1646,6 +1704,12 @@ public class VistaVendedor extends javax.swing.JFrame{
             }
         }       
     }//GEN-LAST:event_botonRegistrarVentaActionPerformed
+
+    private void botonActualizarTablaPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarTablaPromoActionPerformed
+        LogicaPromocion lp = new LogicaPromocion();
+        llenarTablaPromociones(lp.consultarPromociones());
+        campoConsultaPromociones.setText("");
+    }//GEN-LAST:event_botonActualizarTablaPromoActionPerformed
     
     /* Método para llenar la tabla con los registros de la consulta que se haga a la BD.
        Entrada: lista de objetos de tipo planes minutos 
@@ -1773,8 +1837,12 @@ public class VistaVendedor extends javax.swing.JFrame{
            fila[2]=listaClientes.get(i).getDireccioncliente();
            fila[3]=listaClientes.get(i).getCorreocliente();
            fila[4]=listaClientes.get(i).getCedulacliente();
-           fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
-           s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+           try {
+                fecha.setTimeInMillis(listaClientes.get(i).getFechanacimientocliente().getTime());
+                s= fecha.get(Calendar.DAY_OF_MONTH) +"-"+ (fecha.get(Calendar.MONTH)+1) +"-"+fecha.get(Calendar.YEAR);
+            } catch (java.lang.NullPointerException e) {
+                s="";
+            }
            fila[5]=s;
            if(listaClientes.get(i).getEstadocliente()){
                estado = "Activo";
@@ -2047,7 +2115,7 @@ public class VistaVendedor extends javax.swing.JFrame{
     public  void validarPromocion(String cedulaCliente, int minutosVendidos){
         LogicaPromocion lp = new LogicaPromocion();
         LogicaVentaMinutos lvm = new LogicaVentaMinutos();
-        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas(); //Lista de promociones activas
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas("Venta Minutos"); //Lista de promociones activas
         
         
         for (int i = 0; i < promocionesActivas.size(); i++) {
@@ -2091,14 +2159,65 @@ public class VistaVendedor extends javax.swing.JFrame{
         
     }
     
+    public void validarPromocionAlquiler(String cedulaCliente){
+        LogicaPromocion lp = new LogicaPromocion();
+        LogicaAlquilerModem lam = new LogicaAlquilerModem();
+        List<Promocion> promocionesActivas = lp.consultarPromocionesActivas("Alquiler Modem"); //Lista de promociones activas
+        
+        
+        for (int i = 0; i < promocionesActivas.size(); i++) {
+            int condicion = promocionesActivas.get(i).getCondicion() - cantidadDiasAlquilados;
+            int codigoPromo = Integer.parseInt(promocionesActivas.get(i).getCodigopromocion()+"");
+            String fechaInicioPromo = calcularFechaPromo(promocionesActivas.get(i)); //Fecha inicial de la promoción i
+            
+            //Lista que trae el último alquiler en el que se ganó una promoción
+            List<AlquilerModem> alquilerConPromoGanada = lam.consultarAlquilerPromo(cedulaCliente, fechaInicioPromo, codigoPromo);
+
+            
+            List<AlquilerModem> alquileresDelCliente = lam.consultarAlquilerCliente(cedulaCliente);
+            //Si se encuentra una promoción que ya ha sido ganada, se cuentan los días a partir del último alquiler que tuvo la promoción
+           
+            if(!alquilerConPromoGanada.isEmpty()){
+                promocionesActivas.get(i).setFechainiciopromocion(alquilerConPromoGanada.get(0).getFechainicioalquiler());
+                fechaInicioPromo = calcularFechaPromoPost(promocionesActivas.get(i));//Recalculando la fecha a partir de la cual se empiezan a contar los minutos para ganar promoción
+//                System.out.println("Ya se ganó esa promoción, nueva fecha = "+ fechaInicioPromo);
+                alquileresDelCliente.clear();
+            }else{
+//                System.out.println("No se ha ganado la promoción anteriormente");
+            }
+            
+            //Se calcúla si las alquiladas de ese cliente cumplen con la condición de la promoción
+            if(alquilerGanador(alquileresDelCliente, condicion)){
+                if(!promocionesGanadas.contains(promocionesActivas.get(i))){
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                }else{
+//                    System.out.println("La promoción ya está contenida en la lista de promocionesGanadas");
+                    //La promoción ya está contenida en la lista de promocionesGanadas
+                }
+                
+            }else{
+                List<AlquilerModem> alquilerCliente = lam.consultarAlquilerCliente(cedulaCliente);
+                if (alquilerCliente.isEmpty() && cantidadDiasAlquilados >= promocionesActivas.get(i).getCondicion()) {
+//                    System.out.println("El cliente cumple la condición en su primera venta");
+                    promocionesGanadas.add(promocionesActivas.get(i));
+                } else {
+//                    System.out.println("No cumple la condición para ganar la promoción I");
+                }
+//                System.out.println("No cumple la condición para ganar la promoción II");
+                //No cumple la condición para ganar la promoción
+            }
+        }
+        
+    }
+    
     public String mostrarPromocionesGanadas(List<Promocion> listaPromo){
-        String s ="PROMOCIONES GANADAS!!\n";
+        String s ="PROMOCIONES GANADAS \n\n";
         int totalBeneficios =0;
         for (int i = 0; i < listaPromo.size(); i++) {
-            s += listaPromo.get(i).getDescripcion()+" Beneficio: "+listaPromo.get(i).getBeneficio()+" minutos GRATIS!\n";
+            s +="->"+ listaPromo.get(i).getDescripcion()+" ("+listaPromo.get(i).getBeneficio()+")\n";
             totalBeneficios += listaPromo.get(i).getBeneficio();
         }
-        s+="Total Minutos de Promociones = "+ totalBeneficios;
+        s+="\nTotal minutos gratis = " + totalBeneficios+"\n";
         return s;
     }
     
@@ -2151,6 +2270,40 @@ public class VistaVendedor extends javax.swing.JFrame{
 //        System.out.print("Fecha modificada pal otro día: "+fechaPromocion+"\n");
         return fechaPromocion;
     }
+    
+    public boolean alquilerGanador(List<AlquilerModem> listaAlquileres, int condicionPromo){
+        boolean b=false;
+        int acumulado=0;
+        Date fechaInicioALquiler, fechaFinAlquiler;
+
+        for (int i = 0; i < listaAlquileres.size(); i++) {
+            fechaInicioALquiler = listaAlquileres.get(i).getFechainicioalquiler();
+            fechaFinAlquiler = listaAlquileres.get(i).getFechadevolucion();
+            Date diferencia = new Date(fechaFinAlquiler.getTime()-fechaInicioALquiler.getTime());
+            acumulado += diferencia.getDay();
+
+            if(acumulado>=condicionPromo){
+                b = true;
+                i=listaAlquileres.size();
+            }else{
+                //No cumple con la condición.
+            }
+        }
+        return b;
+    }
+    
+    public String mostrarPromocionesGanadasAlquiler(List<Promocion> listaPromo){
+        String s ="PROMOCIONES GANADAS \n\n";
+        int totalBeneficios =0;
+        for (int i = 0; i < listaPromo.size(); i++) {
+            s +="->"+ listaPromo.get(i).getDescripcion()+" ("+listaPromo.get(i).getBeneficio()+")\n";
+            totalBeneficios += listaPromo.get(i).getBeneficio();
+        }
+        s+="\nTotal días gratis = " + totalBeneficios+"\n";
+        return s;
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarTablaModems;
