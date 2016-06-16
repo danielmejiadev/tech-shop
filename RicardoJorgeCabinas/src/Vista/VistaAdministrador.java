@@ -1,4 +1,4 @@
-    package Vista;
+package Vista;
 
 import Logica.LogicaAlquilerModem;
 import Logica.LogicaCliente;
@@ -39,14 +39,14 @@ public class VistaAdministrador extends javax.swing.JFrame{
     public Usuario usuarioActivo;
     LogicaUsbModem lum = new LogicaUsbModem();
     List<UsbModem> modems = lum.consultarModems();
-    Cliente clienteVenta;
+    public static Cliente clienteVenta;
     Cliente clienteAlquiler;
     PlanMinutos planVenta;
     int precioMinuto;
     int minutosVendidos;
     int minutosFacturados;
     int cantidadDiasAlquilados;
-    static List<Promocion> promocionesGanadas = new ArrayList<>();
+    public static List<Promocion> promocionesGanadas = new ArrayList<>();
     
     public VistaAdministrador(Usuario usuarioActivo)  
     {
@@ -71,11 +71,12 @@ public class VistaAdministrador extends javax.swing.JFrame{
         clienteVenta=logicaCliente.consultarCliente("default");
         campoConsultaClienteVenta.setText(clienteVenta.getCedulacliente());
     }
-    public VistaAdministrador(){
+    
+    public VistaAdministrador()
+    {
         
     }
-    
-  
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -102,7 +103,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
         campoDisponibildadModem = new javax.swing.JTextField();
         labeltituloPlanes3 = new javax.swing.JLabel();
         jLabelMulta = new javax.swing.JLabel();
-        jComboBoxModem = new javax.swing.JComboBox<>();
+        jComboBoxModem = new javax.swing.JComboBox<String>();
         jLabelFechaEntrega = new javax.swing.JLabel();
         campoConsultaClienteAlquiler = new javax.swing.JTextField();
         jLabelDisponibilidad = new javax.swing.JLabel();
@@ -343,7 +344,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelSeleccionModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAlquilerModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonDevolucionModem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         panelAlquilarModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -354,11 +355,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelModem.setText("Modem");
 
         campoDisponibildadModem.setEditable(false);
-        campoDisponibildadModem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoDisponibildadModemcampoMinutosVendidosFocusGained(evt);
-            }
-        });
 
         labeltituloPlanes3.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         labeltituloPlanes3.setForeground(new java.awt.Color(162, 146, 146));
@@ -367,7 +363,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
         jLabelMulta.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabelMulta.setForeground(new java.awt.Color(162, 146, 146));
-        jLabelMulta.setText("Multa $");
+        jLabelMulta.setText("Multa por dia$");
 
         jComboBoxModem.setToolTipText("");
         jComboBoxModem.addActionListener(new java.awt.event.ActionListener() {
@@ -380,10 +376,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
         jLabelFechaEntrega.setForeground(new java.awt.Color(162, 146, 146));
         jLabelFechaEntrega.setText("Fecha Entrega");
 
+        campoConsultaClienteAlquiler.setText("default");
         campoConsultaClienteAlquiler.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoConsultaClienteAlquilercampoMinutosVendidosFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoConsultaClienteAlquilerFocusLost(evt);
             }
@@ -395,9 +389,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
 
         campoCantidadDias.setText("0");
         campoCantidadDias.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoCantidadDiascampoMinutosVendidosFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 campoCantidadDiasFocusLost(evt);
             }
@@ -436,11 +427,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         });
 
         campoPrecioAlquiler1.setEditable(false);
-        campoPrecioAlquiler1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoPrecioAlquiler1campoMinutosVendidosFocusGained(evt);
-            }
-        });
         campoPrecioAlquiler1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoPrecioAlquiler1ActionPerformed(evt);
@@ -543,7 +529,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addGroup(panelAlquilarModemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonRegistrarAlquilerModem)
                     .addComponent(botonAtrasAlquiler1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelDevolucionModem.setBackground(new java.awt.Color(255, 255, 255));
@@ -673,10 +659,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -698,6 +680,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
                     .addComponent(panelDevolucionModem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
+        jLayeredPane1.setLayer(panelSeleccionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAlquilarModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelDevolucionModem, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelMovimientosModemLayout = new javax.swing.GroupLayout(panelMovimientosModem);
         panelMovimientosModem.setLayout(panelMovimientosModemLayout);
@@ -2046,11 +2031,30 @@ public class VistaAdministrador extends javax.swing.JFrame{
                                 null,
                                 null,
                                 null);
+                campoConsultaClienteVenta.setText(clienteVenta.getCedulacliente());
             }
             else
             { 
-                clienteVenta=clienteVentaAuxiliar;
-                campoConsultaClienteVenta.setText(clienteVentaAuxiliar.getCedulacliente());
+                if(!clienteVentaAuxiliar.getEstadocliente())
+                {
+                    seleccion = JOptionPane.showOptionDialog(
+                                null,
+                                "El cliente esta inactivo, ¿Desea elegir el cliente default?", 
+                                "Cliente Invalido",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                null,
+                                null);
+                    
+                    campoConsultaClienteVenta.setText(clienteVenta.getCedulacliente());
+
+                }
+                else
+                {
+                    clienteVenta=clienteVentaAuxiliar;
+                    campoConsultaClienteVenta.setText(clienteVentaAuxiliar.getCedulacliente());
+                }
             }
            
             if(seleccion==JOptionPane.YES_OPTION)
@@ -2079,25 +2083,31 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         precioMinuto=planVenta.getPreciominuto();
                  
                         if (!clienteVenta.getCedulacliente().equals("default")) {
-                            validarPromocionVenta(clienteVenta.getCedulacliente(), minutosVendidos);
+                            validarPromocion(clienteVenta.getCedulacliente(), minutosVendidos);
                         } else {
                         }
                         VentaMinutos venta = new VentaMinutos();
                         if(!promocionesGanadas.isEmpty()){
-                            if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadas(promocionesGanadas)+""
-                                    + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
-
+                            if(JOptionPane.showOptionDialog(
+                                panelModems,
+                                mostrarPromocionesGanadas(promocionesGanadas)+""+ "\nDesea Gastar la promoción?",
+                                "Promociones",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                null,
+                                null)==JOptionPane.YES_OPTION){
                                     int totalBeneficios=0;
-                                    for (int i = 0; i < promocionesGanadas.size(); i++) {
-                                        totalBeneficios += promocionesGanadas.get(i).getBeneficio();
-                                    }
+                                for (Promocion promocionesGanada : promocionesGanadas) {
+                                    totalBeneficios += promocionesGanada.getBeneficio();
+                                }
 
                                 if (minutosVendidos >= totalBeneficios) {
                                     minutosFacturados=minutosVendidos-totalBeneficios;
                                 } else {
                                     minutosVendidos = totalBeneficios;
                                     minutosFacturados=0;
-                                };
+                                }
                                 if(!promocionesGanadas.isEmpty()){
                                      venta.setPromocionList(promocionesGanadas);
                                 }else{
@@ -2118,25 +2128,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
                         venta.setMinutosvendidos(minutosVendidos);
                         venta.setFechaventa(new Date());
 
-                        RegistrarVenta registroVenta = new RegistrarVenta(this,false, venta);
+                        RegistrarVenta registroVenta = new RegistrarVenta(this,false,venta,true);
                         registroVenta.setVisible(true);
                     }
                 }
             }
         }       
     }//GEN-LAST:event_botonRegistrarVentaActionPerformed
-
-    private void campoDisponibildadModemcampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoDisponibildadModemcampoMinutosVendidosFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoDisponibildadModemcampoMinutosVendidosFocusGained
-
-    private void campoConsultaClienteAlquilercampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoConsultaClienteAlquilercampoMinutosVendidosFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoConsultaClienteAlquilercampoMinutosVendidosFocusGained
-
-    private void campoCantidadDiascampoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCantidadDiascampoMinutosVendidosFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoCantidadDiascampoMinutosVendidosFocusGained
 
     /*
     Metodo para llenar el JComboBox de modem para el modulo de alquiler de modems
@@ -2172,8 +2170,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }else{
                 Color verde = new Color(170, 255, 170);
             campoConsultaClienteAlquiler.setBackground(verde);
-            //JOptionPane.showMessageDialog(null, "Cliente verificado");
-            //campoConsultaClienteAlquiler.setEditable(false);
             }
     }//GEN-LAST:event_campoConsultaClienteAlquilerFocusLost
 
@@ -2188,7 +2184,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     Salida: Ninguna
     */
     private void campoCantidadDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoCantidadDiasFocusLost
-        // TODO add your handling code here:
         int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
         Calendar calendario = Calendar.getInstance();
                 calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
@@ -2264,10 +2259,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_jButtonRecargarActionPerformed
 
-    private void campoPrecioAlquiler1campoMinutosVendidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoPrecioAlquiler1campoMinutosVendidosFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPrecioAlquiler1campoMinutosVendidosFocusGained
-
     private void campoPrecioAlquiler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecioAlquiler1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoPrecioAlquiler1ActionPerformed
@@ -2280,177 +2271,186 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private void botonRegistrarAlquilerModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarAlquilerModemActionPerformed
         String textoCantidadDias = campoCantidadDias.getText();
         String textoPrecioMulta = campoPrecioMulta1.getText();
-        if(isNumeric(textoCantidadDias) || isNumeric(textoPrecioMulta)){
-           int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
-           cantidadDiasAlquilados = cantidadDias;
-        if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler1.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Hay campos vacíos");
-        }else if(cantidadDias == 0){
-            JOptionPane.showMessageDialog(null, "Cantidad días no puede ser cero");
-        }else{
-            try {
-                //int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
-                int preciodia = Integer.parseInt(campoPrecioAlquiler1.getText());
-                int totalPagar = preciodia*cantidadDias;
-                AlquilerModem alquilerModem = new AlquilerModem();
-                UsbModem usbModem = new UsbModem();
-                Cliente clienteAlquiler = new Cliente();
-                LogicaCliente logicaCliente = new LogicaCliente();
-                clienteAlquiler = logicaCliente.consultarCliente(campoConsultaClienteAlquiler.getText());
-                alquilerModem.setCedulacliente(clienteAlquiler);
-                alquilerModem.setCedulausuario(usuarioActivo);
-                Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
-                usbModem = lum.consultarModemCodigo(codigoModem);
-                alquilerModem.setCodigomodem(usbModem);
-                Date fechaActual = new Date();
-                alquilerModem.setFechainicioalquiler(fechaActual);
-                Calendar calendario = Calendar.getInstance();
-                calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
-                Date fechaEntrega = new Date(calendario.getTimeInMillis());
-                int dia = fechaEntrega.getDate();
-                int mes = fechaEntrega.getMonth();
-                int anio = fechaEntrega.getYear();
-                String elMes = "";
-                switch(mes){
-                    case 0:
-                    elMes = "Enero";
-                    break;
-                    case 1:
-                    elMes = "Febrero";
-                    break;
-                    case 2:
-                    elMes = "Marzo";
-                    break;
-                    case 3:
-                    elMes = "Abril";
-                    break;
-                    case 4:
-                    elMes = "Mayo";
-                    break;
-                    case 5:
-                    elMes = "Junio";
-                    break;
-                    case 6:
-                    elMes = "Julio";
-                    break;
-                    case 7:
-                    elMes = "Agosto";
-                    break;
-                    case 8:
-                    elMes = "Septiembre";
-                    break;
-                    case 9:
-                    elMes = "Octubre";
-                    break;
-                    case 10:
-                    elMes = "Noviembre";
-                    break;
-                    case 11:
-                    elMes = "Diciembre";
-                    break;
-                }
-                String laFecha = dia+"/"+elMes+"/"+(anio+1900);
-                jLabelEntregaAlquiler.setText(laFecha);
-                alquilerModem.setFechafinalquiler(fechaEntrega);
-                int multa = Integer.parseInt(campoPrecioMulta1.getText());
-                alquilerModem.setMulta(multa);
-                alquilerModem.setPreciodia(preciodia);
-                Date fechaDevolucion = new Date();
-                fechaDevolucion.setDate(0);
-                fechaDevolucion.setMonth(0);
-                fechaDevolucion.setYear(0);
-                alquilerModem.setFechadevolucion(fechaDevolucion);
-
-                if(campoDisponibildadModem.getText().equals("Disponible") || campoDisponibildadModem.getText().equals("Reservado")){
-                    int opcion = JOptionPane.showConfirmDialog(null, "Datos registro alquiler\n"
-                        + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
-                        + "Modem: "+usbModem.getNombremodem()+"\n"
-                        + "Días alquiler: "+cantidadDias+"\n"
-                        + "Fecha Entrega: "+fechaEntrega.getDate()+"/"+(fechaEntrega.getMonth()+1)+"/"+(fechaEntrega.getYear()+1900)+"\n"
-                        + "Precio por día: "+preciodia+"\n"
-                        + "Multa: "+multa+"\n"
-                        + "Total a pagar: "+totalPagar+"\n"
-                        + "¿Son correctos los datos?");
-
-                    if(opcion==0){
-                        
-                        validarPromocionAlquiler(clienteAlquiler.getCedulacliente());
-                        if(!promocionesGanadas.isEmpty()){
-                            if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadasAlquiler(promocionesGanadas)+""
-                                    + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
-
-                                    int totalBeneficios=0;
-                                    for (int i = 0; i < promocionesGanadas.size(); i++) {
-                                        totalBeneficios += promocionesGanadas.get(i).getBeneficio();
-                                    }
-
-                                if (cantidadDiasAlquilados >= totalBeneficios) {
-                                    totalPagar -= preciodia * totalBeneficios;
-                                } else {
-                                    totalPagar = 0;
-                                }
-                                if(!promocionesGanadas.isEmpty()){
-                                     alquilerModem.setPromocionList(promocionesGanadas);
-                                }else{
-                                    //No hay promociones para esta venta
-                                } 
-                            }else{
-                                //No gastó la promoción
-                            }
-                        }else{
-                           //No ha ganado promociones
+        if(isNumeric(textoCantidadDias) || isNumeric(textoPrecioMulta))
+        {
+            int cantidadDias = Integer.parseInt(campoCantidadDias.getText());
+            cantidadDiasAlquilados = cantidadDias;
+            int multa = Integer.parseInt(campoPrecioMulta1.getText());
+            
+            if(campoConsultaClienteAlquiler.getText().isEmpty() || campoCantidadDias.getText().isEmpty() || campoPrecioAlquiler1.getText().isEmpty() || campoPrecioMulta1.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Hay campos vacíos");
+            }else if(cantidadDias <= 0 || multa < 0){
+                JOptionPane.showMessageDialog(null, "Cantidad días o valor de multa no permitido");
+            }else{
+                try {
+                    int preciodia = Integer.parseInt(campoPrecioAlquiler1.getText());
+                    int totalPagar = preciodia*cantidadDias;
+                    AlquilerModem alquilerModem = new AlquilerModem();
+                    UsbModem usbModem = new UsbModem();
+                    Cliente clienteAlquiler = new Cliente();
+                    LogicaCliente logicaCliente = new LogicaCliente();
+                    clienteAlquiler = logicaCliente.consultarCliente(campoConsultaClienteAlquiler.getText());
+                    if(!clienteAlquiler.getEstadocliente())
+                    {
+                        JOptionPane.showMessageDialog(null,"El cliente se encuentra inactivo");
+                    }
+                    else
+                    {
+                        alquilerModem.setCedulacliente(clienteAlquiler);
+                        alquilerModem.setCedulausuario(usuarioActivo);
+                        Long codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+                        usbModem = lum.consultarModemCodigo(codigoModem);
+                        alquilerModem.setCodigomodem(usbModem);
+                        Date fechaActual = new Date();
+                        alquilerModem.setFechainicioalquiler(fechaActual);
+                        Calendar calendario = Calendar.getInstance();
+                        calendario.add(Calendar.DAY_OF_MONTH, cantidadDias);
+                        Date fechaEntrega = new Date(calendario.getTimeInMillis());
+                        int dia = fechaEntrega.getDate();
+                        int mes = fechaEntrega.getMonth();
+                        int anio = fechaEntrega.getYear();
+                        String elMes = "";
+                        switch(mes){
+                            case 0:
+                            elMes = "Enero";
+                            break;
+                            case 1:
+                            elMes = "Febrero";
+                            break;
+                            case 2:
+                            elMes = "Marzo";
+                            break;
+                            case 3:
+                            elMes = "Abril";
+                            break;
+                            case 4:
+                            elMes = "Mayo";
+                            break;
+                            case 5:
+                            elMes = "Junio";
+                            break;
+                            case 6:
+                            elMes = "Julio";
+                            break;
+                            case 7:
+                            elMes = "Agosto";
+                            break;
+                            case 8:
+                            elMes = "Septiembre";
+                            break;
+                            case 9:
+                            elMes = "Octubre";
+                            break;
+                            case 10:
+                            elMes = "Noviembre";
+                            break;
+                            case 11:
+                            elMes = "Diciembre";
+                            break;
                         }
-                        
-                        JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
-                        LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
-                        logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
-                        promocionesGanadas.clear();
-                        codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
-                        //UsbModem modemReserva = lum.consultarModemCodigo(codigoModem);
-                        usbModem.setDisponibilidad("Alquilado");
-                        lum.modificarModem(usbModem);
-                        cantidadDiasAlquilados =0;
-                        
-                        campoConsultaClienteAlquiler.setText("");
-                        campoConsultaClienteAlquiler.setEditable(true);
-                        campoConsultaClienteAlquiler.setBackground(Color.white);
-                        campoCantidadDias.setText("");
-                        panelDevolucionModem.setVisible(false);
-                        panelAlquilarModem.setVisible(false);
-                        panelSeleccionModem.setVisible(true);
-                    }else if(opcion ==1){
-                        JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
-                    }
-                }else if(campoDisponibildadModem.getText().equals("Alquilado")){
-                    int opcion = JOptionPane.showConfirmDialog(null, "El modem se encuentra alquilado \n"
-                        + "¿Desea reservarlo?");
-                    if(opcion ==0){
-                        //                        codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
-                        //                        UsbModem modemReserva = lum.consultarModemCodigo(codigoModem);
-                        usbModem.setDisponibilidad("Alquilado-Reservado");
-                        lum.modificarModem(usbModem);
+                        String laFecha = dia+"/"+elMes+"/"+(anio+1900);
+                        jLabelEntregaAlquiler.setText(laFecha);
+                        alquilerModem.setFechafinalquiler(fechaEntrega);
 
-                        campoConsultaClienteAlquiler.setText("");
-                        campoConsultaClienteAlquiler.setEditable(true);
-                        campoConsultaClienteAlquiler.setBackground(Color.white);
-                        campoDisponibildadModem.setText("");
-                        campoCantidadDias.setText("");
-                        campoPrecioAlquiler1.setText("");
-                        campoPrecioMulta1.setText("");
-                    }else if(opcion ==1){
-                        JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
+                        alquilerModem.setMulta(multa);
+                        alquilerModem.setPreciodia(preciodia);
+                        Date fechaDevolucion = new Date();
+                        fechaDevolucion.setDate(0);
+                        fechaDevolucion.setMonth(0);
+                        fechaDevolucion.setYear(0);
+                        alquilerModem.setFechadevolucion(fechaDevolucion);
+
+                        if(campoDisponibildadModem.getText().equals("Disponible") || campoDisponibildadModem.getText().equals("Reservado")){
+                            int opcion = JOptionPane.showConfirmDialog(null, "Datos registro alquiler\n"
+                                + "Cliente: "+clienteAlquiler.getCedulacliente()+"\n"
+                                + "Modem: "+usbModem.getNombremodem()+"\n"
+                                + "Días alquiler: "+cantidadDias+"\n"
+                                + "Fecha Entrega: "+fechaEntrega.getDate()+"/"+(fechaEntrega.getMonth()+1)+"/"+(fechaEntrega.getYear()+1900)+"\n"
+                                + "Precio por día: "+preciodia+"\n"
+                                + "Multa: "+multa+"\n"
+                                + "Total a pagar: "+totalPagar+"\n"
+                                + "¿Son correctos los datos?");
+
+                            if(opcion==0){
+
+                                validarPromocionAlquiler(clienteAlquiler.getCedulacliente());
+                                if(!promocionesGanadas.isEmpty()){
+                                    if(JOptionPane.showConfirmDialog(panelModems, mostrarPromocionesGanadasAlquiler(promocionesGanadas)+""
+                                            + "\nDesea Gastar la promoción?")==JOptionPane.YES_OPTION){
+
+                                            int totalBeneficios=0;
+                                            for (int i = 0; i < promocionesGanadas.size(); i++) {
+                                                totalBeneficios += promocionesGanadas.get(i).getBeneficio();
+                                            }
+
+                                        if (cantidadDiasAlquilados >= totalBeneficios) {
+                                            totalPagar -= preciodia * totalBeneficios;
+                                        } else {
+                                            totalPagar = 0;
+                                        }
+                                        if(!promocionesGanadas.isEmpty()){
+                                             alquilerModem.setPromocionList(promocionesGanadas);
+                                        }else{
+                                            //No hay promociones para esta venta
+                                        } 
+                                    }else{
+                                        //No gastó la promoción
+                                    }
+                                }else{
+                                   //No ha ganado promociones
+                                }
+
+                                JOptionPane.showMessageDialog(null, "El valor a pagar es: "+totalPagar);
+                                LogicaAlquilerModem logicaAlquilerModem = new LogicaAlquilerModem();
+                                logicaAlquilerModem.registrarAlquilerModem(alquilerModem);
+                                promocionesGanadas.clear();
+                                codigoModem = Long.parseLong(jComboBoxModem.getSelectedItem().toString().split(" ")[0]);
+                                usbModem.setDisponibilidad("Alquilado");
+                                lum.modificarModem(usbModem);
+                                cantidadDiasAlquilados =0;
+
+                                campoConsultaClienteAlquiler.setText("");
+                                campoConsultaClienteAlquiler.setEditable(true);
+                                campoConsultaClienteAlquiler.setBackground(Color.white);
+                                campoCantidadDias.setText("");
+                                panelDevolucionModem.setVisible(false);
+                                panelAlquilarModem.setVisible(false);
+                                panelSeleccionModem.setVisible(true);
+
+
+                            }else if(opcion ==1){
+                                JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
+                            }
+                        }else if(campoDisponibildadModem.getText().equals("Alquilado")){
+                            int opcion = JOptionPane.showConfirmDialog(null, "El modem se encuentra alquilado \n"
+                                + "¿Desea reservarlo?");
+                            if(opcion ==0){
+                                usbModem.setDisponibilidad("Alquilado-Reservado");
+                                lum.modificarModem(usbModem);
+
+                                campoConsultaClienteAlquiler.setText("");
+                                campoConsultaClienteAlquiler.setEditable(true);
+                                campoConsultaClienteAlquiler.setBackground(Color.white);
+                                campoDisponibildadModem.setText("");
+                                campoCantidadDias.setText("");
+                                campoPrecioAlquiler1.setText("");
+                                campoPrecioMulta1.setText("");
+                            }else if(opcion ==1){
+                                JOptionPane.showMessageDialog(null, "Por favor, verifique los datos para registro del alquiler");
+                            }
+                        }else if(campoDisponibildadModem.getText().equals("Alquilado-Reservado")){
+                            JOptionPane.showMessageDialog(null, "El modem ya se encuentra reservado, por favor seleccione otro modem");
+                        }
+                        llenarTablaModemsAlquilados();
+                    
                     }
-                }else if(campoDisponibildadModem.getText().equals("Alquilado-Reservado")){
-                    JOptionPane.showMessageDialog(null, "El modem ya se encuentra reservado, por favor seleccione otro modem");
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
                 }
-                llenarTablaModemsAlquilados();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                //JOptionPane.showMessageDialog(null, "No se pudo registrar alquiler \n-Hay campos vacíos\n-Error de sistema\nIntentar de nuevo");
-            }
-        } 
+            } 
         }else{
-            JOptionPane.showMessageDialog(null, "Los campos cantidad días y multa deben ser numéricos");
+                JOptionPane.showMessageDialog(null, "Los campos cantidad días y multa deben ser numéricos");
         }
         
     }//GEN-LAST:event_botonRegistrarAlquilerModemActionPerformed
@@ -2482,41 +2482,46 @@ public class VistaAdministrador extends javax.swing.JFrame{
     */
     private void botonDevolverModemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolverModemActionPerformed
         if(tablaModemsAlquilados.getSelectedRow()<0){
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un modem de la tabla");
-        }else{
-            Long cod = Long.parseLong(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),0).toString());
-            LogicaAlquilerModem lam = new LogicaAlquilerModem();
-            AlquilerModem alquilerDev = lam.consultaAlquilerModemCod(cod);
-            
-            int opcion = JOptionPane.showConfirmDialog(panelModems, "¿Desea realizar la devolución del modem \n"+
-                            alquilerDev.getCodigomodem().getNombremodem()+
-                            " alquilado por el cliente"+alquilerDev.getCedulacliente().getNombrecliente()+"?");
-            
-            if(opcion==0){
-                try {
-                    Date fechaActual = new Date();
-                    alquilerDev.setFechadevolucion(fechaActual);
-                    alquilerDev.setMulta(Integer.parseInt(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),5).toString()));
+           JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un modem de la tabla");
+       }else{
+           Long cod = Long.parseLong(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),0).toString());
+           LogicaAlquilerModem lam = new LogicaAlquilerModem();
+           AlquilerModem alquilerDev = lam.consultaAlquilerModemCod(cod);
+           
+           int opcion = JOptionPane.showConfirmDialog(panelModems, "¿Desea realizar la devolución del modem \n"+
+                           alquilerDev.getCodigomodem().getNombremodem()+
+                           " alquilado por el cliente "+alquilerDev.getCedulacliente().getNombrecliente()+"?");
+           
+           if(opcion==0){
+               try {
+                   Date fechaActual = new Date();
+                   alquilerDev.setFechadevolucion(fechaActual);
+                   alquilerDev.setMulta(Integer.parseInt(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),5).toString()));
+                  
+                   lam.modificarAlquilerModem(alquilerDev);
                    
-                    lam.modificarAlquilerModem(alquilerDev);
-                    
-                    UsbModem modemDevolucion = alquilerDev.getCodigomodem(); 
-                    switch (modemDevolucion.getDisponibilidad()) {
-                        case "Alquilado":
-                            modemDevolucion.setDisponibilidad("Disponible");
-                            break;
-                        case "Alquilado-Reservado":
-                            modemDevolucion.setDisponibilidad("Reservado");
-                            break;
-                    }
-                      
-                    lum.modificarModem(modemDevolucion);
-                    llenarTablaModemsAlquilados();
-                } catch (Exception ex) {
-                    Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+                   UsbModem modemDevolucion = alquilerDev.getCodigomodem(); 
+                   switch (modemDevolucion.getDisponibilidad()) {
+                       case "Alquilado":
+                           modemDevolucion.setDisponibilidad("Disponible");
+                           break;
+                       case "Alquilado-Reservado":
+                           modemDevolucion.setDisponibilidad("Reservado");
+                           break;
+                   }
+                   
+                   int multa = Integer.parseInt(tablaModemsAlquilados.getValueAt(tablaModemsAlquilados.getSelectedRow(),5).toString());
+                   if(multa>0){
+                       JOptionPane.showMessageDialog(panelModems, "La multa es de: "+multa);
+                   }
+                   
+                   lum.modificarModem(modemDevolucion);
+                   llenarTablaModemsAlquilados();
+               } catch (Exception ex) {
+                   Logger.getLogger(VistaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+       }
     }//GEN-LAST:event_botonDevolverModemActionPerformed
 
     /*Método para manejar la visibilidad de los paneles en el módulo de alquiler de modems
@@ -2554,64 +2559,72 @@ public class VistaAdministrador extends javax.swing.JFrame{
       Salida: ---
     */
     private void BuscarClienteAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarClienteAlquilerActionPerformed
-        String cliente = jTextFieldClienteAlquiler.getText();
-        
-        LogicaAlquilerModem lam = new LogicaAlquilerModem();
-        LogicaCliente lc = new LogicaCliente();
-        AlquilerModem alquiler = null;
-        if(isNumeric(cliente)){
-            Cliente clienteAlquila = lc.consultarCliente(cliente);
-            alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
-        }else{
-            //Cliente clienteAlquila = lc.consultarCliente(cliente);
-            //AlquilerModem alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
-        }
-               
-        DefaultTableModel dtm = new DefaultTableModel();
-        tablaModemsAlquilados.setModel(dtm);
-         
-        dtm.addColumn("Código");
-        dtm.addColumn("Cliente ");
-        dtm.addColumn("Modem");
-        dtm.addColumn("Fecha Final");
-        dtm.addColumn("Precio Día");
-        dtm.addColumn("Multa");
-        dtm.addColumn("Disponibilidad");
-         
-        String[] fila = new String[7];
-        
-        fila[0] = alquiler.getCodigoalquiler()+"";
-        fila[1] = alquiler.getCedulacliente().getNombrecliente();
-        fila[2] = alquiler.getCodigomodem().getNombremodem();
+       String cliente = jTextFieldClienteAlquiler.getText();      
+       if(!cliente.isEmpty()){
+           LogicaAlquilerModem lam = new LogicaAlquilerModem();
+           LogicaCliente lc = new LogicaCliente();
+           AlquilerModem alquiler = null;
+           
+           if(isNumeric(cliente)){
+                Cliente clienteAlquila = lc.consultarCliente(cliente);
+                try{
+                   alquiler = lam.consultaAlquilerModemCliente(clienteAlquila);
+                   
+                   DefaultTableModel dtm = new DefaultTableModel();
+                   tablaModemsAlquilados.setModel(dtm);
 
-        Date fecha = alquiler.getFechafinalquiler();
-        String fechaD = ""+fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
+                   dtm.addColumn("Código");
+                   dtm.addColumn("Cliente ");
+                   dtm.addColumn("Modem");
+                   dtm.addColumn("Fecha Final");
+                   dtm.addColumn("Precio Día");
+                   dtm.addColumn("Multa");
+                   dtm.addColumn("Disponibilidad");
 
-        fila[3] = fechaD;
+                   String[] fila = new String[7];
 
-        fila[4] = alquiler.getPreciodia()+"";
+                   fila[0] = alquiler.getCodigoalquiler()+"";
+                   fila[1] = alquiler.getCedulacliente().getNombrecliente();
+                   fila[2] = alquiler.getCodigomodem().getNombremodem();
 
-        Date fechaActual = new Date();
-        Date fechaDevolucion = alquiler.getFechadevolucion();
-        if(!fechaDevolucion.toString().equals(fechaActual.toString())){
-            long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
-            long diferencia = ( fecha.getTime() - fechaActual.getTime())/MILLSECS_PER_DAY;
-            if(diferencia<0){
-                int diaMulta = alquiler.getMulta();
-                fila[5] = diferencia*diaMulta*(-1)+"";
-            }
-        else{
-            fila[5] = 0+"";
-        }}
+                   Date fecha = alquiler.getFechafinalquiler();
+                   String fechaD = ""+fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+(fecha.getYear()+1900);
 
-        fila[6] = alquiler.getCodigomodem().getDisponibilidad();
+                   fila[3] = fechaD;
 
-        if(fila[6].equals("Alquilado") || fila[6].equals("Alquilado-Reservado")){
-            dtm.addRow(fila);
-        }else{
-            JOptionPane.showMessageDialog(panelModems, "El cliente no tiene ningún modem alquilado");
-        }
-        
+                   fila[4] = alquiler.getPreciodia()+"";
+
+                   Date fechaActual = new Date();
+                   Date fechaDevolucion = alquiler.getFechadevolucion();
+                   if(!fechaDevolucion.toString().equals(fechaActual.toString())){
+                       long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+                       long diferencia = ( fecha.getTime() - fechaActual.getTime())/MILLSECS_PER_DAY;
+                       if(diferencia<0){
+                           int diaMulta = alquiler.getMulta();
+                           fila[5] = diferencia*diaMulta*(-1)+"";
+                       }
+                   else{
+                       fila[5] = 0+"";
+                   }}
+
+                   fila[6] = alquiler.getCodigomodem().getDisponibilidad();
+
+                   if(fila[6].equals("Alquilado") || fila[6].equals("Alquilado-Reservado")){
+                       dtm.addRow(fila);
+                   }else{
+                       JOptionPane.showMessageDialog(panelModems, "El cliente no tiene ningún modem alquilado");
+                   }
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(panelModems, "No se encontraron resultados");
+                    jTextFieldClienteAlquiler.setText("");
+                }
+           }else{
+               JOptionPane.showMessageDialog(panelModems, "Ingrese cédula del cliente");
+               jTextFieldClienteAlquiler.setText("");
+           }
+       }else{
+           JOptionPane.showMessageDialog(panelModems, "Por favor ingrese un cliente en el campo de consulta");
+       }
     }//GEN-LAST:event_BuscarClienteAlquilerActionPerformed
 
     /* Método para llenar la tabla en el módulo de devolución con los modems que se encuentra alquilados
@@ -2627,7 +2640,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
       Salida: reporte generado y exportado en pdf
     */
     private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
-        Reporte rep = new Reporte();
         if(jTextFieldReporteCedulaMinutos.isEnabled()){
             String cedula = jTextFieldReporteCedulaMinutos.getText();
             String ruta = System.getProperty("user.dir") + "/src/Reportes/reporteClienteMinutos.jasper";
@@ -2689,8 +2701,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }
             path.deleteOnExit();    
         }
-        
-        
         jTextFieldReporteCedulaAlquiler.setText("");
         jTextFieldReporteCedulaMinutos.setText("");
         jTextFieldReporteCedulaMinutos.setText("");
@@ -2975,7 +2985,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 }else{
                     fila[7] = "No";
                 }    
-                //fila[7] = String.valueOf(listaPlanMinuto.getMinutosacumulables());
                 fila[8] = String.valueOf(listaPlanMinuto.getCantidadminimaminutos());
                 boolean estado = listaPlanMinuto.getEstadoplanminutos();
                 if(estado == true){
@@ -3078,7 +3087,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
     Salida: Ninguna
     */
      private void ActualizarFechaAlquiler(){
-        //Calendar fechaHoy = Calendar.getInstance();
         Date fechaActual = new Date();
         int dia = fechaActual.getDate();
         int mes = fechaActual.getMonth();
@@ -3194,27 +3202,24 @@ public class VistaAdministrador extends javax.swing.JFrame{
        Salida: mensaje de advertencia en la pantalla con información relevante del cliente
     */
     public void alertaDevolucion(){
-        Date hoy = new Date();
-        String fechaHoy= hoy.getDate()+"/"+(hoy.getMonth()+1)+"/"+(hoy.getYear()+1900);
-        
-        LogicaAlquilerModem lam = new LogicaAlquilerModem();
-        List<AlquilerModem> alquilados = lam.consultarAlquilerModem();
-        
-        for (int i = 0; i < alquilados.size(); i++) 
-        {
-            Date fechaF = alquilados.get(i).getFechafinalquiler();
-            String fechaFinal= fechaF.getDate()+"/"+(fechaF.getMonth()+1)+"/"+(fechaF.getYear()+1900);
-            Date fechaD = alquilados.get(i).getFechadevolucion();
-            String fechaDevol = fechaD.getDate()+"/"+(fechaD.getMonth()+1)+"/"+(fechaD.getYear()+1900);
-            
-            long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
-            long diferencia = ( hoy.getTime() - fechaF.getTime())/MILLSECS_PER_DAY;
-            if(diferencia>0 && (!fechaDevol.equals("31/12/1899"))){
-                JOptionPane.showMessageDialog(panelModems, "El cliente "+alquilados.get(i).getCedulacliente().getNombrecliente()
-                    +" no ha retornado el modem "+alquilados.get(i).getCodigomodem().getNombremodem()+".\n"+
-                    "Puede contactarlo al número "+alquilados.get(i).getCedulacliente().getTelefonocliente());
-            }
-        }
+       Date hoy = new Date();  
+       LogicaAlquilerModem lam = new LogicaAlquilerModem();
+       List<AlquilerModem> alquilados = lam.consultarAlquilerModem();
+       
+       for (int i = 0; i < alquilados.size(); i++) 
+       {
+           Date fechaF = alquilados.get(i).getFechafinalquiler();
+           Date fechaD = alquilados.get(i).getFechadevolucion();
+           String fechaDevol = fechaD.getDate()+"/"+(fechaD.getMonth()+1)+"/"+(fechaD.getYear()+1900);
+           
+           long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+           long diferencia = ( hoy.getTime() - fechaF.getTime())/MILLSECS_PER_DAY;
+           if(diferencia>0 && (fechaDevol.equals("31/12/1899"))){
+               JOptionPane.showMessageDialog(panelModems, "El cliente "+alquilados.get(i).getCedulacliente().getNombrecliente()
+                   +" no ha retornado el modem "+alquilados.get(i).getCodigomodem().getNombremodem()+".\n"+
+                   "Puede contactarlo al número "+alquilados.get(i).getCedulacliente().getTelefonocliente());
+           }
+       }
     }
     
     /*Método para realizar la recarga automática mensual de los planes activos en el sistema
@@ -3284,11 +3289,11 @@ public class VistaAdministrador extends javax.swing.JFrame{
         }
     }
     
-    public  void validarPromocionVenta(String cedulaCliente, int minutosVendidos){
+    public  void validarPromocion(String cedulaCliente, int minutosVendidos){
         LogicaPromocion lp = new LogicaPromocion();
         LogicaVentaMinutos lvm = new LogicaVentaMinutos();
         List<Promocion> promocionesActivas = lp.consultarPromocionesActivas("Venta Minutos"); //Lista de promociones activas
-        System.out.println("Promociones activas venta = "+ promocionesActivas.size());
+        
         
         for (int i = 0; i < promocionesActivas.size(); i++) {
             int condicion = promocionesActivas.get(i).getCondicion() - minutosVendidos;
@@ -3304,9 +3309,7 @@ public class VistaAdministrador extends javax.swing.JFrame{
             if(!ventaConPromoGanada.isEmpty()){
                 promocionesActivas.get(i).setFechainiciopromocion(ventaConPromoGanada.get(0).getFechaventa());
                 fechaInicioPromo = calcularFechaPromoPost(promocionesActivas.get(i));//Recalculando la fecha a partir de la cual se empiezan a contar los minutos para ganar promoción
-//                System.out.println("Ya se ganó esa promoción, nueva fecha = "+ fechaInicioPromo);
             }else{
-//                System.out.println("No se ha ganado la promoción anteriormente");
             }
             //Lista que trae la venta que cumpla con la condición de la promoción i
             List<VentaMinutos> estaVenta = lvm.consultarVentasGanadoras(condicion, cedulaCliente, fechaInicioPromo);
@@ -3319,12 +3322,9 @@ public class VistaAdministrador extends javax.swing.JFrame{
             }else{
                 List<VentaMinutos> comprasCliente = lvm.consultaVentasCliente(cedulaCliente);
                 if (comprasCliente.isEmpty() && minutosVendidos >= promocionesActivas.get(i).getCondicion()) {
-//                    System.out.println("El cliente cumple la condición en su primera venta");
                     promocionesGanadas.add(promocionesActivas.get(i));
                 } else {
-//                    System.out.println("No cumple la condición para ganar la promoción I");
                 }
-//                System.out.println("No cumple la condición para ganar la promoción II");
                 //No cumple la condición para ganar la promoción
             }
         }
@@ -3382,10 +3382,8 @@ public class VistaAdministrador extends javax.swing.JFrame{
             if(!alquilerConPromoGanada.isEmpty()){
                 promocionesActivas.get(i).setFechainiciopromocion(alquilerConPromoGanada.get(0).getFechainicioalquiler());
                 fechaInicioPromo = calcularFechaPromoPost(promocionesActivas.get(i));//Recalculando la fecha a partir de la cual se empiezan a contar los minutos para ganar promoción
-//                System.out.println("Ya se ganó esa promoción, nueva fecha = "+ fechaInicioPromo);
                 alquileresDelCliente.clear();
             }else{
-//                System.out.println("No se ha ganado la promoción anteriormente");
             }
             
             //Se calcúla si las alquiladas de ese cliente cumplen con la condición de la promoción
@@ -3393,19 +3391,15 @@ public class VistaAdministrador extends javax.swing.JFrame{
                 if(!promocionesGanadas.contains(promocionesActivas.get(i))){
                     promocionesGanadas.add(promocionesActivas.get(i));
                 }else{
-//                    System.out.println("La promoción ya está contenida en la lista de promocionesGanadas");
                     //La promoción ya está contenida en la lista de promocionesGanadas
                 }
                 
             }else{
                 List<AlquilerModem> alquilerCliente = lam.consultarAlquilerCliente(cedulaCliente);
                 if (alquilerCliente.isEmpty() && cantidadDiasAlquilados >= promocionesActivas.get(i).getCondicion()) {
-//                    System.out.println("El cliente cumple la condición en su primera venta");
                     promocionesGanadas.add(promocionesActivas.get(i));
                 } else {
-//                    System.out.println("No cumple la condición para ganar la promoción I");
                 }
-//                System.out.println("No cumple la condición para ganar la promoción II");
                 //No cumple la condición para ganar la promoción
             }
         }
@@ -3423,7 +3417,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         anio=calendario.get(Calendar.YEAR);
         fechaPromocion = anio+"-"+mes+"-"+dia;
         
-//        System.out.print(fechaPromocion+"\n");
         return fechaPromocion;
     }
     
@@ -3438,7 +3431,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         anio=calendario.get(Calendar.YEAR);
         fechaPromocion = anio+"-"+mes+"-"+dia;
         
-//        System.out.print("Fecha modificada pal otro día: "+fechaPromocion+"\n");
         return fechaPromocion;
     }
     
@@ -3474,8 +3466,6 @@ public class VistaAdministrador extends javax.swing.JFrame{
         s+="\nTotal días gratis = " + totalBeneficios+"\n";
         return s;
     }
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuscarClienteAlquiler;
@@ -3515,13 +3505,13 @@ public class VistaAdministrador extends javax.swing.JFrame{
     private javax.swing.JTextField campoCantidadDias;
     private javax.swing.JTextField campoConsultaCliente;
     private javax.swing.JTextField campoConsultaClienteAlquiler;
-    private javax.swing.JTextField campoConsultaClienteVenta;
+    public static javax.swing.JTextField campoConsultaClienteVenta;
     private javax.swing.JTextField campoConsultaModems;
     private javax.swing.JTextField campoConsultaPlanes;
     private javax.swing.JTextField campoConsultaPromociones;
     private javax.swing.JTextField campoConsultaUsuario;
     private javax.swing.JTextField campoDisponibildadModem;
-    private javax.swing.JFormattedTextField campoMinutosVendidos;
+    public static javax.swing.JFormattedTextField campoMinutosVendidos;
     private javax.swing.JTextField campoPrecioAlquiler1;
     private javax.swing.JTextField campoPrecioMulta1;
     private javax.swing.JComboBox comboPlanesVenta;

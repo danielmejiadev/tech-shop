@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Logica.LogicaCliente;
@@ -10,11 +9,9 @@ import javax.swing.JOptionPane;
 
 public class AgregarCliente extends javax.swing.JDialog {
 
-    private VistaAdministrador framePadre;
-    
+   
     public AgregarCliente(VistaAdministrador parent, boolean modal) {
         super(parent, modal);
-        framePadre = parent;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Agregar Cliente");
@@ -40,8 +37,7 @@ public class AgregarCliente extends javax.swing.JDialog {
             }
         }
     }
-
- 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -246,7 +242,6 @@ public class AgregarCliente extends javax.swing.JDialog {
        
             LogicaCliente lc = new LogicaCliente();
        
-            
                 if(lc.validarCliente(c)){
                     lc.registrar(c);
                     JOptionPane.showMessageDialog(rootPane, "Cliente creado:"
@@ -263,7 +258,6 @@ public class AgregarCliente extends javax.swing.JDialog {
             } catch (Exception ex) {
             
                 JOptionPane.showMessageDialog(rootPane, "Por favor diligencie bien los datos");
-                //Logger.getLogger(AgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
     }//GEN-LAST:event_jButtonGuardarClienteActionPerformed
 

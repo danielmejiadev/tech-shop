@@ -49,78 +49,112 @@ where fechaventa >= $P{fechaInicio} and fechaventa <= $P{fechaFin}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="70" splitType="Stretch">
+		<band height="114" splitType="Stretch">
 			<staticText>
-				<reportElement x="42" y="20" width="484" height="50" uuid="55beb853-52e4-4c3e-8336-01b982ca2034"/>
+				<reportElement x="0" y="0" width="555" height="50" uuid="55beb853-52e4-4c3e-8336-01b982ca2034"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="30" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte Ventas]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="175" y="87" width="100" height="20" uuid="c4c656a2-5255-4a9c-b8eb-2203e7cb7d1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="86" width="103" height="20" uuid="a58bffee-33bd-47cd-a9ef-872e064e1529"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="175" y="66" width="100" height="20" uuid="9dd3404d-2352-4372-9a8b-7a43faeb77de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="66" width="100" height="20" uuid="afe1c728-4d49-4abc-a2fd-233b0c5d229c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Fin]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="41" width="42" height="20" uuid="d060e17a-1fbb-4800-9903-8ae5dee8cd43"/>
-				<textElement textAlignment="Center">
+				<reportElement x="0" y="0" width="42" height="20" uuid="d060e17a-1fbb-4800-9903-8ae5dee8cd43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Venta ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="41" width="67" height="20" uuid="41cff919-773c-4061-8190-bd4fd6062d10"/>
-				<textElement textAlignment="Center">
+				<reportElement x="42" y="0" width="67" height="20" uuid="41cff919-773c-4061-8190-bd4fd6062d10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[fechaventa]]></text>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="109" y="41" width="66" height="20" uuid="61c18bf2-a0f9-4751-b82f-70d377bef384"/>
-				<textElement textAlignment="Center">
+				<reportElement x="109" y="0" width="66" height="20" uuid="61c18bf2-a0f9-4751-b82f-70d377bef384"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vendidos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="175" y="41" width="70" height="20" uuid="3bea8284-024a-40a8-8e12-68615135b992"/>
-				<textElement textAlignment="Center">
+				<reportElement x="175" y="0" width="70" height="20" uuid="3bea8284-024a-40a8-8e12-68615135b992"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Facturados]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="319" y="41" width="77" height="20" uuid="394440cb-524f-411b-9267-2e8da3a46760"/>
-				<textElement textAlignment="Center">
+				<reportElement x="319" y="0" width="77" height="20" uuid="394440cb-524f-411b-9267-2e8da3a46760"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="245" y="41" width="74" height="20" uuid="434a48a0-f718-40e4-9acb-38aa43707d48"/>
-				<textElement textAlignment="Center">
+				<reportElement x="245" y="0" width="74" height="20" uuid="434a48a0-f718-40e4-9acb-38aa43707d48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Plan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="41" width="84" height="20" uuid="07a198da-8b34-4f8f-be37-91076fc63004"/>
-				<textElement textAlignment="Center">
+				<reportElement x="396" y="0" width="84" height="20" uuid="07a198da-8b34-4f8f-be37-91076fc63004"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Usuario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="41" width="75" height="20" uuid="c693c037-fddc-4949-926d-819776025541"/>
-				<textElement textAlignment="Center">
+				<reportElement x="480" y="0" width="75" height="20" uuid="c693c037-fddc-4949-926d-819776025541"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
+			<frame>
+				<reportElement x="0" y="0" width="553" height="20" uuid="0fc03acb-a0b3-4ef2-a735-3bfaf383ad63"/>
+				<box>
+					<pen lineStyle="Dashed"/>
+					<topPen lineWidth="0.5" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.5" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.5" lineStyle="Dashed"/>
+				</box>
+			</frame>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="31" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="42" height="20" uuid="bd7537a9-d05d-4c2d-bb50-462229daf32c"/>
 				<textElement textAlignment="Center"/>
@@ -161,22 +195,44 @@ where fechaventa >= $P{fechaInicio} and fechaventa <= $P{fechaFin}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
+			<frame>
+				<reportElement x="0" y="0" width="553" height="20" uuid="34c77e92-1a18-43f4-86fa-b2691610f000"/>
+				<box>
+					<pen lineStyle="Dashed"/>
+					<topPen lineWidth="0.5" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.5" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.5" lineStyle="Dashed"/>
+				</box>
+			</frame>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="10" splitType="Stretch"/>
-	</columnFooter>
+	<pageFooter>
+		<band height="22">
+			<textField>
+				<reportElement x="475" y="0" width="60" height="20" uuid="ee3ba86e-deab-4e83-bcb2-f73bcf54cce2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="535" y="0" width="20" height="20" uuid="4dfc16f1-b542-46c4-85b6-d5facd4b9d78"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="356" y="15" width="102" height="20" uuid="5d456678-b9f5-4828-9b9f-5bbadcedb861"/>
+				<reportElement x="393" y="15" width="102" height="20" uuid="5d456678-b9f5-4828-9b9f-5bbadcedb861"/>
 				<textElement>
 					<font fontName="Serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Ventas]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="458" y="15" width="97" height="20" uuid="db42a620-da2b-4dff-af65-3491e24970a5"/>
+				<reportElement x="495" y="15" width="60" height="20" uuid="db42a620-da2b-4dff-af65-3491e24970a5"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
 			</textField>
 		</band>

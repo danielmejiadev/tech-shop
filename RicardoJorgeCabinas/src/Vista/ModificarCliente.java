@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Logica.LogicaCliente;
@@ -10,12 +9,10 @@ import javax.swing.JOptionPane;
 
 public class ModificarCliente extends javax.swing.JDialog {
     private Calendar fechaActual = Calendar.getInstance();
-    private VistaAdministrador framePadre;
     private LogicaCliente lc = new LogicaCliente();
     private Cliente clienteModif;
     public ModificarCliente(VistaAdministrador parent, boolean modal, Cliente cliente) {
         super(parent, modal);
-        framePadre = parent;
         clienteModif = cliente;
         initComponents();
         this.setTitle("Modificar Cliente");

@@ -1,11 +1,13 @@
 package Vista;
 
+import Logica.LogicaCliente;
 import Logica.LogicaPlanMinutos;
 import Logica.LogicaVentaMinutos;
 import Modelo.PlanMinutos;
 import Modelo.VentaMinutos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,11 +17,13 @@ import javax.swing.JOptionPane;
 public class RegistrarVenta extends javax.swing.JDialog {
 
     VentaMinutos venta;
-    public RegistrarVenta(java.awt.Frame parent, boolean modal, VentaMinutos venta) 
+    boolean vista;
+    public RegistrarVenta(JFrame parent, boolean modal, VentaMinutos venta,boolean vista) 
     {
         super(parent, modal);
         initComponents();
         this.venta=venta;
+        this.vista=vista;
         llenarCampos();
         this.setTitle("Registrar Venta");
         this.setResizable(false);
@@ -244,6 +248,7 @@ public class RegistrarVenta extends javax.swing.JDialog {
         campoTotalVenta.setText(venta.getCodigoplan().getPreciominuto()*venta.getMinutosfacturados()+"");
         
     }
+     
     public void registrarVenta() throws Exception
     {
         try {
@@ -260,8 +265,21 @@ public class RegistrarVenta extends javax.swing.JDialog {
             Logger.getLogger(RegistrarVenta.class.getName()).log(Level.SEVERE, null, ex);
         }finally
         {
-            JOptionPane.showMessageDialog(null,"La venta se registro correctamente");
             VistaAdministrador.promocionesGanadas.clear();
+            JOptionPane.showMessageDialog(null,"La venta se registro correctamente");
+            LogicaCliente logicaCliente = new LogicaCliente();
+            if(vista)
+            {
+                VistaAdministrador.clienteVenta = logicaCliente.consultarCliente("default");
+                VistaAdministrador.campoConsultaClienteVenta.setText(VistaAdministrador.clienteVenta.getCedulacliente());
+                VistaAdministrador.campoMinutosVendidos.setText("");
+            }
+            else
+            {
+                VistaVendedor.clienteVenta = logicaCliente.consultarCliente("default");
+                VistaVendedor.campoConsultaClienteVenta.setText(VistaVendedor.clienteVenta.getCedulacliente());
+                VistaVendedor.campoMinutosVendidos.setText("");
+            }
             this.dispose();
             alertaPlan();
         }

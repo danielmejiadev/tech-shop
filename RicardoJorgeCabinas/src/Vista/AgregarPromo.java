@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Logica.LogicaPromocion;
@@ -10,8 +9,8 @@ import javax.swing.JOptionPane;
 
 
 public class AgregarPromo extends javax.swing.JDialog {
+    
     private Promocion promo=new Promocion();
-    private VistaAdministrador framePadre;
     
     /*
         Metodo Constructor del JDialog AgrearPromo
@@ -20,7 +19,6 @@ public class AgregarPromo extends javax.swing.JDialog {
     */ 
     public AgregarPromo(VistaAdministrador parent, boolean modal) {
         super(parent, modal);
-        framePadre = parent;
         initComponents();
         promo.setDescripcion("-+empty");
         this.setLocationRelativeTo(null);
@@ -61,56 +59,6 @@ public class AgregarPromo extends javax.swing.JDialog {
         jComboBoxAnioFinal.setSelectedItem(fechaActual.get(Calendar.YEAR)+"");
     }
     
-    /*
-        Metodo para diligenciar los JComboBox que contienen las posibles fechas
-                a seleccionar y selecciona como dia inicial la fecha actual
-                y la fecha final como un día después del día inicial.
-        Entrada: Objeto Promocion 
-        Salida: --
-    */ 
-//    public void llenarCombos(Promocion promocion){
-//        jLabelAgregarModificar.setText("MODIFICAR PROMOCION");
-//        Calendar fechaActual = Calendar.getInstance();
-//        
-//        for (int i = fechaActual.get(Calendar.YEAR); i < fechaActual.get(Calendar.YEAR)+49 ; i++) {
-//            jComboBoxAnioInicial.addItem(i+"");
-//            jComboBoxAnioFinal.addItem(i+"");
-//            if(i <= fechaActual.get(Calendar.YEAR)+30){
-//                jComboBoxDiaInicial.addItem((i-2015)+"");
-//                jComboBoxDiaFinal.addItem((i-2015)+"");
-//            }
-//            if(i<=fechaActual.get(Calendar.YEAR)+11){
-//                jComboBoxMesInicial.addItem((i-2015)+"");
-//                jComboBoxMesFinal.addItem((i-2015)+"");
-//            }
-//        }
-//        
-//        fechaActual.setTimeInMillis(promocion.getFechainiciopromocion().getTime());
-//        jComboBoxDiaInicial.setSelectedItem(fechaActual.get(Calendar.DAY_OF_MONTH)+"");
-//        jComboBoxMesInicial.setSelectedItem((fechaActual.get(Calendar.MONTH)+1)+"");
-//        jComboBoxAnioInicial.setSelectedItem(fechaActual.get(Calendar.YEAR)+"");
-//        
-//        fechaActual.setTimeInMillis(promocion.getFechafinpromocion().getTime());
-//        jComboBoxDiaFinal.setSelectedItem((fechaActual.get(Calendar.DAY_OF_MONTH)+1)+"");
-//        jComboBoxMesFinal.setSelectedItem((fechaActual.get(Calendar.MONTH)+1)+"");
-//        jComboBoxAnioFinal.setSelectedItem(fechaActual.get(Calendar.YEAR)+"");
-//        jTextFieldCondicion.setText(promocion.getCondicion()+"");
-//        jTextAreaDescripcion.setText(promocion.getDescripcion());
-//        jFormattedTextFieldBeneficio.setText(promocion.getBeneficio()+"");
-//        
-//        if(promocion.getTipopromocion().equals("Venta Minutos")){
-//            jRadioButtonVentaMinutos.doClick();
-//        }else{
-//            jRadioButtonAlquilerModem.doClick();
-//        }
-//        
-//        if(!promocion.getEstadopromocion()){
-//            jRadioButtonInactivo.doClick();
-//        }
-//        
-//        jLabelCodigo.setText("Cod: "+promocion.getCodigopromocion());
-//    }
-
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -407,7 +355,6 @@ public class AgregarPromo extends javax.swing.JDialog {
         } catch (Exception ex) {
             
             JOptionPane.showMessageDialog(rootPane, "Error al Diligenciar los campos");
-           // Logger.getLogger(AgregarPromocion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonGuardarPromocionActionPerformed
 
